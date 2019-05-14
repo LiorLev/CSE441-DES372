@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+
+.letters{
+  background-color: #61dafb;
+}
+
+.selected{
+ background-color: black;
+}

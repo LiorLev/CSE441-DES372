@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Switch, Redirect, Route } from 'react-router-dom';
 import Routes from './routes';
+import withFirebaseAuth from 'react-with-firebase-auth'
+import * as firebase from 'firebase/app';
+import firebaseConfig from './firebaseConfig';
+
 // import './App.css';
 
 import Home from './components/Home';
 import ChooseSong from './components/ChooseSong';
 // import SignIn from './components/SignIn';
 
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseAppAuth = firebaseApp.auth();
+
 
 class App extends Component {
   componentDidMount() {
-    // console.log(this.props);
-    //   let databaseRef = this.props.firebase.database().ref(`jukebox/messages`);
-    //   // databaseRef.on('value', (snapshot) => {
-    //   //   if (snapshot) {
-    //   //     this.setState({
-    //   //       foodBankInfo: snapshot.val(),
-    //   //       info: {}
-    //   //     })
-    //   //   }
-    //   // })
+    console.log("app props" , this.props);
+    // let databaseRef = this.props.firebase.database().ref(`jukebox/users`);
+    // databaseRef.set({
+    //   username: "test",
+    //   email: "test",
+    //   profile_picture: "test"
+    // })
   }
 
   // signin() {
@@ -37,8 +41,8 @@ class App extends Component {
   matchRoute() {
     return (
       <Switch>
-        <Route exact path={Routes.home} component={Home}  />
-        <Route exact path={Routes.chooseSong} component={ChooseSong} />
+        <Route exact path={Routes.home} render={props => <Home {...props} firebase = {this.props} />}/>
+        <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props}  />} />
         {/* <Route exact path={Routes.home} component={() => this.browseView()} />
         <Route exact path={Routes.foodbank} component={() => this.foodbankInfo()} />
         <Route exact path={Routes.res} component={() => this.foodbankHome()} /> */}
@@ -55,7 +59,16 @@ class App extends Component {
   }
 }
 
-export default App;
+
+const providers = {
+    googleProvider: new firebase.auth.GoogleAuthProvider(),
+};
+// export default App;
+
+export default withFirebaseAuth({
+    providers,
+    firebaseAppAuth,
+})(App);
 
 // import withFirebaseAuth from 'react-with-firebase-auth'
 // import * as firebase from 'firebase/app';

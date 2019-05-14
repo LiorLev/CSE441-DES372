@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
-import withFirebaseAuth from 'react-with-firebase-auth'
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import firebaseConfig from '../firebaseConfig';
-import logo from '../logo.svg';
 import '../App.css';
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+import { HashRouter as Router, Switch, Redirect, Route, withRouter } from 'react-router-dom';
 
 class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.spaceFunction = this.spaceFunction.bind(this);
+        console.log("props",  this.props);
     }
 
-    spaceFunction(event) {
+    spaceFunction = (event) => {
         if (event.keyCode === 32) {
-            //Do whatever when esc is pressed
             this.props.history.push("/choose-song");
-            // console.log("hey");
         }
     }
 
@@ -32,7 +25,7 @@ class Home extends Component {
             user,
             signOut,
             signInWithGoogle,
-        } = this.props;
+        } = this.props.firebase;
 
         return (
             <div className="App">
@@ -54,13 +47,15 @@ class Home extends Component {
     }
 }
 
-const firebaseAppAuth = firebaseApp.auth();
+export default withRouter(Home);
 
-const providers = {
-    googleProvider: new firebase.auth.GoogleAuthProvider(),
-};
+// const firebaseAppAuth = firebaseApp.auth();
 
-export default withFirebaseAuth({
-    providers,
-    firebaseAppAuth,
-})(Home);
+// const providers = {
+//     googleProvider: new firebase.auth.GoogleAuthProvider(),
+// };
+
+// export default withFirebaseAuth({
+//     providers,
+//     firebaseAppAuth,
+// })(Home);
