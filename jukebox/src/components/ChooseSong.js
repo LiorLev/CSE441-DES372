@@ -10,22 +10,24 @@ class ChooseSong extends Component {
     }
 
     arrowFunction = (event) => {
-        if (event.keyCode == '38') {
-            // up arrow
-            console.log("up");
-            this.setState({selected: this.state.selected - 1});
-        } else if (event.keyCode == '40') {
-            // down arrow
-            console.log("down");
-            this.setState({selected: this.state.selected + 1});
-        } else if (event.keyCode == '37') {
-            // left arrow
-            console.log("left");
-
-        } else if (event.keyCode == '39') {
-            // right arrow
-            console.log("right");
-        }
+        // if (this.state.selected >= 0 && this.state.selected < 4) {
+            console.log(this.state.selected);
+            if (event.keyCode == '38' && this.state.selected >= 1 && this.state.selected <= 3) {
+                // up arrow
+                // console.log("up");
+                this.setState({ selected: this.state.selected - 1 });
+            } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 3) {
+                // down arrow
+                // console.log("down");
+                this.setState({ selected: this.state.selected + 1 });
+            } else if (event.keyCode == '37') {
+                // left arrow
+                // console.log("left");
+            } else if (event.keyCode == '39') {
+                // right arrow
+                // console.log("right");
+            }
+        // }
     }
 
     componentDidMount() {
@@ -36,8 +38,8 @@ class ChooseSong extends Component {
     render() {
         let flag = true;
         let songs = ["a", "b", "c", "d"];
-        let songDivs = songs.map((item, index) =>         
-        <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} id = {index} key={index}> <h1>{item}</h1> </div>)
+        let songDivs = songs.map((item, index) =>
+            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} id={index} key={index}> <h1>{item}</h1> </div>)
 
         return (
             <div>
