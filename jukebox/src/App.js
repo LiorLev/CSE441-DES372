@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Switch, Redirect, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Routes from './routes';
 import withFirebaseAuth from 'react-with-firebase-auth'
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 import firebaseConfig from './firebaseConfig';
 
 // import './App.css';
 
 import Home from './components/Home';
+import ChooseGenre from './components/ChooseGenre';
 import ChooseSong from './components/ChooseSong';
+import SendSong from './components/SendSong';
+
+
 // import SignIn from './components/SignIn';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+console.log("firebase ", firebaseApp.database());
 const firebaseAppAuth = firebaseApp.auth();
 
 
 class App extends Component {
   componentDidMount() {
     console.log("app props" , this.props);
-    // let databaseRef = this.props.firebase.database().ref(`jukebox/users`);
+    // let databaseRef = firebaseApp.database().ref(`jukebox/messages`);
+    // this.state = {
+    //   database: firebaseApp.database().ref(`jukebox/messages`)
+    // }
     // databaseRef.set({
     //   username: "test",
     //   email: "test",
@@ -41,11 +49,10 @@ class App extends Component {
   matchRoute() {
     return (
       <Switch>
-        <Route exact path={Routes.home} render={props => <Home {...props} firebase = {this.props} />}/>
-        <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props}  />} />
-        {/* <Route exact path={Routes.home} component={() => this.browseView()} />
-        <Route exact path={Routes.foodbank} component={() => this.foodbankInfo()} />
-        <Route exact path={Routes.res} component={() => this.foodbankHome()} /> */}
+        <Route exact path={Routes.home} render={props => <Home {...props} firebaseAuth = {this.props} firebaseData = {firebaseApp}/>}/>
+        <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData = {firebaseApp} />} />
+        <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth = {this.props} firebaseData = {firebaseApp}/>} />
+        <Route exact path={Routes.sendSong} render={props => <SendSong {...props}  firebaseAuth = {this.props} firebaseData = {firebaseApp}/>}/>} /> 
       </Switch>
     );
   }

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import * as serviceWorker from './serviceWorker';
-import firebaseConfig from './firebaseConfig';
+// import firebaseConfig from './firebaseConfig';
 
 // firebase.initializeApp(firebaseConfig);
 

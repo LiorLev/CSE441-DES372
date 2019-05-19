@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import 'firebase/auth';
 import '../App.css';
-import { HashRouter as Router, Switch, Redirect, Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
 
     constructor(props) {
         super(props);
-        console.log("props",  this.props);
+        console.log("props", this.props);
     }
 
     spaceFunction = (event) => {
         if (event.keyCode === 32) {
-            this.props.history.push("/choose-song");
+            this.props.history.push("/choose-genre");
         }
     }
 
     componentDidMount() {
-        document.addEventListener("keydown", this.spaceFunction, false);
+        document.addEventListener("keydown", this.spaceFunction, false);        
     }
 
     render() {
@@ -25,12 +25,11 @@ class Home extends Component {
             user,
             signOut,
             signInWithGoogle,
-        } = this.props.firebase;
+        } = this.props.firebaseAuth;
 
         return (
             <div className="App">
                 <header className="App-header">
-                    {/* <img src={logo} className="App-logo" alt="logo" /> */}
                     {
                         user
                             ? <p>Hello, {user.displayName}! please press enter to choose a song</p>

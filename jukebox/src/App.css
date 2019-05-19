@@ -34,8 +34,20 @@
 
 .letters{
   background-color: #61dafb;
+  width: 20%;
+  text-align: center;
+  margin: 0 auto;
+  border: 5px solid #61dafb;
+  margin-bottom: 10px;
 }
 
 .selected{
- background-color: black;
+ /* background-color: black; */
+ border: 5px solid red;
 }
+
+
+.selectedSong{
+  /* background-color: black; */
+  border: 5px solid red;
+ }

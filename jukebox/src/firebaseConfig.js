@@ -5,7 +5,7 @@ export default {
     projectId: "jukebox-d030f",
     storageBucket: "jukebox-d030f.appspot.com",
     messagingSenderId: "686175886055",
-    // appId: "1:686175886055:web:864d7ae6920af354"
+    appId: "1:686175886055:web:864d7ae6920af354"
 };
 
 // export default config;
