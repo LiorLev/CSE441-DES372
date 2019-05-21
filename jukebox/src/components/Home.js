@@ -7,7 +7,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        console.log("props", this.props);
+        // console.log("props", this.props);
     }
 
     spaceFunction = (event) => {
@@ -17,8 +17,25 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener("keydown", this.spaceFunction, false);        
+        document.addEventListener("keydown", this.spaceFunction, false);
+
+
+        let data = this.props.firebaseData.database().ref('jukebox/messages');
+
+        data.on("value", function (snapshot) {
+            console.log(snapshot.val());
+            let res = snapshot.val();
+            
+            // let json = new JSONObject(res);
+
+            // console.log(Object.keys(res).length);
+
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
     }
+
+
 
     render() {
         const {

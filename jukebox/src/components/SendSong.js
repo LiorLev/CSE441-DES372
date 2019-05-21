@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 class SendSong extends Component {
@@ -10,11 +10,11 @@ class SendSong extends Component {
     // }
 
     arrowFunction = (event) => {
-        if (event.keyCode == '38' ) {
+        if (event.keyCode == '38') {
             // up arrow
             // console.log("up");
             this.setState({ selected: this.state.selected - 1 });
-        } else if (event.keyCode == '40' ) {
+        } else if (event.keyCode == '40') {
             // down arrow
             // console.log("down");
             this.setState({ selected: this.state.selected + 1 });
@@ -27,8 +27,8 @@ class SendSong extends Component {
     componentDidMount() {
         document.addEventListener("keydown", this.arrowFunction, false);
     }
-    
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         document.removeEventListener("keydown", this.arrowFunction, false);
     }
 
@@ -37,9 +37,34 @@ class SendSong extends Component {
         // let songDivs = songs.map((item, index) =>
         //     <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} id={index} key={index}> <h1>{item}</h1> </div>)
 
-        return (
-            <h1>Song was sent</h1>
-        );
+        let currUser = this.props.firebaseData.auth().currentUser.displayName;
+        console.log("user ", currUser);
+        console.log("props ", this.props.location);
+        if (this.props.location.state.sent == true && this.props.location.state.sentBy == "Gates Center") {
+            if (currUser == "Gates Center") {
+                return (
+                    <h1>Song was sent to Allen</h1>
+                );
+            } else if (currUser == "Allen Building") {
+                return (
+                    <h1>Accept/Reject</h1>
+                );
+            }
+        } else if (this.props.location.state.sent == true && this.props.location.state.sentBy == "Allen Building") {
+            if (currUser == "Allen Building") {
+                return (
+                    <h1>Song was sent to Allen</h1>
+                );
+            } else if (currUser == "Gates Center") {
+                return (
+                    <h1>Accept/Reject</h1>
+                );
+            }
+        } else {
+            return (
+                <h1>FAIL</h1>
+            );
+        }
     }
 }
 

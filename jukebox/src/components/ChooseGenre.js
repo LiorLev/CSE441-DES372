@@ -27,7 +27,7 @@ class ChooseGenre extends Component {
         } else if (event.keyCode == '32') {
             // genre: document.getElementsByClassName('selected')[0].textContent, 
             this.setState({redirect: '/choose-song'});
-            console.log("hey00");
+            // console.log("hey00");
 
             // this.props.history.push({
             //     pathname: "/choose-song",
@@ -38,7 +38,7 @@ class ChooseGenre extends Component {
 
     componentDidMount() {
         document.addEventListener("keydown", this.arrowFunction, false);
-        console.log("genre")
+        // console.log("genre")
     }
 
     componentWillUnmount() {
@@ -47,7 +47,7 @@ class ChooseGenre extends Component {
 
     render() {
         const {redirect} = this.state;
-        console.log(redirect);
+        // console.log(redirect);
         if (redirect) return <Redirect to={{pathname: redirect, state: {genre: this.state.genre} }} />;
         
         let flag = true;

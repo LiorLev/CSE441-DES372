@@ -16,43 +16,24 @@ import SendSong from './components/SendSong';
 // import SignIn from './components/SignIn';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-console.log("firebase ", firebaseApp.database());
+// console.log("firebase ", firebaseApp.database());
 const firebaseAppAuth = firebaseApp.auth();
 
+let messaging;
+
+// we need to check if messaging is supported by the browser
+if(firebase.messaging.isSupported()) {
+    messaging = firebase.messaging();
+}
 
 class App extends Component {
-  componentDidMount() {
-    console.log("app props" , this.props);
-    // let databaseRef = firebaseApp.database().ref(`jukebox/messages`);
-    // this.state = {
-    //   database: firebaseApp.database().ref(`jukebox/messages`)
-    // }
-    // databaseRef.set({
-    //   username: "test",
-    //   email: "test",
-    //   profile_picture: "test"
-    // })
-  }
-
-  // signin() {
-  //   return (
-  //     <SignIn firebase={this.props.firebase}/>
-  //   );
-  // }
-
-  // requireAuth(nextState, replaceState) {
-  //   console.log("yo");
-  //   // if (!auth.loggedIn())
-  //   //   replaceState({ nextPathname: nextState.location.pathname }, '/signin')
-  // }
-
   matchRoute() {
     return (
       <Switch>
         <Route exact path={Routes.home} render={props => <Home {...props} firebaseAuth = {this.props} firebaseData = {firebaseApp}/>}/>
         <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData = {firebaseApp} />} />
         <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth = {this.props} firebaseData = {firebaseApp}/>} />
-        <Route exact path={Routes.sendSong} render={props => <SendSong {...props}  firebaseAuth = {this.props} firebaseData = {firebaseApp}/>}/>} /> 
+        <Route exact path={Routes.sendSong} render={props => <SendSong {...props}  firebaseAuth = {this.props} firebaseData = {firebaseApp}/>}/>
       </Switch>
     );
   }
@@ -74,7 +55,7 @@ const providers = {
 
 export default withFirebaseAuth({
     providers,
-    firebaseAppAuth,
+    firebaseAppAuth
 })(App);
 
 // import withFirebaseAuth from 'react-with-firebase-auth'
