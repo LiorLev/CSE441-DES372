@@ -5,11 +5,6 @@ import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
 
-    constructor(props) {
-        super(props);
-        // console.log("props", this.props);
-    }
-
     spaceFunction = (event) => {
         if (event.keyCode === 32) {
             this.props.history.push("/choose-genre");
@@ -22,13 +17,23 @@ class Home extends Component {
 
         let data = this.props.firebaseData.database().ref('jukebox/messages');
 
-        data.on("value", function (snapshot) {
-            console.log(snapshot.val());
-            let res = snapshot.val();
-            
-            // let json = new JSONObject(res);
+        let props = this.props;
 
-            // console.log(Object.keys(res).length);
+        data.on("value", function (snapshot) {
+            // console.log(snapshot.val());
+            let res = snapshot.val();
+
+            var arr = [];
+            Object.keys(res).forEach(function (key) {
+                arr.push(res[key]);
+            });
+
+            // console.log("array of json obj: ", arr);
+            let userSent = arr[2];
+            // console.log("hey", userSent);
+            if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
+                props.history.push('/receive-song');
+            }
 
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
@@ -64,14 +69,3 @@ class Home extends Component {
 }
 
 export default withRouter(Home);
-
-// const firebaseAppAuth = firebaseApp.auth();
-
-// const providers = {
-//     googleProvider: new firebase.auth.GoogleAuthProvider(),
-// };
-
-// export default withFirebaseAuth({
-//     providers,
-//     firebaseAppAuth,
-// })(Home);

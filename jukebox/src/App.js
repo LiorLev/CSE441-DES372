@@ -11,6 +11,7 @@ import Home from './components/Home';
 import ChooseGenre from './components/ChooseGenre';
 import ChooseSong from './components/ChooseSong';
 import SendSong from './components/SendSong';
+import ReceiveSong from './components/ReceiveSong';
 
 
 // import SignIn from './components/SignIn';
@@ -19,21 +20,30 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 // console.log("firebase ", firebaseApp.database());
 const firebaseAppAuth = firebaseApp.auth();
 
-let messaging;
-
-// we need to check if messaging is supported by the browser
-if(firebase.messaging.isSupported()) {
-    messaging = firebase.messaging();
-}
 
 class App extends Component {
+  componentDidMount() {
+    let msgs = firebaseApp.database().ref('jukebox/messages');
+    msgs.set({
+      userName: "",
+      message: "",
+      song: ""
+    });
+
+    let rcvd = firebaseApp.database().ref('jukebox/received');
+    rcvd.set({
+      userAccepted: ""
+    });
+  }
+
   matchRoute() {
     return (
       <Switch>
-        <Route exact path={Routes.home} render={props => <Home {...props} firebaseAuth = {this.props} firebaseData = {firebaseApp}/>}/>
-        <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData = {firebaseApp} />} />
-        <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth = {this.props} firebaseData = {firebaseApp}/>} />
-        <Route exact path={Routes.sendSong} render={props => <SendSong {...props}  firebaseAuth = {this.props} firebaseData = {firebaseApp}/>}/>
+        <Route exact path={Routes.home} render={props => <Home {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.sendSong} render={props => <SendSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
       </Switch>
     );
   }
@@ -49,13 +59,13 @@ class App extends Component {
 
 
 const providers = {
-    googleProvider: new firebase.auth.GoogleAuthProvider(),
+  googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
 // export default App;
 
 export default withFirebaseAuth({
-    providers,
-    firebaseAppAuth
+  providers,
+  firebaseAppAuth
 })(App);
 
 // import withFirebaseAuth from 'react-with-firebase-auth'

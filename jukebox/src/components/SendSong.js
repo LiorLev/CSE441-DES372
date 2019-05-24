@@ -3,68 +3,58 @@ import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 class SendSong extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     console.log(props);
-    //     this.state = { selected: 0 };
+    constructor(props) {
+        super(props);
+        this.state = { selected: 0 };
+    }
+
+    // arrowFunction = (event) => {
+    //     if (event.keyCode == '38') {
+    //         // up arrow
+    //         // console.log("up");
+    //         this.setState({ selected: this.state.selected - 1 });
+    //     } else if (event.keyCode == '40') {
+    //         // down arrow
+    //         // console.log("down");
+    //         this.setState({ selected: this.state.selected + 1 });
+
+    //     } else if (event.keyCode == '32') {
+    //         this.props.history.push("/");
+    //     }
     // }
 
-    arrowFunction = (event) => {
-        if (event.keyCode == '38') {
-            // up arrow
-            // console.log("up");
-            this.setState({ selected: this.state.selected - 1 });
-        } else if (event.keyCode == '40') {
-            // down arrow
-            // console.log("down");
-            this.setState({ selected: this.state.selected + 1 });
-
-        } else if (event.keyCode == '32') {
-            this.props.history.push("/");
-        }
-    }
-
     componentDidMount() {
-        document.addEventListener("keydown", this.arrowFunction, false);
+        let data = this.props.firebaseData.database().ref('jukebox/received');
+
+        let props = this.props;
+        data.on("value", function (snapshot) {
+            console.log(snapshot.val());
+            let res = snapshot.val();
+
+            var arr = [];
+            Object.keys(res).forEach(function (key) {
+                arr.push(res[key]);
+            });
+
+            if (arr[0] == 'true') {
+                console.log("accepted");
+                props.history.push('/');
+            } else if (arr[0] == 'false') {
+                console.log("rejected");
+                props.history.push('/');
+            }
+
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
     }
 
-    componentWillUnmount() {
-        document.removeEventListener("keydown", this.arrowFunction, false);
-    }
 
     render() {
-        // let songs = ["Old Town Road", "Love on the Brain", "Homicide", "Sucker"];
-        // let songDivs = songs.map((item, index) =>
-        //     <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} id={index} key={index}> <h1>{item}</h1> </div>)
-
-        let currUser = this.props.firebaseData.auth().currentUser.displayName;
-        console.log("user ", currUser);
-        console.log("props ", this.props.location);
-        if (this.props.location.state.sent == true && this.props.location.state.sentBy == "Gates Center") {
-            if (currUser == "Gates Center") {
-                return (
-                    <h1>Song was sent to Allen</h1>
-                );
-            } else if (currUser == "Allen Building") {
-                return (
-                    <h1>Accept/Reject</h1>
-                );
-            }
-        } else if (this.props.location.state.sent == true && this.props.location.state.sentBy == "Allen Building") {
-            if (currUser == "Allen Building") {
-                return (
-                    <h1>Song was sent to Allen</h1>
-                );
-            } else if (currUser == "Gates Center") {
-                return (
-                    <h1>Accept/Reject</h1>
-                );
-            }
-        } else {
-            return (
-                <h1>FAIL</h1>
-            );
-        }
+        return (
+            <h1>Song was sent</h1>
+        );
     }
 }
 

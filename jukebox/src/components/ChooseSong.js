@@ -4,6 +4,7 @@ import '../App.css';
 // import ChooseGenre from './ChooseGenre';
 
 class ChooseSong extends Component {
+    songs = ["Old Town Road", "Love on the Brain", "Homicide", "Sucker"];
     constructor(props) {
         super(props);
         this.state = {
@@ -13,27 +14,23 @@ class ChooseSong extends Component {
             sentBy: null
             // database: this.props.firebaseData.database().ref('jukebox/messages')
         };
-        document.addEventListener("keydown", this.arrowFunction1, false);
     }
 
     arrowFunction1 = (event) => {
         if (event.keyCode == '32') {
             let data = this.props.firebaseData.database().ref('jukebox/messages');
-            data.push({
+            data.set({
                 userName: this.props.firebaseData.auth().currentUser.displayName,
                 message: "song was sent",
-                // song: document.getElementsByClassName('selectedSong') [0].textContent
+                song: this.songs[this.state.selected]
             });
+            // this.setState({ redirect1: '/send-song' });
+            // document.removeEventListener("keydown", this.arrowFunction1, false);
 
-            // if (this.props.firebaseData.auth().currentUser.displayName == "Gates Center") {
-            this.props.history.push({
-                pathname: '/send-song',
-                state: {
-                    sent: true,
-                    sentBy: this.props.firebaseData.auth().currentUser.displayName
-                }
-            });
-            // }
+            this.props.history.push('/send-song');
+            document.removeEventListener("keydown", this.arrowFunction1, false);
+
+
 
         } else if (event.keyCode == '38' && this.state.selected >= 1 && this.state.selected <= 3) {
             // up arrow
@@ -41,51 +38,51 @@ class ChooseSong extends Component {
         } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 3) {
             // down arrow
             this.setState({ selected: this.state.selected + 1 });
-        } else if (event.keyCode == '37') {
-            // left arrow
-        } else if (event.keyCode == '39') {
-            // right arrow
-        }
+        } 
+        // else if (event.keyCode == '37') {
+        //     // left arrow
+        // } else if (event.keyCode == '39') {
+        //     // right arrow
+        // }
     }
 
-    // sendDataToFireBase = () => {
-    //     console.log("sent dta");
-    //     this.props.firebaseData.database().ref('jukebox/messages').push({
-    //         // userName: this.props.firebaseData.auth().currentUser.displayName,
-    //         message: "song was sent",
-    //         song: document.getElementsByClassName('selectedSong')[0].textContent
-    //     });
-    // }
-    // componentDidMount() {
-    //     document.addEventListener("keydown", this.arrowFunction1, false);
-    //     console.log("song")
+    componentDidMount() {
+        document.addEventListener("keydown", this.arrowFunction1, false);
 
-    // }
+        // let data = this.props.firebaseData.database().ref('jukebox/messages');
 
-    // componentWillUnmount() {
-    //     document.removeEventListener("keydown", this.arrowFunction1, false);
-    // }
+        // let props = this.props;
+
+        // data.on("value", function (snapshot) {
+        //     // console.log(snapshot.val());
+        //     let res = snapshot.val();
+
+        //     var arr = [];
+        //     Object.keys(res).forEach(function (key) {
+        //         arr.push(res[key]);
+        //     });
+
+        //     // console.log("array of json obj: ", arr);
+
+        //     let userSent = arr[2];
+        //     // console.log("hey", userSent);
+        //     if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
+        //         props.history.push('/receive-song');
+        //         // this.setState({redirect1: '/receive-song'});
+        //     }
+
+        // }, function (errorObject) {
+        //     console.log("The read failed: " + errorObject.code);
+        // });
+    }
+
+    componentWillUnmount() {
+    }
 
     render() {
-        // const { redirect1 } = this.state;
-        // console.log(redirect1);
-        // if (redirect1) {
-        //     console.log(this.props);
-        //     // console.log("sent dta ", this.props.firebaseData.database().ref('jukebox/messages'));
-        //     let data = this.props.firebaseData.database().ref('jukebox/');
-        //     data.push({
-        //         // userName: this.props.firebaseData.auth().currentUser.displayName,
-        //         message: "song was sent",
-        //         song: document.getElementsByClassName('selectedSong')[0].textContent
-        //     });
-        //     return <Redirect to={redirect1} />;
-        // }
-
-        let songs = ["Old Town Road", "Love on the Brain", "Homicide", "Sucker"];
-        let songDivs = songs.map((item, index) =>
+        let songDivs = this.songs.map((item, index) =>
             <div className={(this.state.selected === index ? 'selectedSong ' : '') + "letters"}
                 id={index} key={index}> <h1>{item}</h1> </div>)
-
         return (
             <div>
                 {songDivs}
