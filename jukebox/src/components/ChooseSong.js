@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import '../App.css';
 // import ChooseGenre from './ChooseGenre';
 
@@ -9,28 +9,35 @@ class ChooseSong extends Component {
         super(props);
         this.state = {
             selected: 0,
-            redirect1: null,
-            sent: null,
-            sentBy: null
+            uid: ""
+            // sent: null
             // database: this.props.firebaseData.database().ref('jukebox/messages')
         };
+        
     }
 
     arrowFunction1 = (event) => {
         if (event.keyCode == '32') {
             let data = this.props.firebaseData.database().ref('jukebox/messages');
+
+            // if(this.props.firebaseData.auth().currentUser.displayName == "Gates Center"){
+            //     data = this.props.firebaseData.database().ref('jukebox/messagesFromGates');
+            // }else if(this.props.firebaseData.auth().currentUser.displayName == "Allen Building"){
+            //     data = this.props.firebaseData.database().ref('jukebox/messagesFromAllen');
+            // }
+
             data.set({
                 userName: this.props.firebaseData.auth().currentUser.displayName,
                 message: "song was sent",
                 song: this.songs[this.state.selected]
             });
+
             // this.setState({ redirect1: '/send-song' });
             // document.removeEventListener("keydown", this.arrowFunction1, false);
 
-            this.props.history.push('/send-song');
-            document.removeEventListener("keydown", this.arrowFunction1, false);
-
-
+            this.props.history.push(`/send-song?id=${this.state.uid}`);
+            // this.setState({sent: true});
+            // document.removeEventListener("keydown", this.arrowFunction1, false);
 
         } else if (event.keyCode == '38' && this.state.selected >= 1 && this.state.selected <= 3) {
             // up arrow
@@ -47,36 +54,18 @@ class ChooseSong extends Component {
     }
 
     componentDidMount() {
+        //TODO: Might want to look into this
+        this.props.firebaseData.auth().onAuthStateChanged(user => {
+            this.setState({
+                uid: user.uid
+            });
+        });
         document.addEventListener("keydown", this.arrowFunction1, false);
-
-        // let data = this.props.firebaseData.database().ref('jukebox/messages');
-
-        // let props = this.props;
-
-        // data.on("value", function (snapshot) {
-        //     // console.log(snapshot.val());
-        //     let res = snapshot.val();
-
-        //     var arr = [];
-        //     Object.keys(res).forEach(function (key) {
-        //         arr.push(res[key]);
-        //     });
-
-        //     // console.log("array of json obj: ", arr);
-
-        //     let userSent = arr[2];
-        //     // console.log("hey", userSent);
-        //     if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
-        //         props.history.push('/receive-song');
-        //         // this.setState({redirect1: '/receive-song'});
-        //     }
-
-        // }, function (errorObject) {
-        //     console.log("The read failed: " + errorObject.code);
-        // });
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.arrowFunction1, false);
+
     }
 
     render() {

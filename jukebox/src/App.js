@@ -20,8 +20,15 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 // console.log("firebase ", firebaseApp.database());
 const firebaseAppAuth = firebaseApp.auth();
 
-
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      songId: ""
+    };
+  }
+
   componentDidMount() {
     let msgs = firebaseApp.database().ref('jukebox/messages');
     msgs.set({
@@ -34,6 +41,15 @@ class App extends Component {
     rcvd.set({
       userAccepted: ""
     });
+
+    let song = firebaseApp.database().ref('jukebox/songId');
+
+    song.on("value", snapshot => {
+      console.log(snapshot.val().songId);
+      this.setState({songId: snapshot.val().songId});
+    })
+
+
   }
 
   matchRoute() {
@@ -43,15 +59,35 @@ class App extends Component {
         <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.sendSong} render={props => <SendSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
-        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} changeSongId={this.changeSongId} />} />
       </Switch>
     );
+  }
+
+  changeSongId = (songId) => {
+    console.log(songId);
+    // this.setState({
+    //   songId: songId
+    // });
+    let data = firebaseApp.database().ref('jukebox/songId');
+
+    // if (this.state.selected == 0) {
+    data.set({
+      songId: songId
+    }).then(() => {
+      window.location.href = "/";
+    })
+
+    // , () => {
+    //   window.location.href = "/";
+    // }
   }
 
   render() {
     return (
       <Router>
         {this.matchRoute()}
+        <iframe width="0" height="0" src={`https://www.youtube.com/embed/${this.state.songId}?autoplay=1`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
       </Router>
     );
   }

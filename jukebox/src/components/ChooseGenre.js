@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import '../App.css';
-// import currentUser from '../globals';
 
 class ChooseGenre extends Component {
+    genres = ["POP", "INDIE", "CLASSIC", "FOCUS", "COUNTRY", "ROCK", "JAZZ", "R&B"];
     constructor(props) {
         super(props);
         this.state = { selected: 0, genre: '', redirect: null };
@@ -30,6 +30,8 @@ class ChooseGenre extends Component {
             this.props.history.push('/choose-song');
             document.removeEventListener("keydown", this.arrowFunction, false);
 
+            // this.setState({genre: this.genres[this.state.selected]});
+
             // console.log("hey00");
 
             // this.props.history.push({
@@ -39,38 +41,12 @@ class ChooseGenre extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount() {      
         document.addEventListener("keydown", this.arrowFunction, false);
-
-        // let data = this.props.firebaseData.database().ref('jukebox/messages');
-
-        // let props = this.props;
-
-        // data.on("value", function (snapshot) {
-        //     console.log(snapshot.val());
-        //     let res = snapshot.val();
-
-        //     var arr = [];
-        //     Object.keys(res).forEach(function (key) {
-        //         arr.push(res[key]);
-        //     });
-
-        //     console.log("array of json obj: ", arr);
-
-        //     let userSent = arr[2];
-        //     console.log("hey", userSent);
-        //     if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
-        //         props.history.push('/receive-song');
-        //     }
-
-
-        // }, function (errorObject) {
-        //     console.log("The read failed: " + errorObject.code);
-        // });
-        // // console.log("genre")
     }
 
     componentWillUnmount() {
+        // document.removeEventListener("keydown", this.arrowFunction, false);
     }
 
     render() {

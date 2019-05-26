@@ -6,12 +6,14 @@ import { withRouter } from 'react-router-dom';
 class Home extends Component {
 
     spaceFunction = (event) => {
+        console.log("home space click");
         if (event.keyCode === 32) {
             this.props.history.push("/choose-genre");
         }
     }
 
-    componentDidMount() {
+    componentDidMount() {      
+
         document.addEventListener("keydown", this.spaceFunction, false);
 
 
@@ -37,7 +39,12 @@ class Home extends Component {
 
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
-        });
+        })
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.spaceFunction, false);
+
     }
 
 

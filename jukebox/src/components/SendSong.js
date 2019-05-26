@@ -5,7 +5,7 @@ import '../App.css';
 class SendSong extends Component {
     constructor(props) {
         super(props);
-        this.state = { selected: 0 };
+        // this.state = { selected: 0 };
     }
 
     // arrowFunction = (event) => {
@@ -24,6 +24,9 @@ class SendSong extends Component {
     // }
 
     componentDidMount() {
+        // document.addEventListener("keydown", this.arrowFunction, false);
+        console.log(window.location.search); 
+        console.log(this.props.history);
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
         let props = this.props;
@@ -47,8 +50,12 @@ class SendSong extends Component {
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-
     }
+
+    // componentWillUnmount(){
+    //     document.removeEventListener("keydown", this.arrowFunction, false);
+
+    // }
 
 
     render() {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-
 import '../App.css';
 
 class ReceiveSong extends Component {
@@ -11,18 +10,32 @@ class ReceiveSong extends Component {
 
     arrowFunction2 = (event) => {
         if (event.keyCode == '32') {
-            console.log("enter woo");
+            console.log("enter  woo");
+
             let data = this.props.firebaseData.database().ref('jukebox/received');
 
             // if (this.state.selected == 0) {
             data.set({
                 userAccepted: this.state.selected == 0 ? "true" : "false"
+            }).then(() => {
+                if(this.state.selected == 0){
+                    this.props.changeSongId("gl1aHhXnN1k");
+                    
+                }
+                // window.location.href = "/";
+                //this.context.history.push('/');
             })
 
-            window.location.href = "/";
+            // console.log("fmllll", this.props.history.push('/'));
+
+            // console.log(this.history.length);
+        
             // .then(() => {
             //     console.log('Write succeeded!');
-            // this.props.history.push('/');
+            // this.props.history.push({pathname: '/'});
+            // this.props.history.push({pathname: '/', state: "idk man"});
+            
+            // console.log(this.props.history);
             // });
             // console.log("accepted");
 
@@ -34,9 +47,6 @@ class ReceiveSong extends Component {
             //     // this.props.history.push('/');
             // }
 
-            // this.props.history.push('/');
-
-            document.removeEventListener("keydown", this.arrowFunction2, false);
 
         } else if (event.keyCode == '39' && this.state.selected == 0) {
             //right
@@ -53,7 +63,6 @@ class ReceiveSong extends Component {
     componentDidMount() {
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
-
 
     render() {
         let arr = ['accepted', 'rejected'];
