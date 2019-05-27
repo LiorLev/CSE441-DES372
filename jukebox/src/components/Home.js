@@ -12,7 +12,8 @@ class Home extends Component {
         }
     }
 
-    componentDidMount() {      
+    componentDidMount() {
+        console.log("home: ", this.props);
 
         document.addEventListener("keydown", this.spaceFunction, false);
 
@@ -39,15 +40,12 @@ class Home extends Component {
 
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
-        })
+        });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         document.removeEventListener("keydown", this.spaceFunction, false);
-
     }
-
-
 
     render() {
         const {
@@ -61,17 +59,20 @@ class Home extends Component {
                 <header className="App-header">
                     {
                         user
-                            ? <p>Hello, {user.displayName}! please press enter to choose a song</p>
+                            ? <div>
+                                <p style={{ fontSize: '50px', marginBottom: '93px' }}><strong>Now Playing:</strong> {this.props.song.songId}</p>
+                                <p style={{ fontSize: '50px' }}><strong>Artist:</strong> </p>
+                            </div>
                             : <p>Please sign in.</p>
                     }
                     {
                         user
-                            ? <button onClick={signOut}>Sign out</button>
-                            : <button onClick={signInWithGoogle}>Sign in with Google</button>
+                            ? <button className="sign-in" onClick={signOut}>Sign out</button>
+                            : <button className="sign-in" onClick={signInWithGoogle}>Sign In with Google</button>
                     }
                 </header>
             </div>
-        );
+       );
     }
 }
 

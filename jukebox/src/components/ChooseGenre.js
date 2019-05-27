@@ -41,7 +41,7 @@ class ChooseGenre extends Component {
         }
     }
 
-    componentDidMount() {      
+    componentDidMount() {
         document.addEventListener("keydown", this.arrowFunction, false);
     }
 
@@ -50,22 +50,25 @@ class ChooseGenre extends Component {
     }
 
     render() {
-        // const { redirect } = this.state;
-        // console.log(redirect);
-        // if (redirect) return <Redirect to={{ pathname: redirect, state: { genre: this.state.genre } }} />;
+        let songs = ["POP", "INDIE", "CLASSIC", "FOCUS"];
 
-        let flag = true;
-        let songs = ["POP", "INDIE", "CLASSIC", "FOCUS", "COUNTRY", "ROCK", "JAZZ", "R&B"];
+        let song2 = ["COUNTRY", "ROCK", "JAZZ", "R&B"];
+
         let songDivs = songs.map((item, index) =>
-            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
+            <div className ={(this.state.selected  === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1>{item}</h1> </div>)
+                <h1>{item}</h1> </div>);
+
+        let songDivs2 = song2.map((item, index) =>
+            <div className={(this.state.selected === index + 4 ? 'selected ' : '') + "letters"}
+                id={index + 4} key={index + 4}>
+                <h1>{item}</h1> </div>);
 
         return (
-            <div>
-                {songDivs}
+            <div style = {{textAlign: 'center', marginTop: '70px'}}>
+                <div style = {{display: 'inline-block'}}>{songDivs}</div>
+                <div style = {{display: 'inline-block'}}>{songDivs2}</div>
             </div>
-
         );
     }
 }

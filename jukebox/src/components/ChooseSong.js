@@ -73,7 +73,7 @@ class ChooseSong extends Component {
             <div className={(this.state.selected === index ? 'selectedSong ' : '') + "letters"}
                 id={index} key={index}> <h1>{item}</h1> </div>)
         return (
-            <div>
+            <div style = {{textAlign: 'center', marginTop: '70px'}}>
                 {songDivs}
             </div>
         );

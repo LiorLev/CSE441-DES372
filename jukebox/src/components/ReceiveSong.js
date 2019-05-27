@@ -14,48 +14,20 @@ class ReceiveSong extends Component {
 
             let data = this.props.firebaseData.database().ref('jukebox/received');
 
-            // if (this.state.selected == 0) {
             data.set({
                 userAccepted: this.state.selected == 0 ? "true" : "false"
             }).then(() => {
                 if(this.state.selected == 0){
                     this.props.changeSongId("gl1aHhXnN1k");
-                    
+                }else{
+                    window.location.href = "/";
                 }
-                // window.location.href = "/";
-                //this.context.history.push('/');
             })
 
-            // console.log("fmllll", this.props.history.push('/'));
-
-            // console.log(this.history.length);
-        
-            // .then(() => {
-            //     console.log('Write succeeded!');
-            // this.props.history.push({pathname: '/'});
-            // this.props.history.push({pathname: '/', state: "idk man"});
-            
-            // console.log(this.props.history);
-            // });
-            // console.log("accepted");
-
-            // } else if (this.state.selected == 1) {
-            //     data.set({
-            //         userAccepted: "false"
-            //     });
-            //     console.log("rejected");
-            //     // this.props.history.push('/');
-            // }
-
-
         } else if (event.keyCode == '39' && this.state.selected == 0) {
-            //right
-            // console.log("right");
             this.setState({ selected: this.state.selected + 1 });
 
         } else if (event.keyCode == '37' && this.state.selected == 1) {
-            //left
-            // console.log("left");
             this.setState({ selected: this.state.selected - 1 });
         }
     }
@@ -67,11 +39,13 @@ class ReceiveSong extends Component {
     render() {
         let arr = ['accepted', 'rejected'];
         let receivedDivs = arr.map((item, index) =>
-            <div className={(this.state.selected === index ? 'selectedChoice ' : '')} style={{ display: 'inline-block' }}
+            <div className={(this.state.selected === index ? 'selectedChoice ' : '') + 'receive'} style={{ display: 'inline-block' }}
                 id={index} key={index}> <h1>{item}</h1> </div>)
         return (
             <div>
-                <h1>Accept/Reject</h1>
+                <h1 style = {{color: 'white'}}>Your Ph.d peers from the Research Commons sent you</h1>
+                <h1 style = {{color: 'white'}}>a pop song by Rihanna</h1>
+                <h1 style = {{color: 'white', marginTop: '120px'}}>Do you want to find out what it is?</h1>
                 {receivedDivs}
             </div>
         );

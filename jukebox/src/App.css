@@ -1,27 +1,19 @@
-.App {
-  text-align: center;
+body {
+  background-color: black;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.App {
+  margin-left: 158px;
+  margin-top: 166px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
+/* .App-link {
   color: #61dafb;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
@@ -32,28 +24,49 @@
   }
 }
 
-.letters{
-  background-color: #61dafb;
-  width: 20%;
+.letters {
+  /* width: 20%; */
   text-align: center;
-  margin: 0 auto;
-  border: 5px solid #61dafb;
-  margin-bottom: 10px;
+  /* margin: 0 auto; */
+  border: 5px solid #46C4D3;
+  color: #FFF170;
+  /* margin-bottom: 10px; */
+  margin-bottom: 25px;
+  width: 700px;
+  margin-right: 30px;
+  height: 125px;
 }
 
-.selected{
- /* background-color: black; */
- border: 5px solid red;
+.receive {
+  /* width: 20%; */
+  text-align: center;
+  /* margin: 0 auto; */
+  border: 5px solid #46C4D3;
+  color: #FFF170;
+  /* margin-bottom: 10px; */
+  margin-bottom: 25px;
+  width: 300px;
+  margin-right: 30px;
+  height: 100px;
 }
 
-
-.selectedSong{
+.selected {
   /* background-color: black; */
-  border: 5px solid red;
- }
+  background-color: #FFF170;
+  border: 5px solid #FFF170;
+  color: #46C4D3;
+}
 
- .selectedChoice{
+.selectedSong {
   /* background-color: black; */
-  border: 5px solid red;
- }
+  background-color: #FFF170;
+  border: 5px solid #FFF170;
+  color: #46C4D3;
+}
 
+.selectedChoice {
+  /* background-color: black; */
+  background-color: #FFF170;
+  border: 5px solid #FFF170;
+  color: #46C4D3;
+}

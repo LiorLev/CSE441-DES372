@@ -25,7 +25,7 @@ class SendSong extends Component {
 
     componentDidMount() {
         // document.addEventListener("keydown", this.arrowFunction, false);
-        console.log(window.location.search); 
+        console.log(window.location.search);
         console.log(this.props.history);
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
@@ -59,8 +59,21 @@ class SendSong extends Component {
 
 
     render() {
+        let currUser = "";
+        this.props.firebaseData.auth().onAuthStateChanged(user => {
+            console.log("user ", user.displayName);
+
+            currUser = user.displayName;
+        });
+
+
         return (
-            <h1>Song was sent</h1>
+            <div style = {{marginTop: '166px', marginLeft: '158px'}}>
+                <h1 style={{ color: 'white' }}>Selected song was sent to your peers </h1>
+                {currUser == "Allen Building" ? <h1 style={{ color: 'white' }}>in the <span style={{ color: '#46C4D3' }}>Jaech</span></h1> : 
+                                                <h1 style={{ color: 'white' }}>in the <span style={{ color: '#FFF170' }}>Research Commons</span></h1>}
+                <h2 style = {{marginTop: '120px', color: 'white'}}>They only know the genre and artist of the song</h2>
+            </div>
         );
     }
 }

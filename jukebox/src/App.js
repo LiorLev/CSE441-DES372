@@ -42,6 +42,11 @@ class App extends Component {
       userAccepted: ""
     });
 
+    // let songSent = firebaseApp.database().ref('jukebox/songId');
+    // songSent.set({
+    //   songId: ""
+    // });
+
     let song = firebaseApp.database().ref('jukebox/songId');
 
     song.on("value", snapshot => {
@@ -55,7 +60,7 @@ class App extends Component {
   matchRoute() {
     return (
       <Switch>
-        <Route exact path={Routes.home} render={props => <Home {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.home} render={props => <Home {...props} song = {this.state} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.sendSong} render={props => <SendSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
