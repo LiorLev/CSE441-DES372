@@ -53,8 +53,6 @@ class App extends Component {
       console.log(snapshot.val().songId);
       this.setState({songId: snapshot.val().songId});
     })
-
-
   }
 
   matchRoute() {
@@ -64,7 +62,7 @@ class App extends Component {
         <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.sendSong} render={props => <SendSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
-        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} changeSongId={this.changeSongId} />} />
+        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong song = {this.state} {...props} firebaseAuth={this.props} firebaseData={firebaseApp} changeSongId={this.changeSongId} />} />
       </Switch>
     );
   }

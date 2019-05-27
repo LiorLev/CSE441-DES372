@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import '../App.css';
+import ChooseSong from '../components/ChooseSong';
 
 class ReceiveSong extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class ReceiveSong extends Component {
                 userAccepted: this.state.selected == 0 ? "true" : "false"
             }).then(() => {
                 if(this.state.selected == 0){
-                    this.props.changeSongId("gl1aHhXnN1k");
+                    this.props.changeSongId(this.props.history.location.state);
                 }else{
                     window.location.href = "/";
                 }
@@ -33,6 +34,8 @@ class ReceiveSong extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.history.location.state);
+
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 

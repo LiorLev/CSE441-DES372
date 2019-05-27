@@ -35,7 +35,7 @@ class Home extends Component {
             let userSent = arr[2];
             // console.log("hey", userSent);
             if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
-                props.history.push('/receive-song');
+                props.history.push({pathname: '/receive-song', state: arr[1]});
             }
 
         }, function (errorObject) {

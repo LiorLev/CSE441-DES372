@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 class ChooseGenre extends Component {
-    genres = ["POP", "INDIE", "CLASSIC", "FOCUS", "COUNTRY", "ROCK", "JAZZ", "R&B"];
+    genres = ["POP", "LATIN", "HIP-HOP", "COUNTRY", "ROCK", "DANCE", "INDIE", "CHILL"];
     constructor(props) {
         super(props);
         this.state = { selected: 0, genre: '', redirect: null };
@@ -27,7 +27,7 @@ class ChooseGenre extends Component {
         } else if (event.keyCode == '32') {
             // genre: document.getElementsByClassName('selected')[0].textContent, 
             // this.setState({ redirect: '/choose-song' });
-            this.props.history.push('/choose-song');
+            this.props.history.push({pathname: '/choose-song', state: this.genres[this.state.selected]});
             document.removeEventListener("keydown", this.arrowFunction, false);
 
             // this.setState({genre: this.genres[this.state.selected]});
@@ -50,9 +50,9 @@ class ChooseGenre extends Component {
     }
 
     render() {
-        let songs = ["POP", "INDIE", "CLASSIC", "FOCUS"];
+        let songs = ["POP", "LATIN", "HIP-HOP", "COUNTRY"];
 
-        let song2 = ["COUNTRY", "ROCK", "JAZZ", "R&B"];
+        let song2 = ["ROCK", "DANCE", "INDIE", "CHILL"];
 
         let songDivs = songs.map((item, index) =>
             <div className ={(this.state.selected  === index ? 'selected ' : '') + "letters"}
