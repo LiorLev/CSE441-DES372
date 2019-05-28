@@ -10,15 +10,14 @@ class ChooseSong extends Component {
         super(props);
         this.state = {
             selected: 0,
-            uid: "",
-            song: ""
+            uid: ""
             // sent: null
             // database: this.props.firebaseData.database().ref('jukebox/messages')
         };
-        
+
     }
 
-    getSongsBasedOnGenre(){
+    getSongsBasedOnGenre() {
         let genre = this.props.history.location.state.toLowerCase();
 
         let x = [];
@@ -26,7 +25,7 @@ class ChooseSong extends Component {
             x.push(songDatabse[genre][key]);
         });
 
-        x.forEach( elem => {
+        x.forEach(elem => {
             this.songs.push(elem);
         })
 
@@ -45,15 +44,20 @@ class ChooseSong extends Component {
             data.set({
                 userName: this.props.firebaseData.auth().currentUser.displayName,
                 message: "song was sent",
-                song: this.songs[this.state.selected]['id']
+                song: this.songs[this.state.selected]['id'],
+                songName: this.songs[this.state.selected]['song'],
+                songArtist: this.songs[this.state.selected]['artist']
             });
 
             // this.setState({ redirect1: '/send-song' });
             // document.removeEventListener("keydown", this.arrowFunction1, false);
+            // ?id=${this.state.uid}`
+            this.props.history.push({
+                pathname: `/send-song`,
+                state: { id: this.songs[this.state.selected]['id'], title: this.songs[this.state.selected]['song'], artist: this.songs[this.state.selected]['artist'] }
+            });
 
-            this.props.history.push(`/send-song?id=${this.state.uid}`);
-
-            this.setState({song: this.songs[this.state.selected]['id']});
+            // this.setState({song: this.songs[this.state.selected]['id']});
             // this.setState({sent: true});
             // document.removeEventListener("keydown", this.arrowFunction1, false);
 
@@ -63,7 +67,7 @@ class ChooseSong extends Component {
         } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 9) {
             // down arrow
             this.setState({ selected: this.state.selected + 1 });
-        } 
+        }
         // else if (event.keyCode == '37') {
         //     // left arrow
         // } else if (event.keyCode == '39') {
@@ -83,7 +87,7 @@ class ChooseSong extends Component {
         document.addEventListener("keydown", this.arrowFunction1, false);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         document.removeEventListener("keydown", this.arrowFunction1, false);
 
     }
@@ -93,7 +97,7 @@ class ChooseSong extends Component {
             <div className={(this.state.selected === index ? 'selectedSong ' : '') + "letters"}
                 id={index} key={index}> <h1>{item['song']}</h1> <h2>{item['artist']}</h2></div>)
         return (
-            <div style = {{textAlign: 'center', marginTop: '70px'}}>
+            <div style={{ textAlign: 'center', marginTop: '70px' }}>
                 {songDivs}
             </div>
         );

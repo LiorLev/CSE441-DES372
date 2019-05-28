@@ -5,25 +5,39 @@ import { withRouter } from 'react-router-dom';
 
 class Home extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {nowplaying: "", artist: ""};
+    }
+
     spaceFunction = (event) => {
-        console.log("home space click");
         if (event.keyCode === 32) {
             this.props.history.push("/choose-genre");
         }
     }
 
     componentDidMount() {
-        console.log("home: ", this.props);
+        let nameAndArtist = window.location.href.split('song=')[1];
+        let arrayOfSong = nameAndArtist.split('_');
+
+        let songartist = arrayOfSong[1].split('-').join(' ');
+        let title = arrayOfSong[0].split('-').join(' ');
+
+        title.indexOf('%27') != -1 ? title = title.replace('%27', "'") : title = title;
+
+        songartist.indexOf('#/') != -1 ? songartist = songartist.replace('#/', "") : songartist = songartist;
+
+
+        this.setState({nowplaying: title, artist: songartist})
 
         document.addEventListener("keydown", this.spaceFunction, false);
-
 
         let data = this.props.firebaseData.database().ref('jukebox/messages');
 
         let props = this.props;
-
+        
         data.on("value", function (snapshot) {
-            // console.log(snapshot.val());
             let res = snapshot.val();
 
             var arr = [];
@@ -31,16 +45,23 @@ class Home extends Component {
                 arr.push(res[key]);
             });
 
-            // console.log("array of json obj: ", arr);
-            let userSent = arr[2];
-            // console.log("hey", userSent);
-            if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
-                props.history.push({pathname: '/receive-song', state: arr[1]});
+            let userSent = "";
+            if (arr[0] != "" && arr[2] != "" && arr[3] != "") {
+                userSent = arr[4];
+                songartist = arr[2];
+                title = arr[3];
             }
+
+            if (userSent && props.firebaseData.auth().currentUser.displayName != userSent) {
+                props.history.push({ pathname: '/receive-song', state: { id: arr[1], title: arr[3], artist: arr[2] } });
+            }
+
 
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
+        
+        
     }
 
     componentWillUnmount() {
@@ -53,6 +74,7 @@ class Home extends Component {
             signOut,
             signInWithGoogle,
         } = this.props.firebaseAuth;
+        
 
         return (
             <div className="App">
@@ -60,8 +82,8 @@ class Home extends Component {
                     {
                         user
                             ? <div>
-                                <p style={{ fontSize: '50px', marginBottom: '93px' }}><strong>Now Playing:</strong> {this.props.song.songId}</p>
-                                <p style={{ fontSize: '50px' }}><strong>Artist:</strong> </p>
+                                <p style={{ fontSize: '50px', marginBottom: '93px' }}><strong>Now Playing:</strong> {this.state.nowplaying.toString()}</p>
+                                <p style={{ fontSize: '50px' }}><strong>Artist:</strong> {this.state.artist.toString()}</p>
                             </div>
                             : <p>Please sign in.</p>
                     }
@@ -72,7 +94,7 @@ class Home extends Component {
                     }
                 </header>
             </div>
-       );
+        );
     }
 }
 

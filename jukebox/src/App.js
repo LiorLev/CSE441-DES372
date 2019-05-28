@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 import Routes from './routes';
 import withFirebaseAuth from 'react-with-firebase-auth'
 import * as firebase from 'firebase';
@@ -25,7 +25,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      songId: ""
+      songId: "",
+      title: "",
+      artist: ""
     };
   }
 
@@ -50,40 +52,42 @@ class App extends Component {
     let song = firebaseApp.database().ref('jukebox/songId');
 
     song.on("value", snapshot => {
-      console.log(snapshot.val().songId);
-      this.setState({songId: snapshot.val().songId});
+      // console.log(snapshot.val().songId);
+      this.setState({ songId: snapshot.val().songId });
     })
   }
 
   matchRoute() {
     return (
       <Switch>
-        <Route exact path={Routes.home} render={props => <Home {...props} song = {this.state} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.home} render={props => <Home {...props} song={this.state} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
         <Route exact path={Routes.sendSong} render={props => <SendSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
-        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong song = {this.state} {...props} firebaseAuth={this.props} firebaseData={firebaseApp} changeSongId={this.changeSongId} />} />
+        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong song={this.state} {...props} firebaseAuth={this.props} firebaseData={firebaseApp} changeSongId={this.changeSongId} />} />
       </Switch>
     );
   }
 
-  changeSongId = (songId) => {
-    console.log(songId);
+  changeSongId = (songId, songName, songArtist) => {
+    // console.log(songId);
     // this.setState({
     //   songId: songId
     // });
+    this.setState({ title: songName, artist: songArtist });
     let data = firebaseApp.database().ref('jukebox/songId');
 
+    let props = this.props;
     // if (this.state.selected == 0) {
     data.set({
       songId: songId
     }).then(() => {
-      window.location.href = "/";
-    })
-
-    // , () => {
-    //   window.location.href = "/";
-    // }
+      // console.log(this.props);
+      // props.history.push("/");
+      let title = songName.split(' ').join('-');
+      let artist = songArtist.split(' ').join('-');
+      window.location.href = `/?song=${title}` + `_${artist}`;
+    });
   }
 
   render() {

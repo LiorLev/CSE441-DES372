@@ -19,7 +19,7 @@ class ReceiveSong extends Component {
                 userAccepted: this.state.selected == 0 ? "true" : "false"
             }).then(() => {
                 if(this.state.selected == 0){
-                    this.props.changeSongId(this.props.history.location.state);
+                    this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
                 }else{
                     window.location.href = "/";
                 }
@@ -34,8 +34,6 @@ class ReceiveSong extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.history.location.state);
-
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 

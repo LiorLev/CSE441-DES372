@@ -24,14 +24,11 @@ class SendSong extends Component {
     // }
 
     componentDidMount() {
-        // document.addEventListener("keydown", this.arrowFunction, false);
-        console.log(window.location.search);
-        console.log(this.props.history);
+        // document.addEventListener("keydown", this.arrowFunction, false);        
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
         let props = this.props;
         data.on("value", function (snapshot) {
-            console.log(snapshot.val());
             let res = snapshot.val();
 
             var arr = [];
@@ -41,7 +38,10 @@ class SendSong extends Component {
 
             if (arr[0] == 'true') {
                 console.log("accepted");
-                props.history.push('/');
+                // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
+                let title = props.history.location.state['title'].split(' ').join('-');
+                let artist = props.history.location.state['artist'].split(' ').join('-');
+                props.history.push(`/?song=${title}`+`_${artist}`)
             } else if (arr[0] == 'false') {
                 console.log("rejected");
                 props.history.push('/');
