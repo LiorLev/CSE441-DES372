@@ -64,11 +64,7 @@ class App extends Component {
     // this.setState({ title: songName, artist: songArtist });
     let data = firebaseApp.database().ref('jukebox/songId');
 
-    let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
-    nowPlaying.set({
-      songName: artist,
-      songArtist: title
-    });
+    
 
     data.set({
       songId: songId

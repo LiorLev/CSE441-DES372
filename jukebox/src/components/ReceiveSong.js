@@ -95,14 +95,19 @@ class ReceiveSong extends Component {
             if (this.state.selected == 0) {
                 this.props.changeSongId(this.props.history.location.state['id'].toString(), this.props.history.location.state['artist'].toString(), this.props.history.location.state['title'].toString());
 
-            } else if (this.state.selected == 1){
+                let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+                nowPlaying.set({
+                    songName: this.props.history.location.state['artist'].toString(),
+                    songArtist:  this.props.history.location.state['title'].toString()
+                });
+            } else if (this.state.selected == 1) {
                 window.location.href = "/";
             }
         })
     }
 
     componentDidMount() {
-        console.log("new song" , this.props.history.location);
+        console.log("new song", this.props.history.location);
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 
