@@ -93,7 +93,7 @@ class ReceiveSong extends Component {
             userAccepted: this.state.selected == 0 ? "true" : "false"
         }).then(() => {
             if (this.state.selected == 0) {
-                this.props.changeSongId(this.props.history.location.state['id'].toString(), this.props.history.location.state['artist'].toString(), this.props.history.location.state['title'].toString());
+                this.props.changeSongId(this.props.history.location.state['id'].toString());
 
                 let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
                 nowPlaying.set({
