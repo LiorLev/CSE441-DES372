@@ -12,9 +12,9 @@ class Home extends Component {
     }
 
     spaceFunction = (event) => {
-        if (event.keyCode === 32) {
+        if (event.altKey && event.code == 'AltRight') {
             this.props.history.push("/choose-genre");
-        } else if (event.keyCode === 13) {
+        } else if (event.keyCode === 85) {
             this.setState({
                 react: true,
                 reaction: 'https://i.imgur.com/RsobDg4.png'

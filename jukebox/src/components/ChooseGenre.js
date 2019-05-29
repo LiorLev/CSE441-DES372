@@ -10,17 +10,11 @@ class ChooseGenre extends Component {
     }
 
     arrowFunction = (event) => {
-        if (event.keyCode == '38' && this.state.selected > 0 && this.state.selected <= 8) {
+        if (event.keyCode == '37' && this.state.selected > 0 && this.state.selected <= 8) {
             this.setState({ selected: this.state.selected - 1 });
-        } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 7) {
+        } else if (event.keyCode == '45' && this.state.selected >= 0 && this.state.selected < 7) {
             this.setState({ selected: this.state.selected + 1 });
-        } else if (event.keyCode == '37' ) {
-            // left arrow
-            // console.log("left");
-        } else if (event.keyCode == '39') {
-            // right arrow
-            // console.log("right");
-        } else if (event.keyCode == '32') {
+        } else if (event.altKey && event.code == 'AltRight') {
             this.props.history.push({ pathname: '/choose-song', state: this.genres[this.state.selected] });
             document.removeEventListener("keydown", this.arrowFunction, false);
         }

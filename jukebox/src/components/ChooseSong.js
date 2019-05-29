@@ -28,7 +28,7 @@ class ChooseSong extends Component {
     }
 
     arrowFunction1 = (event) => {
-        if (event.keyCode == '32') {
+        if (event.altKey && event.code == 'AltRight') {
             let data = this.props.firebaseData.database().ref('jukebox/messages');
 
             data.set({
@@ -45,10 +45,10 @@ class ChooseSong extends Component {
                 state: { id: this.songs[this.state.selected]['id'], title: this.songs[this.state.selected]['song'], artist: this.songs[this.state.selected]['artist'] }
             });
 
-        } else if (event.keyCode == '38' && this.state.selected >= 1 && this.state.selected <= 10) {
+        } else if (event.keyCode == '37' && this.state.selected >= 1 && this.state.selected <= 10) {
             // up arrow
             this.setState({ selected: this.state.selected - 1 });
-        } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 9) {
+        } else if (event.keyCode == '45' && this.state.selected >= 0 && this.state.selected < 9) {
             // down arrow
             this.setState({ selected: this.state.selected + 1 });
         }
