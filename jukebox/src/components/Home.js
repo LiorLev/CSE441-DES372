@@ -104,15 +104,15 @@ class Home extends Component {
             if (arr[0] != "" && arr[2] != "" && arr[3] != "") {
                 userSent = arr[5];
             }
-            let currUser;
-            props.firebaseData.auth().onAuthStateChanged(user => {
-                currUser = user.displayName;
-            });
+            // let currUser;
+            // props.firebaseData.auth().onAuthStateChanged(user => {
+            //     currUser = user.displayName;
+            // });
 
-            if (userSent && currUser != userSent) {
+            if (userSent && props.firebaseData.auth().currentUser.displayName != userSent) {
                 props.history.push({ pathname: '/receive-song', state: { id: arr[2], title: arr[4], artist: arr[3], genre: arr[0] } });
-                // currUser = "";
             }
+
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
