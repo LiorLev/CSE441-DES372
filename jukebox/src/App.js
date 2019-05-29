@@ -60,15 +60,13 @@ class App extends Component {
     );
   }
 
-  changeSongId = (songId, songName, songArtist) => {
-    this.setState({ title: songName, artist: songArtist });
+  changeSongId = (songId) => {
+    // this.setState({ title: songName, artist: songArtist });
     let data = firebaseApp.database().ref('jukebox/songId');
 
     data.set({
       songId: songId
     }).then(() => {
-      let title = songName.split(' ').join('-');
-      let artist = songArtist.split(' ').join('-');
       window.location.href = `/`;
     });
   }

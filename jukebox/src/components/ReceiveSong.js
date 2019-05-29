@@ -94,13 +94,13 @@ class ReceiveSong extends Component {
             userAccepted: "true"
         }).then(() => {
             if (this.state.selected == 0) {
-
+                
+                this.props.changeSongId(this.props.history.location.state['id']);
                 nowPlaying.set({
                     songName: this.props.history.location.state['title'],
                     songArtist: this.props.history.location.state['artist']
                 });
 
-                this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
             } else if (this.state.selected == 1){
                 window.location.href = "/";
             }
@@ -108,7 +108,7 @@ class ReceiveSong extends Component {
     }
 
     componentDidMount() {
-        // console.log(this.props);
+        console.log(this.props.history.location);
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 
