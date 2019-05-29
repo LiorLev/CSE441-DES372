@@ -111,6 +111,7 @@ class Home extends Component {
 
             if (userSent && currUser != userSent) {
                 props.history.push({ pathname: '/receive-song', state: { id: arr[2], title: arr[4], artist: arr[3], genre: arr[0] } });
+                currUser = "";
             }
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);

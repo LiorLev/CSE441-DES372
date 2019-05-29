@@ -12,7 +12,7 @@ class SendSong extends Component {
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
         let props = this.props;
-        
+
         data.on("value", function (snapshot) {
             let res = snapshot.val();
 
@@ -21,13 +21,13 @@ class SendSong extends Component {
                 arr.push(res[key]);
             });
 
-            if (arr[0] == 'true' && props.history.location.state) {
+            if (arr[0] == "true" && props.history.location.state) {
                 // console.log("accepted");
                 // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
                 // let title = props.history.location.state['title'].split(' ').join('-');
                 // let artist = props.history.location.state['artist'].split(' ').join('-');
                 props.history.push(`/`)
-            } else if (arr[0] == 'false') {
+            } else if (arr[0] == "false") {
                 // console.log("rejected");
                 // let title = props.history.location.state['title'].split(' ').join('-');
                 // let artist = props.history.location.state['artist'].split(' ').join('-');

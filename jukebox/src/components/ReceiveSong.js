@@ -60,7 +60,7 @@ class ReceiveSong extends Component {
             })
 
         } else if (event.altKey && event.code == 'AltLeft' ) {
-            console.log("heyyyy")
+            // console.log("heyyyy")
             // console.log('here')
 
             // this.setState({ selected: this.state.selected - 1 });
@@ -88,7 +88,7 @@ class ReceiveSong extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
+        // console.log(this.props);
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 

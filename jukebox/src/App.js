@@ -69,7 +69,7 @@ class App extends Component {
     }).then(() => {
       let title = songName.split(' ').join('-');
       let artist = songArtist.split(' ').join('-');
-      window.location.href = `/?song=${title}` + `_${artist}`;
+      window.location.href = `/`;
     });
   }
 
