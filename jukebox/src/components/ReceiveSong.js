@@ -108,7 +108,7 @@ class ReceiveSong extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.history.location);
+        console.log("new song" , this.props.history.location);
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 

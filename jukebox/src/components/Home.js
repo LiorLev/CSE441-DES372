@@ -94,23 +94,25 @@ class Home extends Component {
         data.on("value", function (snapshot) {
             let res = snapshot.val();
 
-            var arr = [];
-            Object.keys(res).forEach(function (key) {
-                arr.push(res[key]);
-            });
+            console.log("res", res);
+            // var arr = [];
+            // Object.keys(res).forEach(function (key) {
+            //     arr.push(res[key]);
+            // });
 
-            console.log(arr);
+            // console.log("home", arr);
             let userSent = "";
-            if (arr[0] != "" && arr[2] != "" && arr[3] != "") {
-                userSent = arr[5];
-            }
+            // if (res) {
+                userSent = res[5];
+            // }
             // let currUser;
             // props.firebaseData.auth().onAuthStateChanged(user => {
             //     currUser = user.displayName;
             // });
 
+            // console.log("home" , arr);
             if (userSent && props.firebaseData.auth().currentUser.displayName != userSent) {
-                props.history.push({ pathname: '/receive-song', state: { id: arr[2], title: arr[4], artist: arr[3], genre: arr[0] } });
+                props.history.push({ pathname: '/receive-song', state: { id: res[2], title: res[4], artist: res[3], genre: res[0] } });
             }
 
         }, function (errorObject) {
