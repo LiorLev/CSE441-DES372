@@ -105,8 +105,10 @@ class Home extends Component {
             let userSent = "";
             console.log(res[5]);
             if (res['userName']) {
-                userSent = res[5];
+                userSent = res['userName'];
                 console.log("curr", currUser);
+                console.log("sent", userSent);
+
                 // console.log("sent", userSent);
 
 
@@ -115,7 +117,7 @@ class Home extends Component {
                 // console.log("home" , arr);
                 if (userSent != "" && currUser != userSent) {
                     console.log("in receive");
-                    props.history.push({ pathname: '/receive-song', state: { id: res['id'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
+                    props.history.push({ pathname: '/receive-song', state: { id: res['song'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
                 }
             }
             // let currUser = "";
