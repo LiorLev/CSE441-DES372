@@ -102,18 +102,25 @@ class Home extends Component {
 
             // console.log("home", arr);
             let userSent = "";
-            if (res[5]) {
+            console.log(res[5]);
+            if (res['userName']) {
                 userSent = res[5];
             }
-            let currUser;
-            props.firebaseData.auth().onAuthStateChanged(user => {
-                currUser = user.displayName;
-            });
+            // let currUser;
+            // props.firebaseData.auth().onAuthStateChanged(user => {
+            //     currUser = user.displayName;
+            // });
+
+            // console.log("curr", props.firebaseData.auth().currentUser.displayName);
+            // console.log("sent", userSent);
+
+
+            
 
             // console.log("home" , arr);
-            if (userSent != "" && currUser!= userSent) {
-                console.log("in receive")
-                props.history.push({ pathname: '/receive-song', state: { id: res[2], title: res[4], artist: res[3], genre: res[0] } });
+            if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
+                console.log("in receive");
+                props.history.push({ pathname: '/receive-song', state: { id: res['id'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
             }
 
         }, function (errorObject) {
