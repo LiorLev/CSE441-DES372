@@ -6,7 +6,7 @@ import ChooseSong from '../components/ChooseSong';
 class ReceiveSong extends Component {
     constructor(props) {
         super(props);
-        this.state = { selected: 0, songReceived: false };
+        this.state = { selected: null, songReceived: false };
     }
 
     arrowFunction2 = (event) => {
@@ -37,7 +37,7 @@ class ReceiveSong extends Component {
             // console.log('here')
             console.log("heyyyy")
 
-            this.setState({ selected: this.state.selected + 1 });
+            this.setState({ selected: 0 });
 
             // let data = this.props.firebaseData.database().ref('jukebox/received');
 
@@ -63,7 +63,7 @@ class ReceiveSong extends Component {
             // console.log("heyyyy")
             // console.log('here')
 
-            this.setState({ selected: this.state.selected - 1 });
+            this.setState({ selected: 1 });
 
             // let data = this.props.firebaseData.database().ref('jukebox/received');
 
