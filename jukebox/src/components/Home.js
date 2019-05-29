@@ -2,21 +2,70 @@ import React, { Component } from 'react';
 import 'firebase/auth';
 import '../App.css';
 import { withRouter } from 'react-router-dom';
+import SadReact from './sadreact';
 
 class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "", react: false };
+        this.state = { nowplaying: "", artist: "", react: false, reaction: ''};
     }
 
     spaceFunction = (event) => {
         if (event.keyCode === 32) {
             this.props.history.push("/choose-genre");
         } else if (event.keyCode === 13) {
-            console.log("yo");
-            // this.setState({ react: true });
-            
+            this.setState({
+                react: true,
+                reaction: 'https://i.imgur.com/RsobDg4.png'
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    react: false,
+                    reaction: ''
+                });
+            }, 1500);
+
+        } else if (event.keyCode === 73) {
+            this.setState({
+                react: true,
+                reaction: 'https://i.imgur.com/kTjaDoi.png'
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    react: false,
+                    reaction: ''
+                });
+            }, 1500);
+
+        } else if (event.keyCode === 80) {
+            this.setState({
+                react: true,
+                reaction: 'https://i.imgur.com/eWkGDr0.png'
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    react: false,
+                    reaction: ''
+                });
+            }, 1500);
+
+        } else if (event.keyCode === 221) {
+            this.setState({
+                react: true,
+                reaction: 'https://i.imgur.com/ZE1J401.png'
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    react: false,
+                    reaction: ''
+                });
+            }, 1500);
+
         }
     }
 
@@ -97,13 +146,16 @@ class Home extends Component {
 
         return (
             <div className="App">
-                {/* <iframe src="https://i.imgur.com/1KAg6BW.mp4" style = {{width:"200", height:"220", border: 'none'}} scrolling="no"></iframe> */}
+                <div className = {!this.state.react ? 'hidden' : ''}>
+                    <SadReact reaction = {this.state.reaction}></SadReact>
+                </div>
                 
-                <header className="App-header">
+                {/* className="App-header" */}
+                <header  className = {(this.state.react ? 'hidden' : '') + "App-header" }>
                     {
                         user
                             ? <div>
-                                <p style={{ fontSize: '30px', color: '#fff170' }}>Songs in queue: 0</p>
+                                <p style={{ fontSize: '30px'}}>Songs in queue: 0</p>
                                 <p style={{ fontSize: '50px', marginBottom: '-40px' }}><strong>Now Playing:</strong> {this.state.nowplaying.toString()}</p>
                                 <p style={{ fontSize: '50px' }}><strong>Artist:</strong> {this.state.artist.toString()}</p>
                             </div>

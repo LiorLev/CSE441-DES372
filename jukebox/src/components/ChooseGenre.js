@@ -14,7 +14,7 @@ class ChooseGenre extends Component {
             this.setState({ selected: this.state.selected - 1 });
         } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 7) {
             this.setState({ selected: this.state.selected + 1 });
-        } else if (event.keyCode == '37') {
+        } else if (event.keyCode == '37' ) {
             // left arrow
             // console.log("left");
         } else if (event.keyCode == '39') {

@@ -5,6 +5,7 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
   margin-left: 130px;
   margin-top: 82px;
+  overflow-y: hidden;
 }
 
 /* .App {
@@ -72,4 +73,41 @@ button {
   background-color: #FFF170;
   border: 5px solid #FFF170;
   color: #3DABB8;
+}
+
+/* .floating {  
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+@keyframes floating {
+  from { transform: translate(0,  0px); }
+  65%  { transform: translate(0, 15px); }
+  to   { transform: translate(0, -0px); }    
+} */
+
+.float {
+  position: relative;
+  -webkit-animation: floatBubble 2s infinite  normal ease-out;
+  animation: floatBubble 2s infinite  normal ease-out;
+}
+@-webkit-keyframes floatBubble {
+  0% {
+      top:200px;
+  }
+  100% {
+      top: 0px;
+  }
+}
+@keyframes floatBubble {
+  0% {
+      top:200px;
+  }
+  100% {
+      top: 0px;
+  }
 }

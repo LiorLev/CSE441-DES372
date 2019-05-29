@@ -10,15 +10,43 @@ class ReceiveSong extends Component {
     }
 
     arrowFunction2 = (event) => {
-        if (event.keyCode == '32') {
+        // if (event.keyCode == '32') {
+            // let data = this.props.firebaseData.database().ref('jukebox/received');
+
+            // let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+
+            // data.set({
+            //     userAccepted: this.state.selected == 0 ? "true" : "false"
+            // }).then(() => {
+            //     if(this.state.selected == 0){
+
+            //         nowPlaying.set({
+            //             songName: this.props.history.location.state['title'],
+            //             songArtist: this.props.history.location.state['artist']
+            //         });
+
+            //         this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
+            //     }else{
+            //         window.location.href = "/";
+            //     }
+            // })
+
+        // } else 
+        console.log( event.code );
+        if (event.ctrlKey && event.keyCode == '17') {
+            // console.log('here')
+            console.log("heyyyy")
+
+            // this.setState({ selected: this.state.selected + 1 });
+           
             let data = this.props.firebaseData.database().ref('jukebox/received');
 
             let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
 
             data.set({
-                userAccepted: this.state.selected == 0 ? "true" : "false"
+                userAccepted: "true"
             }).then(() => {
-                if(this.state.selected == 0){
+                // if(this.state.selected == 0){
 
                     nowPlaying.set({
                         songName: this.props.history.location.state['title'],
@@ -26,16 +54,36 @@ class ReceiveSong extends Component {
                     });
 
                     this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
-                }else{
-                    window.location.href = "/";
-                }
+                // }else{
+                //     window.location.href = "/";
+                // }
             })
 
-        } else if (event.keyCode == '39' && this.state.selected == 0) {
-            this.setState({ selected: this.state.selected + 1 });
+        } else if (event.altKey && event.code == 'AltLeft' ) {
+            console.log("heyyyy")
+            // console.log('here')
 
-        } else if (event.keyCode == '37' && this.state.selected == 1) {
-            this.setState({ selected: this.state.selected - 1 });
+            // this.setState({ selected: this.state.selected - 1 });
+
+            let data = this.props.firebaseData.database().ref('jukebox/received');
+
+            // let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+
+            data.set({
+                userAccepted: "false"
+            }).then(() => {
+                // if(this.state.selected == 0){
+
+                //     nowPlaying.set({
+                //         songName: this.props.history.location.state['title'],
+                //         songArtist: this.props.history.location.state['artist']
+                //     });
+
+                //     this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
+                // }else{
+                    window.location.href = "/";
+                // }
+            })
         }
     }
 
@@ -55,10 +103,10 @@ class ReceiveSong extends Component {
                 id={index} key={index}> <h1>{item}</h1> </div>)
         return (
             <div>
-                <h1 style = {{color: 'white'}}>Your Ph.d peers from the Research Commons sent you</h1>
-                <h1 style = {{color: 'white'}}>a {this.props.history.location.state['genre']} song by {this.props.history.location.state['artist']}</h1>
-                <h1 style = {{color: 'white', marginTop: '120px'}}>Do you want to find out what it is?</h1>
-                {receivedDivs}
+                <h1 style = {{color: 'white', fontSize: '50px'}}>Your Ph.d peers from the Research Commons sent you</h1>
+                <h1 style = {{color: 'white', fontSize: '50px'}}>a {this.props.history.location.state['genre']} song by {this.props.history.location.state['artist']}</h1>
+                <h1 style = {{color: 'white', marginTop: '120px', fontSize: '50px'}}>Do you want to find out what it is?</h1>
+                {/* {receivedDivs} */}
             </div>
         );
 

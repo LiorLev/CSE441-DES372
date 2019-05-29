@@ -46,11 +46,11 @@ class SendSong extends Component {
         });
 
         return (
-            <div style = {{marginTop: '166px', marginLeft: '158px'}}>
-                <h1 style={{ color: 'white' }}>Selected song was sent to your peers </h1>
-                {currUser == "Allen Building" ? <h1 style={{ color: 'white' }}>in the <span style={{ color: '#FFF170' }}>Jaech</span></h1> : 
-                                                <h1 style={{ color: 'white' }}>in the <span style={{ color: '#46C4D3' }}>Research Commons</span></h1>}
-                <h2 style = {{marginTop: '120px', color: 'white'}}>They only know the genre and artist of the song</h2>
+            <div >
+                <h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers </h1>
+                {currUser == "Allen Building" ? <h1 style={{ color: 'white', fontSize: '50px'}}>in the <span style={{ color: '#46C4D3' }}>Research Commons</span></h1> : 
+                                                <h1 style={{ color: 'white', fontSize: '50px' }}>in the <span style={{ color: '#FFF170' }}>Jaech</span></h1>}
+                <h1 style = {{marginTop: '120px', color: 'white'}}>They only know the genre and artist of the song</h1>
             </div>
         );
     }
