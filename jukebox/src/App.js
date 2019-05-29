@@ -69,6 +69,12 @@ class App extends Component {
     }).then(() => {
       window.location.href = `/`;
     });
+
+    // let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+    // nowPlaying.set({
+    //   songName: this.props.history.location.state['title'],
+    //   songArtist: this.props.history.location.state['artist']
+    // });
   }
 
   render() {
