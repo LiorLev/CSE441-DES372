@@ -27,12 +27,13 @@ class SendSong extends Component {
                     // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
                     // let title = props.history.location.state['title'].split(' ').join('-');
                     // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    props.history.push(`/`)
+                    window.location.href  = `/`;
                 } else if (res['userAccepted'] == "false") {
                     // console.log("rejected");
                     // let title = props.history.location.state['title'].split(' ').join('-');
                     // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    props.history.push(`/`)
+                    window.location.href  = `/`;
+
                 }
             }
 
