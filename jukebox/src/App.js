@@ -60,11 +60,9 @@ class App extends Component {
     );
   }
 
-  changeSongId = (songId, artist, title) => {
+  changeSongId = (songId) => {
     // this.setState({ title: songName, artist: songArtist });
-    let data = firebaseApp.database().ref('jukebox/songId');
-
-    
+    let data = firebaseApp.database().ref('jukebox/songId');   
 
     data.set({
       songId: songId
