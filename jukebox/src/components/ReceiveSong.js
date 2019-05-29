@@ -101,7 +101,7 @@ class ReceiveSong extends Component {
                 });
 
                 this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
-            } else {
+            } else if (this.state.selected == 1){
                 window.location.href = "/";
             }
         })
