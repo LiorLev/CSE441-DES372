@@ -102,9 +102,9 @@ class Home extends Component {
 
             // console.log("home", arr);
             let userSent = "";
-            // if (res) {
+            if (res[5]) {
                 userSent = res[5];
-            // }
+            }
             // let currUser;
             // props.firebaseData.auth().onAuthStateChanged(user => {
             //     currUser = user.displayName;
