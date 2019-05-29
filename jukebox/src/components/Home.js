@@ -111,7 +111,8 @@ class Home extends Component {
             // });
 
             // console.log("home" , arr);
-            if (userSent && props.firebaseData.auth().currentUser.displayName != userSent) {
+            if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
+                console.log("in receive")
                 props.history.push({ pathname: '/receive-song', state: { id: res[2], title: res[4], artist: res[3], genre: res[0] } });
             }
 
