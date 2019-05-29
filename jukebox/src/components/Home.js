@@ -108,6 +108,7 @@ class Home extends Component {
                 userSent = res['userName'];
                 console.log("curr", currUser);
                 console.log("sent", userSent);
+                console.log("songid", res['song']);
 
                 // console.log("sent", userSent);
 
@@ -115,7 +116,7 @@ class Home extends Component {
 
 
                 // console.log("home" , arr);
-                if (userSent != "" && currUser != userSent) {
+                if (userSent != "" && currUser != userSent && res['song']) {
                     console.log("in receive");
                     props.history.push({ pathname: '/receive-song', state: { id: res['song'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
                 }

@@ -95,7 +95,7 @@ class ReceiveSong extends Component {
         }).then(() => {
             if (this.state.selected == 0) {
                 
-                this.props.changeSongId(this.props.history.location.state['id']);
+                this.props.changeSongId(this.props.history.location.state['song']);
                 nowPlaying.set({
                     songName: this.props.history.location.state['title'],
                     songArtist: this.props.history.location.state['artist']
