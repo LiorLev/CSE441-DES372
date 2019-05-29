@@ -17,29 +17,11 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // if (window.location.href.indexOf('song=') != -1) {
-        //     let nameAndArtist = window.location.href.split('song=')[1];
-        //     let arrayOfSong = nameAndArtist.split('_');
-
-        //     let songartist = arrayOfSong[1].split('-').join(' ');
-        //     let title = arrayOfSong[0].split('-').join(' ');
-
-        //     title.indexOf('%27') != -1 ? title = title.replace('%27', "'") : title = title;
-
-        //     songartist.indexOf('#/') != -1 ? songartist = songartist.replace('#/', "") : songartist = songartist;
-
-
-        //     this.setState({ nowplaying: title, artist: songartist })
-        // }
-
         document.addEventListener("keydown", this.spaceFunction, false);
 
         let data = this.props.firebaseData.database().ref('jukebox/messages');
 
         let props = this.props;
-
-        // let songartist = "";
-        // let title = "";
 
         data.on("value", function (snapshot) {
             let res = snapshot.val();
@@ -53,8 +35,6 @@ class Home extends Component {
             let userSent = "";
             if (arr[0] != "" && arr[2] != "" && arr[3] != "") {
                 userSent = arr[5];
-                // songartist = arr[2];
-                // title = arr[3];
             }
 
             if (userSent && props.firebaseData.auth().currentUser.displayName != userSent) {

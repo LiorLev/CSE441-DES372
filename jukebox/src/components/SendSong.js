@@ -8,27 +8,11 @@ class SendSong extends Component {
         // this.state = { selected: 0 };
     }
 
-    // arrowFunction = (event) => {
-    //     if (event.keyCode == '38') {
-    //         // up arrow
-    //         // console.log("up");
-    //         this.setState({ selected: this.state.selected - 1 });
-    //     } else if (event.keyCode == '40') {
-    //         // down arrow
-    //         // console.log("down");
-    //         this.setState({ selected: this.state.selected + 1 });
-
-    //     } else if (event.keyCode == '32') {
-    //         this.props.history.push("/");
-    //     }
-    // }
-
     componentDidMount() {
-        // document.addEventListener("keydown", this.arrowFunction, false);        
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
-
         let props = this.props;
+        
         data.on("value", function (snapshot) {
             let res = snapshot.val();
 
@@ -38,16 +22,16 @@ class SendSong extends Component {
             });
 
             if (arr[0] == 'true' && props.history.location.state) {
-                console.log("accepted");
+                // console.log("accepted");
                 // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
-                let title = props.history.location.state['title'].split(' ').join('-');
-                let artist = props.history.location.state['artist'].split(' ').join('-');
-                props.history.push(`/?song=${title}`+`_${artist}`)
+                // let title = props.history.location.state['title'].split(' ').join('-');
+                // let artist = props.history.location.state['artist'].split(' ').join('-');
+                props.history.push(`/`)
             } else if (arr[0] == 'false') {
-                console.log("rejected");
-                let title = props.history.location.state['title'].split(' ').join('-');
-                let artist = props.history.location.state['artist'].split(' ').join('-');
-                props.history.push(`/?song=${title}`+`_${artist}`)
+                // console.log("rejected");
+                // let title = props.history.location.state['title'].split(' ').join('-');
+                // let artist = props.history.location.state['artist'].split(' ').join('-');
+                props.history.push(`/`)
             }
 
         }, function (errorObject) {
