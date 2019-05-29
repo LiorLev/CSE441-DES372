@@ -81,8 +81,9 @@ class Home extends Component {
 
         //     })
         // }
+        let currUser = "";
         this.props.firebaseData.auth().onAuthStateChanged(user => {
-            console.log(user.displayName);
+            currUser = (user.displayName);
         });
 
         document.addEventListener("keydown", this.spaceFunction, false);
@@ -106,19 +107,19 @@ class Home extends Component {
             if (res['userName']) {
                 userSent = res[5];
             }
-            // let currUser;
+            // let currUser = "";
             // props.firebaseData.auth().onAuthStateChanged(user => {
-            //     currUser = user.displayName;
+            //     currUser = user;
             // });
 
-            // console.log("curr", props.firebaseData.auth().currentUser.displayName);
+            console.log("curr", currUser);
             // console.log("sent", userSent);
 
 
             
 
             // console.log("home" , arr);
-            if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
+            if (userSent != "" && currUser != userSent) {
                 console.log("in receive");
                 props.history.push({ pathname: '/receive-song', state: { id: res['id'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
             }
