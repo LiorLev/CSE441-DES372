@@ -105,13 +105,13 @@ class Home extends Component {
             if (res[5]) {
                 userSent = res[5];
             }
-            // let currUser;
-            // props.firebaseData.auth().onAuthStateChanged(user => {
-            //     currUser = user.displayName;
-            // });
+            let currUser;
+            props.firebaseData.auth().onAuthStateChanged(user => {
+                currUser = user.displayName;
+            });
 
             // console.log("home" , arr);
-            if (userSent != "" && props.firebaseData.auth().currentUser.displayName != userSent) {
+            if (userSent != "" && currUser!= userSent) {
                 console.log("in receive")
                 props.history.push({ pathname: '/receive-song', state: { id: res[2], title: res[4], artist: res[3], genre: res[0] } });
             }
