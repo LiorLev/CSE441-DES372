@@ -46,11 +46,14 @@ class SendSong extends Component {
         });
 
         return (
-            <div >
-                <h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers </h1>
-                {currUser == "Allen Building" ? <h1 style={{ color: 'white', fontSize: '50px'}}>in the <span style={{ color: '#46C4D3' }}>Research Commons</span></h1> : 
-                                                <h1 style={{ color: 'white', fontSize: '50px' }}>in the <span style={{ color: '#FFF170' }}>Jaech</span></h1>}
-                <h1 style = {{marginTop: '120px', color: 'white'}}>They only know the genre and artist of the song</h1>
+            <div style = {{textAlign: 'center', marginRight: '160px'}}>
+                {/* <h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers </h1> */}
+                {currUser == "Allen Building" ? <div><h1 style={{ color: 'white', fontSize: '50px'}}>Selected song was sent to your peers in the <span style={{ color: '#46C4D3' }}>Research Commons</span></h1> </div> : 
+                                                <div><h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers in the <span style={{ color: '#FFF170' }}>Jaech</span> </h1></div>}
+                <h1 style = {{marginTop: '45px', color: 'white'}}>They only know the genre and artist of the song</h1>
+                {currUser == "Allen Building" ? <img style = {{marginTop: '10px'}} src = "https://i.imgur.com/3xhwCSf.png"></img> : 
+                                                <img style = {{marginTop: '10px'}} src = "https://i.imgur.com/DlebHZY.png"></img>}
+                {/* <img src = "https://i.imgur.com/3xhwCSf.png"></img> */}
             </div>
         );
     }
