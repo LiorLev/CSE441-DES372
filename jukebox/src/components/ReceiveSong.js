@@ -6,19 +6,25 @@ import ChooseSong from '../components/ChooseSong';
 class ReceiveSong extends Component {
     constructor(props) {
         super(props);
-        this.state = { selected: 0 };
+        this.state = { selected: 0, songReceived : false};
     }
 
     arrowFunction2 = (event) => {
         if (event.keyCode == '32') {
-            console.log("enter  woo");
-
             let data = this.props.firebaseData.database().ref('jukebox/received');
+
+            let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
 
             data.set({
                 userAccepted: this.state.selected == 0 ? "true" : "false"
             }).then(() => {
                 if(this.state.selected == 0){
+
+                    nowPlaying.set({
+                        songName: this.props.history.location.state['title'],
+                        songArtist: this.props.history.location.state['artist']
+                    });
+
                     this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
                 }else{
                     window.location.href = "/";
@@ -34,7 +40,12 @@ class ReceiveSong extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         document.addEventListener("keydown", this.arrowFunction2, false);
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.arrowFunction2, false);
     }
 
     render() {
@@ -45,7 +56,7 @@ class ReceiveSong extends Component {
         return (
             <div>
                 <h1 style = {{color: 'white'}}>Your Ph.d peers from the Research Commons sent you</h1>
-                <h1 style = {{color: 'white'}}>a pop song by Rihanna</h1>
+                <h1 style = {{color: 'white'}}>a {this.props.history.location.state['genre']} song by {this.props.history.location.state['artist']}</h1>
                 <h1 style = {{color: 'white', marginTop: '120px'}}>Do you want to find out what it is?</h1>
                 {receivedDivs}
             </div>

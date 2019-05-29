@@ -13,11 +13,7 @@ import ChooseSong from './components/ChooseSong';
 import SendSong from './components/SendSong';
 import ReceiveSong from './components/ReceiveSong';
 
-
-// import SignIn from './components/SignIn';
-
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-// console.log("firebase ", firebaseApp.database());
 const firebaseAppAuth = firebaseApp.auth();
 
 class App extends Component {
@@ -44,15 +40,9 @@ class App extends Component {
       userAccepted: ""
     });
 
-    // let songSent = firebaseApp.database().ref('jukebox/songId');
-    // songSent.set({
-    //   songId: ""
-    // });
-
     let song = firebaseApp.database().ref('jukebox/songId');
 
     song.on("value", snapshot => {
-      // console.log(snapshot.val().songId);
       this.setState({ songId: snapshot.val().songId });
     })
   }
@@ -70,20 +60,12 @@ class App extends Component {
   }
 
   changeSongId = (songId, songName, songArtist) => {
-    // console.log(songId);
-    // this.setState({
-    //   songId: songId
-    // });
     this.setState({ title: songName, artist: songArtist });
     let data = firebaseApp.database().ref('jukebox/songId');
 
-    let props = this.props;
-    // if (this.state.selected == 0) {
     data.set({
       songId: songId
     }).then(() => {
-      // console.log(this.props);
-      // props.history.push("/");
       let title = songName.split(' ').join('-');
       let artist = songArtist.split(' ').join('-');
       window.location.href = `/?song=${title}` + `_${artist}`;
@@ -100,63 +82,11 @@ class App extends Component {
   }
 }
 
-
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
-// export default App;
 
 export default withFirebaseAuth({
   providers,
   firebaseAppAuth
 })(App);
-
-// import withFirebaseAuth from 'react-with-firebase-auth'
-// import * as firebase from 'firebase/app';
-// import 'firebase/auth';
-// import firebaseConfig from './firebaseConfig';
-// import logo from './logo.svg';
-// import './App.css';
-
-// const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-// class App extends Component {
-//   render() {
-//     const {
-//       user,
-//       signOut,
-//       signInWithGoogle,
-//     } = this.props;
-
-//     console.log(this.props);
-
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           {
-//             user
-//               ? <p>Hello, {user.displayName}</p>
-//               : <p>Please sign in.</p>
-//           }
-//           {
-//             user
-//               ? <button onClick={signOut}>Sign out</button>
-//               : <button onClick={signInWithGoogle}>Sign in with Google</button>
-//           }
-//         </header>
-//       </div>
-//     );
-//   }
-// }
-
-// const firebaseAppAuth = firebaseApp.auth();
-
-// const providers = {
-//   googleProvider: new firebase.auth.GoogleAuthProvider(),
-// };
-
-// export default withFirebaseAuth({
-//   providers,
-//   firebaseAppAuth,
-// })(App);

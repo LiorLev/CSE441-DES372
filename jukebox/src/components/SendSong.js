@@ -27,6 +27,7 @@ class SendSong extends Component {
         // document.addEventListener("keydown", this.arrowFunction, false);        
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
+
         let props = this.props;
         data.on("value", function (snapshot) {
             let res = snapshot.val();
@@ -36,7 +37,7 @@ class SendSong extends Component {
                 arr.push(res[key]);
             });
 
-            if (arr[0] == 'true') {
+            if (arr[0] == 'true' && props.history.location.state) {
                 console.log("accepted");
                 // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
                 let title = props.history.location.state['title'].split(' ').join('-');
@@ -44,7 +45,9 @@ class SendSong extends Component {
                 props.history.push(`/?song=${title}`+`_${artist}`)
             } else if (arr[0] == 'false') {
                 console.log("rejected");
-                props.history.push('/');
+                let title = props.history.location.state['title'].split(' ').join('-');
+                let artist = props.history.location.state['artist'].split(' ').join('-');
+                props.history.push(`/?song=${title}`+`_${artist}`)
             }
 
         }, function (errorObject) {
@@ -52,20 +55,11 @@ class SendSong extends Component {
         });
     }
 
-    // componentWillUnmount(){
-    //     document.removeEventListener("keydown", this.arrowFunction, false);
-
-    // }
-
-
     render() {
         let currUser = "";
         this.props.firebaseData.auth().onAuthStateChanged(user => {
-            console.log("user ", user.displayName);
-
             currUser = user.displayName;
         });
-
 
         return (
             <div style = {{marginTop: '166px', marginLeft: '158px'}}>

@@ -6,17 +6,13 @@ class ChooseGenre extends Component {
     genres = ["POP", "LATIN", "HIP-HOP", "COUNTRY", "ROCK", "DANCE", "INDIE", "CHILL"];
     constructor(props) {
         super(props);
-        this.state = { selected: 0, genre: '', redirect: null };
+        this.state = { selected: 0, genre: '' };
     }
 
     arrowFunction = (event) => {
         if (event.keyCode == '38' && this.state.selected > 0 && this.state.selected <= 8) {
-            // up arrow
-            // console.log("up");
             this.setState({ selected: this.state.selected - 1 });
         } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 7) {
-            // down arrow
-            // console.log("down");
             this.setState({ selected: this.state.selected + 1 });
         } else if (event.keyCode == '37') {
             // left arrow
@@ -25,19 +21,8 @@ class ChooseGenre extends Component {
             // right arrow
             // console.log("right");
         } else if (event.keyCode == '32') {
-            // genre: document.getElementsByClassName('selected')[0].textContent, 
-            // this.setState({ redirect: '/choose-song' });
-            this.props.history.push({pathname: '/choose-song', state: this.genres[this.state.selected]});
+            this.props.history.push({ pathname: '/choose-song', state: this.genres[this.state.selected] });
             document.removeEventListener("keydown", this.arrowFunction, false);
-
-            // this.setState({genre: this.genres[this.state.selected]});
-
-            // console.log("hey00");
-
-            // this.props.history.push({
-            //     pathname: "/choose-song",
-            //     state: this.state.genre
-            // });
         }
     }
 
@@ -46,16 +31,15 @@ class ChooseGenre extends Component {
     }
 
     componentWillUnmount() {
-        // document.removeEventListener("keydown", this.arrowFunction, false);
+        document.removeEventListener("keydown", this.arrowFunction, false);
     }
 
     render() {
         let songs = ["POP", "LATIN", "HIP-HOP", "COUNTRY"];
-
         let song2 = ["ROCK", "DANCE", "INDIE", "CHILL"];
 
         let songDivs = songs.map((item, index) =>
-            <div className ={(this.state.selected  === index ? 'selected ' : '') + "letters"}
+            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
                 <h1>{item}</h1> </div>);
 
@@ -65,9 +49,12 @@ class ChooseGenre extends Component {
                 <h1>{item}</h1> </div>);
 
         return (
-            <div style = {{textAlign: 'center', marginTop: '70px'}}>
-                <div style = {{display: 'inline-block'}}>{songDivs}</div>
-                <div style = {{display: 'inline-block'}}>{songDivs2}</div>
+            <div>
+                <h1 style = {{color: 'white'}}>Select song by genre</h1>
+                <div style={{ textAlign: 'center', marginTop: '70px' }}>
+                    <div style={{ display: 'inline-block' }}>{songDivs}</div>
+                    <div style={{ display: 'inline-block' }}>{songDivs2}</div>
+                </div>
             </div>
         );
     }

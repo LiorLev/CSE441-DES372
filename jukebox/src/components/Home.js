@@ -7,8 +7,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-
-        this.state = {nowplaying: "", artist: ""};
+        this.state = { nowplaying: "", artist: "" };
     }
 
     spaceFunction = (event) => {
@@ -18,25 +17,30 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        let nameAndArtist = window.location.href.split('song=')[1];
-        let arrayOfSong = nameAndArtist.split('_');
+        // if (window.location.href.indexOf('song=') != -1) {
+        //     let nameAndArtist = window.location.href.split('song=')[1];
+        //     let arrayOfSong = nameAndArtist.split('_');
 
-        let songartist = arrayOfSong[1].split('-').join(' ');
-        let title = arrayOfSong[0].split('-').join(' ');
+        //     let songartist = arrayOfSong[1].split('-').join(' ');
+        //     let title = arrayOfSong[0].split('-').join(' ');
 
-        title.indexOf('%27') != -1 ? title = title.replace('%27', "'") : title = title;
+        //     title.indexOf('%27') != -1 ? title = title.replace('%27', "'") : title = title;
 
-        songartist.indexOf('#/') != -1 ? songartist = songartist.replace('#/', "") : songartist = songartist;
+        //     songartist.indexOf('#/') != -1 ? songartist = songartist.replace('#/', "") : songartist = songartist;
 
 
-        this.setState({nowplaying: title, artist: songartist})
+        //     this.setState({ nowplaying: title, artist: songartist })
+        // }
 
         document.addEventListener("keydown", this.spaceFunction, false);
 
         let data = this.props.firebaseData.database().ref('jukebox/messages');
 
         let props = this.props;
-        
+
+        // let songartist = "";
+        // let title = "";
+
         data.on("value", function (snapshot) {
             let res = snapshot.val();
 
@@ -45,23 +49,42 @@ class Home extends Component {
                 arr.push(res[key]);
             });
 
+            console.log(arr);
             let userSent = "";
             if (arr[0] != "" && arr[2] != "" && arr[3] != "") {
-                userSent = arr[4];
-                songartist = arr[2];
-                title = arr[3];
+                userSent = arr[5];
+                // songartist = arr[2];
+                // title = arr[3];
             }
 
             if (userSent && props.firebaseData.auth().currentUser.displayName != userSent) {
-                props.history.push({ pathname: '/receive-song', state: { id: arr[1], title: arr[3], artist: arr[2] } });
+                props.history.push({ pathname: '/receive-song', state: { id: arr[2], title: arr[4], artist: arr[3], genre: arr[0] } });
             }
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+        let nowplaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+
+        let t = this;
+        nowplaying.on("value", function (snapshot) {
+            let res = snapshot.val();
+            var arr = [];
+
+            if (snapshot.val()) {
+                Object.keys(res).forEach(function (key) {
+                    arr.push(res[key]);
+                });
+                t.setState({ nowplaying: arr[1], artist: arr[0] })
+
+            }
+            console.log(arr);
 
 
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-        
-        
+
     }
 
     componentWillUnmount() {
@@ -74,7 +97,7 @@ class Home extends Component {
             signOut,
             signInWithGoogle,
         } = this.props.firebaseAuth;
-        
+
 
         return (
             <div className="App">
