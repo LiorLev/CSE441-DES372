@@ -8,7 +8,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "", react: false, reaction: ''};
+        this.state = { nowplaying: "", artist: "", react: false, reaction: '' };
     }
 
     spaceFunction = (event) => {
@@ -106,23 +106,24 @@ class Home extends Component {
             console.log(res[5]);
             if (res['userName']) {
                 userSent = res[5];
+                console.log("curr", currUser);
+                // console.log("sent", userSent);
+
+
+
+
+                // console.log("home" , arr);
+                if (userSent != "" && currUser != userSent) {
+                    console.log("in receive");
+                    props.history.push({ pathname: '/receive-song', state: { id: res['id'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
+                }
             }
             // let currUser = "";
             // props.firebaseData.auth().onAuthStateChanged(user => {
             //     currUser = user;
             // });
 
-            console.log("curr", currUser);
-            // console.log("sent", userSent);
 
-
-            
-
-            // console.log("home" , arr);
-            if (userSent != "" && currUser != userSent) {
-                console.log("in receive");
-                props.history.push({ pathname: '/receive-song', state: { id: res['id'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
-            }
 
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
@@ -165,16 +166,16 @@ class Home extends Component {
 
         return (
             <div className="App">
-                <div className = {!this.state.react ? 'hidden' : ''}>
-                    <SadReact reaction = {this.state.reaction}></SadReact>
+                <div className={!this.state.react ? 'hidden' : ''}>
+                    <SadReact reaction={this.state.reaction}></SadReact>
                 </div>
-                
+
                 {/* className="App-header" */}
-                <header  className = {(this.state.react ? 'hidden' : '') + "App-header" }>
+                <header className={(this.state.react ? 'hidden' : '') + "App-header"}>
                     {
                         user
                             ? <div>
-                                <p style={{ fontSize: '30px'}}>Songs in queue: 0</p>
+                                <p style={{ fontSize: '30px' }}>Songs in queue: 0</p>
                                 <p style={{ fontSize: '50px', marginBottom: '-40px' }}><strong>Now Playing:</strong> {this.state.nowplaying.toString()}</p>
                                 <p style={{ fontSize: '50px' }}><strong>Artist:</strong> {this.state.artist.toString()}</p>
                             </div>
