@@ -60,7 +60,7 @@ class App extends Component {
     );
   }
 
-  changeSongId = (songId) => {
+  changeSongId = (songId, artist, title) => {
     // this.setState({ title: songName, artist: songArtist });
     let data = firebaseApp.database().ref('jukebox/songId');
 
@@ -70,11 +70,11 @@ class App extends Component {
       window.location.href = `/`;
     });
 
-    // let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
-    // nowPlaying.set({
-    //   songName: this.props.history.location.state['title'],
-    //   songArtist: this.props.history.location.state['artist']
-    // });
+    let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+    nowPlaying.set({
+      songName: artist,
+      songArtist: title
+    });
   }
 
   render() {
