@@ -22,7 +22,7 @@ class SendSong extends Component {
             // });
             if (res['userAccepted'] != "") {
 
-                if (res['userAccepted'] == "true" && props.history.location.state) {
+                if (res['userAccepted'] == "true" ) {
                     // console.log("accepted");
                     // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
                     // let title = props.history.location.state['title'].split(' ').join('-');
