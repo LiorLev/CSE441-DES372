@@ -89,19 +89,19 @@ class ChooseSong extends Component {
         let songDivs = firstHalf.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1>{item['song']}</h1> <h2>{item['artist']}</h2> </div>);
+                <h1 style = {{marginBottom: '-20px'}}>{item['song']}</h1> <h2>{item['artist']}</h2> </div>);
 
         let songDivs2 = secondHalf.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1>{item['song']}</h1> <h2>{item['artist']}</h2> </div>);
+                <h1 style = {{marginBottom: '-20px'}}>{item['song']}</h1> <h2>{item['artist']}</h2> </div>);
 
         return (
             // <div style={{ textAlign: 'center', marginTop: '70px' }}>
             //     {songDivs}
             // </div>
-            <div>
-                <h1 style = {{color: 'white'}}>Select song </h1>
+            <div style={{ textAlign: 'center'}}>
+                <h1 style = {{color: 'white', fontSize: '45px', marginBottom: '-28px', textAlign: 'left'}}>Select song </h1>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ display: 'inline-block' }}>{songDivs}</div>
                     <div style={{ display: 'inline-block' }}>{songDivs2}</div>

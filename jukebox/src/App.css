@@ -3,12 +3,14 @@
 body {
   background-color: black;
   font-family: 'Roboto Condensed', sans-serif;
+  margin-left: 130px;
+  margin-top: 82px;
 }
 
-.App {
-  margin-left: 158px;
-  margin-top: 166px;
-}
+/* .App {
+  margin-left: 82px;
+  margin-top: 82px;
+} */
 
 .App-header {
   color: white;
@@ -23,14 +25,25 @@ body {
   }
 }
 
+.hidden{
+
+  display: none;
+
+}
+
+button {
+    background-color: black;
+    border: none;
+}
+
 .letters {
   text-align: center;
   border: 5px solid #46C4D3;
   color: #FFF170;
-  margin-bottom: 25px;
-  width: 700px;
-  margin-right: 30px;
-  height: 125px;
+  margin-bottom: 34px;
+  width: 511px;
+  margin-right: 89px;
+  height: 115px;
 }
 
 .receive {

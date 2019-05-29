@@ -7,16 +7,32 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "" };
+        this.state = { nowplaying: "", artist: "", react: false };
     }
 
     spaceFunction = (event) => {
         if (event.keyCode === 32) {
             this.props.history.push("/choose-genre");
+        } else if (event.keyCode === 13) {
+            console.log("yo");
+            // this.setState({ react: true });
+            
         }
     }
 
+    // getanimations() {
+    //     return <marquee behavior="scroll" direction="down">
+    //         <img src="https://i.imgur.com/T1EWZ5F.png" width="72" height="79" alt="Flying Bee" />
+    //     </marquee>
+    // }
+
     componentDidMount() {
+        // if(this.state.react == true){
+        //     setTimeout( () => {
+
+        //     })
+        // }
+
         document.addEventListener("keydown", this.spaceFunction, false);
 
         let data = this.props.firebaseData.database().ref('jukebox/messages');
@@ -81,11 +97,14 @@ class Home extends Component {
 
         return (
             <div className="App">
+                {/* <iframe src="https://i.imgur.com/1KAg6BW.mp4" style = {{width:"200", height:"220", border: 'none'}} scrolling="no"></iframe> */}
+                
                 <header className="App-header">
                     {
                         user
                             ? <div>
-                                <p style={{ fontSize: '50px', marginBottom: '93px' }}><strong>Now Playing:</strong> {this.state.nowplaying.toString()}</p>
+                                <p style={{ fontSize: '30px', color: '#fff170' }}>Songs in queue: 0</p>
+                                <p style={{ fontSize: '50px', marginBottom: '-40px' }}><strong>Now Playing:</strong> {this.state.nowplaying.toString()}</p>
                                 <p style={{ fontSize: '50px' }}><strong>Artist:</strong> {this.state.artist.toString()}</p>
                             </div>
                             : <p>Please sign in.</p>
