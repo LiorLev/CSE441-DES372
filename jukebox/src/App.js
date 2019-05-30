@@ -28,9 +28,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
-    alert("hey");
-
     let msgs = firebaseApp.database().ref('jukebox/messages');
     msgs.set({
       userName: "",
