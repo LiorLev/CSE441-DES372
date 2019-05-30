@@ -22,17 +22,17 @@ class SendSong extends Component {
             // });
             if (res['userAccepted'] != "") {
 
-                if (res['userAccepted'] == "true" ) {
+                if (res['userAccepted'] == "true") {
                     // console.log("accepted");
                     // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
                     // let title = props.history.location.state['title'].split(' ').join('-');
                     // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    window.location.href  = `/`;
+                    window.location.href = `/`;
                 } else if (res['userAccepted'] == "false") {
                     // console.log("rejected");
                     // let title = props.history.location.state['title'].split(' ').join('-');
                     // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    window.location.href  = `/`;
+                    window.location.href = `/`;
 
                 }
             }
@@ -43,11 +43,14 @@ class SendSong extends Component {
     }
 
     render() {
-        let currUser = "";
-        this.props.firebaseData.auth().onAuthStateChanged(user => {
-            currUser = user.displayName;
-        });
+        let currUser = this.props.firebaseData.auth().currentUser.displayName;
+        // this.props.firebaseData.auth().onAuthStateChanged(user => {
+        //     if (user) {
+        //         currUser = user.displayName;
+        //     }
+        // });
 
+        // console.log(currUser);
         return (
             <div style={{ textAlign: 'center', marginRight: '160px' }}>
                 {/* <h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers </h1> */}

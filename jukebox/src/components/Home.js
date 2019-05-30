@@ -81,16 +81,24 @@ class Home extends Component {
 
         //     })
         // }
-        let currUser = "";
-        this.props.firebaseData.auth().onAuthStateChanged(user => {
-            currUser = (user.displayName);
-        });
+
+
+
 
         document.addEventListener("keydown", this.spaceFunction, false);
 
         let data = this.props.firebaseData.database().ref('jukebox/messages');
 
         let props = this.props;
+
+        let currUser = "";
+        this.props.firebaseData.auth().onAuthStateChanged(user => {
+            if (user) {
+                currUser = (user.displayName);
+            }
+        });
+
+        console.log("user: ", currUser);
 
         data.on("value", function (snapshot) {
             let res = snapshot.val();
@@ -111,9 +119,6 @@ class Home extends Component {
                 console.log("songid", res['song']);
 
                 // console.log("sent", userSent);
-
-
-
 
                 // console.log("home" , arr);
                 if (userSent != "" && currUser != userSent && res['song']) {
@@ -143,7 +148,7 @@ class Home extends Component {
                 Object.keys(res).forEach(function (key) {
                     arr.push(res[key]);
                 });
-                t.setState({ nowplaying: arr[1], artist: arr[0] })
+                t.setState({ nowplaying: arr[0], artist: arr[1] })
 
             }
             // console.log(arr);
@@ -165,7 +170,6 @@ class Home extends Component {
             signOut,
             signInWithGoogle,
         } = this.props.firebaseAuth;
-
 
         return (
             <div className="App">
