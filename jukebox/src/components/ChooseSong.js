@@ -28,6 +28,8 @@ class ChooseSong extends Component {
     }
 
     arrowFunction1 = (event) => {
+        let history = JSON.parse(JSON.stringify(this.props.history));
+
         if (event.altKey && event.code == 'AltRight') {
             let data = this.props.firebaseData.database().ref('jukebox/messages');
 
@@ -42,7 +44,12 @@ class ChooseSong extends Component {
 
             this.props.history.push({
                 pathname: `/send-song`,
-                state: { id: this.songs[this.state.selected]['id'], title: this.songs[this.state.selected]['song'], artist: this.songs[this.state.selected]['artist'] }
+                state: {
+                    id: this.songs[this.state.selected]['id'],
+                    title: this.songs[this.state.selected]['song'],
+                    artist: this.songs[this.state.selected]['artist'],
+                    history: history
+                }
             });
 
         } else if (event.keyCode == '37' && this.state.selected >= 1 && this.state.selected <= 10) {
@@ -74,11 +81,11 @@ class ChooseSong extends Component {
         let firstHalf = [];
         let secondHalf = [];
 
-        for(let i = 0; i < this.songs.length / 2; i++){
+        for (let i = 0; i < this.songs.length / 2; i++) {
             firstHalf[i] = this.songs[i];
         }
 
-        for(let i = this.songs.length / 2; i < this.songs.length; i++){
+        for (let i = this.songs.length / 2; i < this.songs.length; i++) {
             secondHalf[i] = this.songs[i];
         }
 
@@ -89,19 +96,19 @@ class ChooseSong extends Component {
         let songDivs = firstHalf.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1 style = {{marginBottom: '-16px'}}>{item['song']}</h1> <h4>{item['artist']}</h4> </div>);
+                <h1 style={{ marginBottom: '-16px' }}>{item['song']}</h1> <h4>{item['artist']}</h4> </div>);
 
         let songDivs2 = secondHalf.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1 style = {{marginBottom: '-16px'}}>{item['song']}</h1> <h4>{item['artist']}</h4> </div>);
+                <h1 style={{ marginBottom: '-16px' }}>{item['song']}</h1> <h4>{item['artist']}</h4> </div>);
 
         return (
             // <div style={{ textAlign: 'center', marginTop: '70px' }}>
             //     {songDivs}
             // </div>
-            <div style={{ textAlign: 'center'}}>
-                <h1 style = {{color: 'white', fontSize: '45px', marginBottom: '-28px', textAlign: 'left'}}>Select song </h1>
+            <div style={{ textAlign: 'center' }}>
+                <h1 style={{ color: 'white', fontSize: '45px', marginBottom: '-28px', textAlign: 'left' }}>Select song </h1>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ display: 'inline-block' }}>{songDivs}</div>
                     <div style={{ display: 'inline-block' }}>{songDivs2}</div>

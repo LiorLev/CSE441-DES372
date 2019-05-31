@@ -3,6 +3,7 @@ import 'firebase/auth';
 import '../App.css';
 import { withRouter } from 'react-router-dom';
 import SadReact from './sadreact';
+import { objectTypeSpreadProperty } from '@babel/types';
 
 class Home extends Component {
 
@@ -25,7 +26,7 @@ class Home extends Component {
                     react: false,
                     reaction: ''
                 });
-            }, 1500);
+            }, 2000);
 
         } else if (event.keyCode === 73) {
             this.setState({
@@ -38,7 +39,7 @@ class Home extends Component {
                     react: false,
                     reaction: ''
                 });
-            }, 1500);
+            }, 2000);
 
         } else if (event.keyCode === 80) {
             this.setState({
@@ -51,7 +52,7 @@ class Home extends Component {
                     react: false,
                     reaction: ''
                 });
-            }, 1500);
+            }, 2000);
 
         } else if (event.keyCode === 221) {
             this.setState({
@@ -64,26 +65,13 @@ class Home extends Component {
                     react: false,
                     reaction: ''
                 });
-            }, 1500);
+            }, 2000);
 
         }
     }
 
-    // getanimations() {
-    //     return <marquee behavior="scroll" direction="down">
-    //         <img src="https://i.imgur.com/T1EWZ5F.png" width="72" height="79" alt="Flying Bee" />
-    //     </marquee>
-    // }
-
     componentDidMount() {
-        // if(this.state.react == true){
-        //     setTimeout( () => {
-
-        //     })
-        // }
-
-
-
+        console.log("idk: ", this.props.history.location.state);
 
         document.addEventListener("keydown", this.spaceFunction, false);
 
@@ -98,45 +86,42 @@ class Home extends Component {
             }
         });
 
-        console.log("user: ", currUser);
+        let history = JSON.parse(JSON.stringify(this.props.history));
+        
 
-        data.on("value", function (snapshot) {
-            let res = snapshot.val();
 
-            console.log("res", res);
-            // var arr = [];
-            // Object.keys(res).forEach(function (key) {
-            //     arr.push(res[key]);
-            // });
+        if (this.props.history.location.state != 'from sendsong' && this.props.history.location.state != 'rejected') {
+            data.on("value", function (snapshot) {
+                let res = snapshot.val();
 
-            // console.log("home", arr);
-            let userSent = "";
-            console.log(res[5]);
-            if (res['userName']) {
-                userSent = res['userName'];
-                console.log("curr", currUser);
-                console.log("sent", userSent);
-                console.log("songid", res['song']);
+                // console.log("res", res);
 
-                // console.log("sent", userSent);
+                let userSent = "";
+                // console.log(res[5]);
+                if (res['userName']) {
+                    userSent = res['userName'];
 
-                // console.log("home" , arr);
-                if (userSent != "" && currUser != userSent && res['song']) {
-                    console.log("in receive");
-                    props.history.push({ pathname: '/receive-song', state: { id: res['song'], title: res['songName'], artist: res['songArtist'], genre: res['genre'] } });
+                    if (userSent != "" && currUser != userSent && res['song']) {
+                        props.history.push({
+                            pathname: '/receive-song',
+                            state: {
+                                id: res['song'],
+                                title: res['songName'],
+                                artist: res['songArtist'],
+                                genre: res['genre'],
+                                history: history
+                            }
+                            // history: props.history                            }
+                        });
+                    }
                 }
-            }
-            // let currUser = "";
-            // props.firebaseData.auth().onAuthStateChanged(user => {
-            //     currUser = user;
-            // });
 
-
-
-        }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
+        }else{
+            this.props.history.location.state = "";
+        }
         let nowplaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
 
         let t = this;
@@ -148,11 +133,10 @@ class Home extends Component {
                 Object.keys(res).forEach(function (key) {
                     arr.push(res[key]);
                 });
+
                 t.setState({ nowplaying: arr[0], artist: arr[1] })
 
             }
-            // console.log(arr);
-
 
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
@@ -177,7 +161,6 @@ class Home extends Component {
                     <SadReact reaction={this.state.reaction}></SadReact>
                 </div>
 
-                {/* className="App-header" */}
                 <header className={(this.state.react ? 'hidden' : '') + "App-header"}>
                     {
                         user

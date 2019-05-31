@@ -11,81 +11,28 @@ class ReceiveSong extends Component {
         this.state = { selected: null, songReceived: false };
     }
 
+    testing = (ans) => {
+        console.log("HEY")
+        if (ans == "no") {
+            console.log("HO")
+            console.log(this.props.history.push('/'));
+            this.props.history.push({pathname: '/', state: 'rejected'});
+        }
+    }
+
     arrowFunction2 = (event) => {
-        // if (event.keyCode == '32') {
-        // let data = this.props.firebaseData.database().ref('jukebox/received');
-
-        // let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
-
-        // data.set({
-        //     userAccepted: this.state.selected == 0 ? "true" : "false"
-        // }).then(() => {
-        //     if(this.state.selected == 0){
-
-        //         nowPlaying.set({
-        //             songName: this.props.history.location.state['title'],
-        //             songArtist: this.props.history.location.state['artist']
-        //         });
-
-        //         this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
-        //     }else{
-        //         window.location.href = "/";
-        //     }
-        // })
-
-        // } else 
-        console.log(event.code);
         if (event.ctrlKey && event.keyCode == '17') {
             // console.log('here')
             console.log("heyyyy")
 
             this.setState({ selected: 0 });
 
-            // let data = this.props.firebaseData.database().ref('jukebox/received');
-
-            // let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
-
-            // data.set({
-            //     userAccepted: "true"
-            // }).then(() => {
-            //     // if(this.state.selected == 0){
-
-            //         nowPlaying.set({
-            //             songName: this.props.history.location.state['title'],
-            //             songArtist: this.props.history.location.state['artist']
-            //         });
-
-            //         this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
-            //     // }else{
-            //     //     window.location.href = "/";
-            //     // }
-            // })
-
         } else if (event.altKey && event.code == 'AltLeft') {
-            // console.log("heyyyy")
+            console.log("heyyyy")
             // console.log('here')
 
             this.setState({ selected: 1 });
 
-            // let data = this.props.firebaseData.database().ref('jukebox/received');
-
-            // // let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
-
-            // data.set({
-            //     userAccepted: "false"
-            // }).then(() => {
-            //     // if(this.state.selected == 0){
-
-            //     //     nowPlaying.set({
-            //     //         songName: this.props.history.location.state['title'],
-            //     //         songArtist: this.props.history.location.state['artist']
-            //     //     });
-
-            //     //     this.props.changeSongId(this.props.history.location.state['id'], this.props.history.location.state['title'], this.props.history.location.state['artist']);
-            //     // }else{
-            //         window.location.href = "/";
-            //     // }
-            // })
         }
 
         let data = this.props.firebaseData.database().ref('jukebox/received');
@@ -102,11 +49,14 @@ class ReceiveSong extends Component {
                     songArtist: this.props.history.location.state['title'].toString()
                 });
 
-                this.props.changeSongId(this.props.history.location.state['id'].toString());
+                this.props.changeSongId(this.props.history.location.state['id'].toString(), this.props.history);
 
 
             } else if (this.state.selected == 1) {
-                window.location.href = "/";
+                console.log("yoo");
+                this.testing("no");
+                // this.props.history.push(`/`);
+                // window.location.href = "/";
                 // return <Home></Home>
             }
         })
