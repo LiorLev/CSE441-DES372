@@ -3,8 +3,6 @@ import 'firebase/auth';
 import '../App.css';
 import { withRouter } from 'react-router-dom';
 import ReactionEmojis from './ReactionEmojisAllen';
-// import ReactionEmojisGates from './ReactionEmojisGates';
-
 import ReactModal from 'react-modal';
 
 
