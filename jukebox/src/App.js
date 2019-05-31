@@ -4,9 +4,6 @@ import Routes from './routes';
 import withFirebaseAuth from 'react-with-firebase-auth'
 import * as firebase from 'firebase';
 import firebaseConfig from './firebaseConfig';
-
-// import './App.css';
-
 import Home from './components/Home';
 import ChooseGenre from './components/ChooseGenre';
 import ChooseSong from './components/ChooseSong';
@@ -17,19 +14,16 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       songId: "",
       title: "",
       artist: ""
-    };
+    };    
   }
 
   componentDidMount() {
-    console.log(this.props.history);
-
     let msgs = firebaseApp.database().ref('jukebox/messages');
     msgs.set({
       userName: "",
@@ -52,19 +46,16 @@ class App extends Component {
   matchRoute() {
     return (
       <Switch>
-          <Route exact path={Routes.home} render={props => <Home {...props} song={this.state} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
-          <Route exact path={Routes.sendSong} render={props => <SendSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
-          <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData={firebaseApp} />} />
-          <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
-          <Route exact path={Routes.receiveSong} render={props => <ReceiveSong song={this.state} {...props} firebaseAuth={this.props} firebaseData={firebaseApp} changeSongId={this.changeSongId} />} />
+        <Route exact path={Routes.home} render={props => <Home {...props} song={this.state} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.sendSong} render={props => <SendSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.chooseGenre} render={props => <ChooseGenre {...props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.chooseSong} render={props => <ChooseSong {...props} firebaseAuth={this.props} firebaseData={firebaseApp} />} />
+        <Route exact path={Routes.receiveSong} render={props => <ReceiveSong song={this.state} {...props} firebaseAuth={this.props} firebaseData={firebaseApp} changeSongId={this.changeSongId} />} />
       </Switch>
     );
   }
 
- 
-
   changeSongId = (songId, history) => {
-    // this.setState({ title: songName, artist: songArtist });
     let data = firebaseApp.database().ref('jukebox/songId');
 
     data.set({
@@ -72,10 +63,7 @@ class App extends Component {
     }).then(() => {
       window.location.href = `/`;
     });
-
-
   }
-
 
   render() {
     return (

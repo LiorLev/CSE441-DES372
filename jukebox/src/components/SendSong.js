@@ -5,11 +5,18 @@ import '../App.css';
 class SendSong extends Component {
     constructor(props) {
         super(props);
-        // this.state = { selected: 0 };
     }
 
     testing = (ans) => {
-        if (ans == 'yes') {
+        let data = this.props.firebaseData.database().ref('jukebox/received');
+
+
+        data.set({
+            userAccepted: ""
+        });
+
+        if (ans == 'no') {
+            
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong'
@@ -20,6 +27,8 @@ class SendSong extends Component {
                 state: 'from sendsong'
             });
         }
+
+        
     }
 
     componentDidMount() {
@@ -32,26 +41,11 @@ class SendSong extends Component {
 
             if (res['userAccepted']) {
                 if (res['userAccepted'] == "true") {
-                    // console.log("accepted");
-                    // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
-                    // let title = props.history.location.state['title'].split(' ').join('-');
-                    // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    // window.location.href = `/`;
                     t.testing('yes');
-                    // props.history.push({pathname:'/'});
+                    // window.location.href = '/';
                 } else if (res['userAccepted'] == "false") {
-                    // console.log("rejected");
-                    // let title = props.history.location.state['title'].split(' ').join('-');
-                    // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    // window.location.href = `/`;
                     t.testing('no');
-
-                    // props.push('/');
                 }
-                //     props.history.push('/');
-
-                // }
-                // props.history.push('/');
             }
 
         }, function (errorObject) {

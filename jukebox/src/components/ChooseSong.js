@@ -39,10 +39,8 @@ class ChooseSong extends Component {
                 song: this.songs[this.state.selected]['id'],
                 songName: this.songs[this.state.selected]['song'],
                 songArtist: this.songs[this.state.selected]['artist'],
-                genre: this.props.history.location.state.toLowerCase()
-            });
-
-            this.props.history.push({
+                genre: this.props.history.location.state
+            }).then(this.props.history.push({
                 pathname: `/send-song`,
                 state: {
                     id: this.songs[this.state.selected]['id'],
@@ -50,7 +48,17 @@ class ChooseSong extends Component {
                     artist: this.songs[this.state.selected]['artist'],
                     history: history
                 }
-            });
+            }));
+
+            // this.props.history.push({
+            //     pathname: `/send-song`,
+            //     state: {
+            //         id: this.songs[this.state.selected]['id'],
+            //         title: this.songs[this.state.selected]['song'],
+            //         artist: this.songs[this.state.selected]['artist'],
+            //         history: history
+            //     }
+            // });
 
         } else if (event.keyCode == '37' && this.state.selected >= 1 && this.state.selected <= 10) {
             // up arrow

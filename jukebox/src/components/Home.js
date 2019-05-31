@@ -110,8 +110,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        console.log("idk: ", this.props.history.location.state);
-
         document.addEventListener("keydown", this.spaceFunction, false);
 
         let data = this.props.firebaseData.database().ref('jukebox/messages');
@@ -180,7 +178,6 @@ class Home extends Component {
 
         reaction.on("value", function (snapshot) {
             let res = snapshot.val();
-            console.log(res);
 
             if (res['username'] && res['username'] != '' && res['username'] != currUser) {
                 t.setState({
