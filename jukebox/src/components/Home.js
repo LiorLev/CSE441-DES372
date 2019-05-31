@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import 'firebase/auth';
 import '../App.css';
 import { withRouter } from 'react-router-dom';
-import SadReact from './sadreact';
+import ReactionEmojis from './ReactionEmojisAllen';
+// import ReactionEmojisGates from './ReactionEmojisGates';
+
 import ReactModal from 'react-modal';
 
 
@@ -17,9 +19,11 @@ class Home extends Component {
         if (event.altKey && event.code == 'AltRight') {
             this.props.history.push("/choose-genre");
         } else if (event.keyCode === 85) {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/1KKBBW1.png' :'https://i.imgur.com/RsobDg4.png'
+
             this.setState({
                 react: true,
-                reaction: 'https://i.imgur.com/RsobDg4.png'
+                reaction: emoji
             });
 
             setTimeout(() => {
@@ -28,11 +32,20 @@ class Home extends Component {
                     reaction: ''
                 });
             }, 2000);
+
+            let data = this.props.firebaseData.database().ref('jukebox/reaction');
+
+            data.set({
+                username: this.props.firebaseData.auth().currentUser.displayName,
+                reaction: emoji
+            });
 
         } else if (event.keyCode === 73) {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/aE4OUta.png' :'https://i.imgur.com/kTjaDoi.png'
+
             this.setState({
                 react: true,
-                reaction: 'https://i.imgur.com/kTjaDoi.png'
+                reaction: emoji
             });
 
             setTimeout(() => {
@@ -41,11 +54,20 @@ class Home extends Component {
                     reaction: ''
                 });
             }, 2000);
+
+            let data = this.props.firebaseData.database().ref('jukebox/reaction');
+
+            data.set({
+                username: this.props.firebaseData.auth().currentUser.displayName,
+                reaction: emoji
+            });
 
         } else if (event.keyCode === 80) {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/yzBjrds.png' :'https://i.imgur.com/eWkGDr0.png'
+
             this.setState({
                 react: true,
-                reaction: 'https://i.imgur.com/eWkGDr0.png'
+                reaction: emoji
             });
 
             setTimeout(() => {
@@ -54,11 +76,20 @@ class Home extends Component {
                     reaction: ''
                 });
             }, 2000);
+
+            let data = this.props.firebaseData.database().ref('jukebox/reaction');
+
+            data.set({
+                username: this.props.firebaseData.auth().currentUser.displayName,
+                reaction: emoji
+            });
 
         } else if (event.keyCode === 221) {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/JNspSA8.png' :'https://i.imgur.com/ZE1J401.png'
+
             this.setState({
                 react: true,
-                reaction: 'https://i.imgur.com/ZE1J401.png'
+                reaction: emoji
             });
 
             setTimeout(() => {
@@ -67,6 +98,13 @@ class Home extends Component {
                     reaction: ''
                 });
             }, 2000);
+
+            let data = this.props.firebaseData.database().ref('jukebox/reaction');
+
+            data.set({
+                username: this.props.firebaseData.auth().currentUser.displayName,
+                reaction: emoji
+            });
 
         }
     }
@@ -88,17 +126,11 @@ class Home extends Component {
         });
 
         let history = JSON.parse(JSON.stringify(this.props.history));
-        
-
 
         if (this.props.history.location.state != 'from sendsong' && this.props.history.location.state != 'rejected') {
             data.on("value", function (snapshot) {
                 let res = snapshot.val();
-
-                // console.log("res", res);
-
                 let userSent = "";
-                // console.log(res[5]);
                 if (res['userName']) {
                     userSent = res['userName'];
 
@@ -119,9 +151,11 @@ class Home extends Component {
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });
-        }else{
+        } else {
             this.props.history.location.state = "";
         }
+
+
         let nowplaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
 
         let t = this;
@@ -142,6 +176,36 @@ class Home extends Component {
             console.log("The read failed: " + errorObject.code);
         });
 
+        let reaction = this.props.firebaseData.database().ref('jukebox/reaction');
+
+        reaction.on("value", function (snapshot) {
+            let res = snapshot.val();
+            console.log(res);
+
+            if (res['username'] && res['username'] != '' && res['username'] != currUser) {
+                t.setState({
+                    react: true,
+                    reaction: res['reaction']
+                });
+
+                setTimeout(() => {
+                    t.setState({
+                        react: false,
+                        reaction: ''
+                    });
+
+                    reaction.set({
+                        username: '',
+                        reaction: ''
+                    })
+                }, 2000);
+            }
+
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+
     }
 
     componentWillUnmount() {
@@ -157,13 +221,11 @@ class Home extends Component {
 
         return (
             <div className="App">
-                {/* <ReactModal className={!this.state.react ? 'hidden' : ''}>
-                    <SadReact reaction={this.state.reaction}></SadReact>
-                </ReactModal> */}
-                 <ReactModal isOpen={!this.state.react ? false : true} className = "Modal" >
-                    <SadReact reaction={this.state.reaction}></SadReact>
+
+                <ReactModal isOpen={!this.state.react ? false : true} className="Modal" >
+                    <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
-{/* // {(this.state.react ? 'hidden' : '') +  */}
+
                 <header className="App-header">
                     {
                         user
