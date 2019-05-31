@@ -13,6 +13,7 @@ class SendSong extends Component {
 
         let props = this.props;
 
+        // console.log(props.history);
         data.on("value", function (snapshot) {
             let res = snapshot.val();
 
@@ -20,23 +21,27 @@ class SendSong extends Component {
             // Object.keys(res).forEach(function (key) {
             //     arr.push(res[key]);
             // });
-            if (res['userAccepted'] != "") {
+            if (res['userAccepted']) {
+
+                alert(props.history.push("/"));
 
                 if (res['userAccepted'] == "true") {
                     // console.log("accepted");
                     // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});
                     // let title = props.history.location.state['title'].split(' ').join('-');
                     // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    // window.location.href = `/`;
-                    props.history.push('/');
+                    window.location.href = `/`;
+                    // props.history.push('/');
                 } else if (res['userAccepted'] == "false") {
                     // console.log("rejected");
                     // let title = props.history.location.state['title'].split(' ').join('-');
                     // let artist = props.history.location.state['artist'].split(' ').join('-');
-                    // window.location.href = `/`;
-                    props.history.push('/');
-
+                    window.location.href = `/`;
                 }
+                //     props.history.push('/');
+
+                // }
+                // props.history.push('/');
             }
 
         }, function (errorObject) {
