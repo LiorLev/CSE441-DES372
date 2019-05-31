@@ -1,44 +1,29 @@
 import React, { Component } from 'react';
-import {Redirect,  withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import '../App.css';
-// import currentUser from '../globals';
 
 class ChooseGenre extends Component {
+    genres = ["POP", "LATIN", "HIP-HOP", "COUNTRY", "ROCK", "DANCE", "INDIE", "CHILL"];
     constructor(props) {
         super(props);
-        this.state = { selected: 0, genre: '' , redirect: null};
+        this.state = { selected: 0, genre: '' };
     }
 
     arrowFunction = (event) => {
-        if (event.keyCode == '38' && this.state.selected > 0 && this.state.selected <= 8) {
-            // up arrow
-            // console.log("up");
+        if (event.keyCode == '37' && this.state.selected > 0 && this.state.selected <= 8) {
             this.setState({ selected: this.state.selected - 1 });
-        } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 7) {
-            // down arrow
-            // console.log("down");
+        } else if (event.keyCode == '45' && this.state.selected >= 0 && this.state.selected < 7) {
             this.setState({ selected: this.state.selected + 1 });
-        } else if (event.keyCode == '37') {
-            // left arrow
-            // console.log("left");
-        } else if (event.keyCode == '39') {
-            // right arrow
-            // console.log("right");
-        } else if (event.keyCode == '32') {
-            // genre: document.getElementsByClassName('selected')[0].textContent, 
-            this.setState({redirect: '/choose-song'});
-            console.log("hey00");
-
-            // this.props.history.push({
-            //     pathname: "/choose-song",
-            //     state: this.state.genre
-            // });
+        } else if (event.altKey && event.code == 'AltRight') {
+            this.props.history.push({ pathname: '/choose-song', state: this.genres[this.state.selected] });
+            document.removeEventListener("keydown", this.arrowFunction, false);
+        }else if (event.keyCode == '192'){
+            this.props.history.goBack();
         }
     }
 
     componentDidMount() {
         document.addEventListener("keydown", this.arrowFunction, false);
-        console.log("genre")
     }
 
     componentWillUnmount() {
@@ -46,22 +31,27 @@ class ChooseGenre extends Component {
     }
 
     render() {
-        const {redirect} = this.state;
-        console.log(redirect);
-        if (redirect) return <Redirect to={{pathname: redirect, state: {genre: this.state.genre} }} />;
-        
-        let flag = true;
-        let songs = ["POP", "INDIE", "CLASSIC", "FOCUS", "COUNTRY", "ROCK", "JAZZ", "R&B"];
+        let songs = ["Pop", "Latin", "Hip-Hop", "Country"];
+        let song2 = ["Rock", "Dance", "Indie", "Chill"];
+
         let songDivs = songs.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1>{item}</h1> </div>)
+                <h1 style = {{marginTop: '35px'}}>{item}</h1> </div>);
+
+        let songDivs2 = song2.map((item, index) =>
+            <div className={(this.state.selected === index + 4 ? 'selected ' : '') + "letters"}
+                 id={index + 4} key={index + 4}>
+                <h1 style = {{marginTop: '35px'}}>{item}</h1> </div>);
 
         return (
-            <div>
-                {songDivs}
+            <div style={{ textAlign: 'center'}}>
+                <h1 style = {{color: 'white', fontSize: '45px', marginBottom: '-28px', textAlign: 'left'}}><strong>Select song by genre</strong></h1>
+                <div style={{ textAlign: 'center', marginTop: '70px' }}>
+                    <div style={{ display: 'inline-block' }}>{songDivs}</div>
+                    <div style={{ display: 'inline-block' }}>{songDivs2}</div>
+                </div>
             </div>
-
         );
     }
 }

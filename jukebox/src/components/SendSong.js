@@ -1,44 +1,69 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 class SendSong extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     console.log(props);
-    //     this.state = { selected: 0 };
-    // }
+    constructor(props) {
+        super(props);
+    }
 
-    arrowFunction = (event) => {
-        if (event.keyCode == '38' ) {
-            // up arrow
-            // console.log("up");
-            this.setState({ selected: this.state.selected - 1 });
-        } else if (event.keyCode == '40' ) {
-            // down arrow
-            // console.log("down");
-            this.setState({ selected: this.state.selected + 1 });
+    testing = (ans) => {
+        let data = this.props.firebaseData.database().ref('jukebox/received');
 
-        } else if (event.keyCode == '32') {
-            this.props.history.push("/");
+
+        data.set({
+            userAccepted: ""
+        });
+
+        if (ans == 'no') {
+            
+            this.props.history.push({
+                pathname: `/`,
+                state: 'from sendsong'
+            });
+        }else{
+            this.props.history.push({
+                pathname: `/`,
+                state: 'from sendsong'
+            });
         }
+
+        
     }
 
     componentDidMount() {
-        document.addEventListener("keydown", this.arrowFunction, false);
-    }
-    
-    componentWillUnmount(){
-        document.removeEventListener("keydown", this.arrowFunction, false);
+        let data = this.props.firebaseData.database().ref('jukebox/received');
+
+        let props = this.props;
+        let t = this;
+        data.on("value", function (snapshot) {
+            let res = snapshot.val();
+
+            if (res['userAccepted']) {
+                if (res['userAccepted'] == "true") {
+                    t.testing('yes');
+                    // window.location.href = '/';
+                } else if (res['userAccepted'] == "false") {
+                    t.testing('no');
+                }
+            }
+
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
     }
 
     render() {
-        // let songs = ["Old Town Road", "Love on the Brain", "Homicide", "Sucker"];
-        // let songDivs = songs.map((item, index) =>
-        //     <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} id={index} key={index}> <h1>{item}</h1> </div>)
+        let currUser = this.props.firebaseData.auth().currentUser.displayName;
 
         return (
-            <h1>Song was sent</h1>
+            <div style={{ textAlign: 'center', marginRight: '160px' }}>
+                {currUser == "Allen Building" ? <div><h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers in the <span style={{ color: '#46C4D3' }}>Research Commons</span></h1> </div> :
+                    <div><h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers in the <span style={{ color: '#FFF170' }}>Jaech</span> </h1></div>}
+                <h1 style={{ marginTop: '45px', color: 'white' }}>They only know the genre and artist of the song</h1>
+                {currUser == "Allen Building" ? <img style={{ marginTop: '10px' }} src="https://i.imgur.com/3xhwCSf.png"></img> :
+                    <img style={{ marginTop: '10px' }} src="https://i.imgur.com/DlebHZY.png"></img>}
+            </div>
         );
     }
 }
