@@ -22,9 +22,6 @@ class SendSong extends Component {
             //     arr.push(res[key]);
             // });
             if (res['userAccepted']) {
-
-                alert(props.history.push("/"));
-
                 if (res['userAccepted'] == "true") {
                     // console.log("accepted");
                     // props.history.push({pathname: '/', state: {id: props.history.location.state['id'], title: props.history.location.state['title'], artist: props.history.location.state['artist']}});

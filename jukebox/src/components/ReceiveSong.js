@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import '../App.css';
 import ChooseSong from '../components/ChooseSong';
+import Home from '../components/Home';
+
 
 class ReceiveSong extends Component {
     constructor(props) {
@@ -92,20 +94,20 @@ class ReceiveSong extends Component {
         data.set({
             userAccepted: this.state.selected == 0 ? "true" : "false"
         }).then(() => {
-            
+
             if (this.state.selected == 0) {
                 let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
                 nowPlaying.set({
                     songName: this.props.history.location.state['artist'].toString(),
-                    songArtist:  this.props.history.location.state['title'].toString()
+                    songArtist: this.props.history.location.state['title'].toString()
                 });
 
                 this.props.changeSongId(this.props.history.location.state['id'].toString());
 
-                
+
             } else if (this.state.selected == 1) {
-                alert(this.props.history.push('/'));
                 window.location.href = "/";
+                // return <Home></Home>
             }
         })
     }
@@ -120,14 +122,19 @@ class ReceiveSong extends Component {
     }
 
     render() {
-        let arr = ['accepted', 'rejected'];
+        // let arr = ['accepted', 'rejected'];
         // let receivedDivs = arr.map((item, index) =>
         //     <div className={(this.state.selected === index ? 'selectedChoice ' : '') + 'receive'} style={{ display: 'inline-block' }}
         //         id={index} key={index}> <h1>{item}</h1> </div>)
-        let currUser = "";
-        this.props.firebaseData.auth().onAuthStateChanged(user => {
-            currUser = user.displayName;
-        });
+        // let currUser = "";
+        // this.props.firebaseData.auth().onAuthStateChanged(user => {
+        //     if (user) {
+        //         currUser = user.displayName;
+        //     }
+        // });
+
+        // console.log("currrr", currUser);
+        let currUser = this.props.firebaseData.auth().currentUser.displayName;
 
         return (
             <div>
