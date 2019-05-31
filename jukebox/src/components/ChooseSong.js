@@ -66,6 +66,8 @@ class ChooseSong extends Component {
         } else if (event.keyCode == '45' && this.state.selected >= 0 && this.state.selected < 9) {
             // down arrow
             this.setState({ selected: this.state.selected + 1 });
+        }else if (event.keyCode == '192'){
+            this.props.history.goBack();
         }
     }
 
