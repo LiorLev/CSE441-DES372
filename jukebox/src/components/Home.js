@@ -3,7 +3,8 @@ import 'firebase/auth';
 import '../App.css';
 import { withRouter } from 'react-router-dom';
 import SadReact from './sadreact';
-import { objectTypeSpreadProperty } from '@babel/types';
+import ReactModal from 'react-modal';
+
 
 class Home extends Component {
 
@@ -111,7 +112,6 @@ class Home extends Component {
                                 genre: res['genre'],
                                 history: history
                             }
-                            // history: props.history                            }
                         });
                     }
                 }
@@ -157,11 +157,14 @@ class Home extends Component {
 
         return (
             <div className="App">
-                <div className={!this.state.react ? 'hidden' : ''}>
+                {/* <ReactModal className={!this.state.react ? 'hidden' : ''}>
                     <SadReact reaction={this.state.reaction}></SadReact>
-                </div>
-
-                <header className={(this.state.react ? 'hidden' : '') + "App-header"}>
+                </ReactModal> */}
+                 <ReactModal isOpen={!this.state.react ? false : true} className = "Modal" >
+                    <SadReact reaction={this.state.reaction}></SadReact>
+                </ReactModal>
+{/* // {(this.state.react ? 'hidden' : '') +  */}
+                <header className="App-header">
                     {
                         user
                             ? <div>

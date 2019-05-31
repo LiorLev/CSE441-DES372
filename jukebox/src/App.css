@@ -111,3 +111,13 @@ button {
       top: 0px;
   }
 }
+
+.Modal {
+  /* position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px; */
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
