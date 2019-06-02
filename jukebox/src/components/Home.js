@@ -17,7 +17,7 @@ class Home extends Component {
         if (event.altKey && event.code == 'AltRight') {
             this.props.history.push("/choose-genre");
         } else if (event.keyCode === 85) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/1KKBBW1.png' :'https://i.imgur.com/RsobDg4.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' :'https://i.imgur.com/RsobDg4.png'
 
             this.setState({
                 react: true,
@@ -39,7 +39,7 @@ class Home extends Component {
             });
 
         } else if (event.keyCode === 73) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/aE4OUta.png' :'https://i.imgur.com/kTjaDoi.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/vysfR6i.png' :'https://i.imgur.com/kTjaDoi.png'
 
             this.setState({
                 react: true,
@@ -61,7 +61,7 @@ class Home extends Component {
             });
 
         } else if (event.keyCode === 80) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/yzBjrds.png' :'https://i.imgur.com/eWkGDr0.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/r85rt33.png' :'https://i.imgur.com/eWkGDr0.png'
 
             this.setState({
                 react: true,
@@ -83,7 +83,7 @@ class Home extends Component {
             });
 
         } else if (event.keyCode === 221) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/JNspSA8.png' :'https://i.imgur.com/ZE1J401.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/a3jnTgb.png' :'https://i.imgur.com/ZE1J401.png'
 
             this.setState({
                 react: true,
