@@ -62,15 +62,19 @@ class ChooseSong extends Component {
 
         } else if (event.keyCode == '38' && this.state.selected >= 1 && this.state.selected <= 10) {
             // up arrow
-            this.setState({ selected: this.state.selected - 1 });
+            if (this.state.selected != 5) {
+                this.setState({ selected: this.state.selected - 1 });
+            }
         } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 9) {
             // down arrow
-            this.setState({ selected: this.state.selected + 1 });
-        //right
+            if (this.state.selected != 4) {
+                this.setState({ selected: this.state.selected + 1 });
+            }
+            //right
         } else if (event.keyCode == '39' && this.state.selected >= 0 && this.state.selected < 5) {
             this.setState({ selected: this.state.selected + 5 });
 
-        //left
+            //left
         } else if (event.keyCode == '37' && this.state.selected >= 5 && this.state.selected < 10) {
             this.setState({ selected: this.state.selected - 5 });
 
