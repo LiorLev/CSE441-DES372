@@ -129,9 +129,9 @@ button {
 }
 
 #meme {
-  width: '60%';
+  width: 65%;
+  height: 20%;
+  margin-top: 5%;
+  margin-left: 15%;
 }
 
-#memepopup{
-  text-align: center;
-}
