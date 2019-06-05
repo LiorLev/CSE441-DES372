@@ -19,12 +19,14 @@ class SendSong extends Component {
             
             this.props.history.push({
                 pathname: `/`,
-                state: 'from sendsong'
+                state: 'from sendsong',
+                accepted: 'no'
             });
         }else{
             this.props.history.push({
                 pathname: `/`,
-                state: 'from sendsong'
+                state: 'from sendsong',
+                accepted: 'yes'
             });
         }
 

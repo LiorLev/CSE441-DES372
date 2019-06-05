@@ -29,14 +29,12 @@ class App extends Component {
 
   //event1 = video
   volumeControl = (event) => {
+    let currVol = this.state.vid.getVolume();
     if (event.keyCode == '32') {
-      // this._onReady(event);
-      // console.log(event1);
-      this.state.vid.setVolume(0);
+      this.state.vid.setVolume(currVol+ 5);
     }else if (event.keyCode == '66'){
-      this.state.vid.setVolume(50);
+      this.state.vid.setVolume(currVol - 5);
     }
-
   }
 
   saveVideo = (video) => {
@@ -62,7 +60,7 @@ class App extends Component {
 
     song.on("value", snapshot => {
       this.setState({ songId: snapshot.val().songId });
-    })
+    });
   }
 
   componentWillUnmount() {

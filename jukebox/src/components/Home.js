@@ -10,14 +10,14 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "", react: false, reaction: '' };
+        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '' };
     }
 
     spaceFunction = (event) => {
         if (event.altKey && event.code == 'AltRight') {
             this.props.history.push("/choose-genre");
         } else if (event.keyCode === 85) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' :'https://i.imgur.com/RsobDg4.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' : 'https://i.imgur.com/RsobDg4.png'
 
             this.setState({
                 react: true,
@@ -39,7 +39,7 @@ class Home extends Component {
             });
 
         } else if (event.keyCode === 73) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/vysfR6i.png' :'https://i.imgur.com/kTjaDoi.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/vysfR6i.png' : 'https://i.imgur.com/kTjaDoi.png'
 
             this.setState({
                 react: true,
@@ -61,7 +61,7 @@ class Home extends Component {
             });
 
         } else if (event.keyCode === 80) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/r85rt33.png' :'https://i.imgur.com/eWkGDr0.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/r85rt33.png' : 'https://i.imgur.com/eWkGDr0.png'
 
             this.setState({
                 react: true,
@@ -83,7 +83,7 @@ class Home extends Component {
             });
 
         } else if (event.keyCode === 221) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/a3jnTgb.png' :'https://i.imgur.com/ZE1J401.png'
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/a3jnTgb.png' : 'https://i.imgur.com/ZE1J401.png'
 
             this.setState({
                 react: true,
@@ -122,7 +122,7 @@ class Home extends Component {
         });
 
         let history = JSON.parse(JSON.stringify(this.props.history));
-
+        // && this.props.history.location.state.indexOf('from sendsong') == -1
         if (this.props.history.location.state != 'from sendsong' && this.props.history.location.state != 'rejected') {
             data.on("value", function (snapshot) {
                 let res = snapshot.val();
@@ -148,6 +148,37 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
         } else {
+            console.log(this.props.history.location.accepted);
+            if (this.props.history.location.accepted == "no") {
+
+                this.setState({
+                    userAcceptedOrRejected: true,
+                    meme: "https://i.imgur.com/ZSKdnVI.jpg"
+                });
+
+                setTimeout(() => {
+                    this.setState({
+                        userAcceptedOrRejected: false,
+                        meme: ""
+                    });
+
+                }, 3000);
+            } else if (this.props.history.location.accepted == "yes") {
+                this.setState({
+                    userAcceptedOrRejected: true,
+                    meme:  "https://i.imgur.com/fPD49SE.png"
+                });
+
+                setTimeout(() => {
+                    this.setState({
+                        userAcceptedOrRejected: false,
+                        meme: ""
+                    });
+
+                }, 3000);
+            }
+
+            this.props.history.location.accepted = "";
             this.props.history.location.state = "";
         }
 
@@ -221,7 +252,12 @@ class Home extends Component {
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
 
-                <header className="App-header">
+                <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" id = "memepopup" >
+                    <img id = "meme" src = {this.state.meme}></img>
+                </ReactModal>
+                
+                <img id = "animation" src="https://i.imgur.com/3MncfYh.gif" alt="Loading" title="Loading" />
+                <div className="App-header">
                     {
                         user
                             ? <div>
@@ -236,7 +272,9 @@ class Home extends Component {
                             ? <button className="sign-in" onClick={signOut}>Sign out</button>
                             : <button className="sign-in" onClick={signInWithGoogle}>Sign In with Google</button>
                     }
-                </header>
+                </div>
+
+                {/* <iframe src="https://giphy.com/embed/IRFQYGCokErS0" width="377" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/download-IRFQYGCokErS0">via GIPHY</a></p> */}
             </div>
         );
     }
