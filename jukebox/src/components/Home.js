@@ -162,11 +162,11 @@ class Home extends Component {
                         meme: ""
                     });
 
-                }, 3000);
+                }, 2500);
             } else if (this.props.history.location.accepted == "yes") {
                 this.setState({
                     userAcceptedOrRejected: true,
-                    meme:  "https://i.imgur.com/fPD49SE.png"
+                    meme: "https://i.imgur.com/fPD49SE.png"
                 });
 
                 setTimeout(() => {
@@ -175,7 +175,7 @@ class Home extends Component {
                         meme: ""
                     });
 
-                }, 3000);
+                }, 2500);
             }
 
             this.props.history.location.accepted = "";
@@ -252,11 +252,13 @@ class Home extends Component {
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
 
-                <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" id = "memepopup" >
-                    <img id = "meme" src = {this.state.meme}></img>
+                <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName = "overlay">
+                    <div>
+                        <img id="meme" src={this.state.meme}></img>
+                    </div>
                 </ReactModal>
-                
-                <img id = "animation" src="https://i.imgur.com/3MncfYh.gif" alt="Loading" title="Loading" />
+
+                <img id="animation" src="https://i.imgur.com/3MncfYh.gif" alt="Loading" title="Loading" />
                 <div className="App-header">
                     {
                         user
