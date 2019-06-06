@@ -16,13 +16,16 @@ class SendSong extends Component {
         });
 
         if (ans == 'no') {
-            
+            localStorage.setItem('times', parseInt(localStorage.getItem('times')) + 1);
+
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
                 accepted: 'no'
             });
         }else{
+            localStorage.setItem('times', 0);
+
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',

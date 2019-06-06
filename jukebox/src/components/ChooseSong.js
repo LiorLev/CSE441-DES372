@@ -31,7 +31,7 @@ class ChooseSong extends Component {
         let history = JSON.parse(JSON.stringify(this.props.history));
 
         if (event.altKey && event.code == 'AltRight') {
-            if (localStorage.getItem('times') < 4) {
+            if (parseInt(localStorage.getItem('times')) < 4) {
                 //     this.setState({
                 //         times: this.state.times + 1
                 //     });
@@ -39,7 +39,7 @@ class ChooseSong extends Component {
                 //     alert(this.state.times);
 
 
-                localStorage.setItem('times', localStorage.getItem('times') + 1);
+                // localStorage.setItem('times', localStorage.getItem('times') + 1);
 
                 let data = this.props.firebaseData.database().ref('jukebox/messages');
 

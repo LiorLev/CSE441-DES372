@@ -122,13 +122,12 @@ class Home extends Component {
             }
         });
 
-        let userSent = "";
         let history = JSON.parse(JSON.stringify(this.props.history));
         // && this.props.history.location.state.indexOf('from sendsong') == -1
         if (this.props.history.location.state != 'from sendsong' && this.props.history.location.state != 'rejected') {
             data.on("value", function (snapshot) {
                 let res = snapshot.val();
-                // let userSent = "";
+                let userSent = "";
                 if (res['userName']) {
                     userSent = res['userName'];
 
@@ -150,8 +149,7 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
         } else {
-            console.log(this.props.history.location.accepted);
-            if (currUser == userSent && this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "no") {
+            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -174,7 +172,7 @@ class Home extends Component {
                     });
 
                 }, 2500);
-            } else if (currUser == userSent && this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "yes") {
+            } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
