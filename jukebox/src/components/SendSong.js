@@ -21,7 +21,8 @@ class SendSong extends Component {
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
-                accepted: 'no'
+                accepted: 'no',
+                userShouldReceiveMeme: this.props.firebaseData.auth().currentUser.displayName;
             });
         }else{
             // localStorage.setItem('times', 0);
@@ -29,7 +30,10 @@ class SendSong extends Component {
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
-                accepted: 'yes'
+                accepted: 'yes',
+                userShouldReceiveMeme: this.props.firebaseData.auth().currentUser.displayName;
+
+
             });
         }
 
