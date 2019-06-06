@@ -163,7 +163,7 @@ class Home extends Component {
                     });
 
                 }, 2500);
-            } else if (this.props.history.location.state != 'from sendsong' &&  && this.props.history.location.accepted == "yes") {
+            } else if (this.props.history.location.state != 'from sendsong' && this.props.history.location.accepted == "yes") {
                 this.setState({
                     userAcceptedOrRejected: true,
                     meme: "https://i.imgur.com/fPD49SE.png"
