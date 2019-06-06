@@ -130,7 +130,6 @@ class Home extends Component {
                 let userSent = "";
                 if (res['userName']) {
                     userSent = res['userName'];
-                    this.setState()
                     if (userSent != "" && currUser != userSent && res['song']) {
                         props.history.push({
                             pathname: '/receive-song',
