@@ -4,6 +4,7 @@ import '../App.css';
 import { withRouter } from 'react-router-dom';
 import ReactionEmojis from './ReactionEmojisAllen';
 import ReactModal from 'react-modal';
+import memeDatabase from '../memes';
 
 
 class Home extends Component {
@@ -150,10 +151,19 @@ class Home extends Component {
         } else {
             console.log(this.props.history.location.accepted);
             if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "no") {
+                const rejectedMemes = memeDatabase['rejected'];
+
+                let memes = [];
+                Object.keys(rejectedMemes).forEach(function (key) {
+                    memes.push(rejectedMemes[key]);
+                });
+
+                //random index between 0 and 4
+                const rand = Math.floor(Math.random() * 4);
 
                 this.setState({
                     userAcceptedOrRejected: true,
-                    meme: "https://i.imgur.com/ZSKdnVI.jpg"
+                    meme: memes[rand]['link']
                 });
 
                 setTimeout(() => {
@@ -164,9 +174,19 @@ class Home extends Component {
 
                 }, 2500);
             } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "yes") {
+                const acceptedMemes = memeDatabase['accepted'];
+
+                let memes = [];
+                Object.keys(acceptedMemes).forEach(function (key) {
+                    memes.push(acceptedMemes[key]);
+                });
+
+                //random index between 0 and 5
+                const rand = Math.floor(Math.random() * 5);
+
                 this.setState({
                     userAcceptedOrRejected: true,
-                    meme: "https://i.imgur.com/fPD49SE.png"
+                    meme: memes[rand]['link']
                 });
 
                 setTimeout(() => {
@@ -252,7 +272,7 @@ class Home extends Component {
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
 
-                <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName = "overlay">
+                <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName="overlay">
                     <div>
                         <img id="meme" src={this.state.meme}></img>
                     </div>
