@@ -148,7 +148,8 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
         } else {
-            if (this.props.history.location.userShouldReceiveMeme == currUser && this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "no") {
+            // alert(currUser);
+            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -171,7 +172,7 @@ class Home extends Component {
                     });
 
                 }, 2500);
-            } else if (this.props.history.location.userShouldReceiveMeme == currUser && this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "yes") {
+            } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
