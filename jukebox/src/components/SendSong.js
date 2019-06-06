@@ -16,7 +16,7 @@ class SendSong extends Component {
         });
 
         if (ans == 'no') {
-            localStorage.setItem('times', parseInt(localStorage.getItem('times')) + 1);
+            // localStorage.setItem('times', parseInt(localStorage.getItem('times')) + 1);
 
             this.props.history.push({
                 pathname: `/`,
@@ -24,7 +24,7 @@ class SendSong extends Component {
                 accepted: 'no'
             });
         }else{
-            localStorage.setItem('times', 0);
+            // localStorage.setItem('times', 0);
 
             this.props.history.push({
                 pathname: `/`,

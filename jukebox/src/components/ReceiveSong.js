@@ -45,7 +45,7 @@ class ReceiveSong extends Component {
                 this.testing("no");
             }
 
-            localStorage.setItem('times', 0);
+            // localStorage.setItem('times', 0);
         })
     }
 
