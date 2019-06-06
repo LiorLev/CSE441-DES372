@@ -61,6 +61,12 @@ class App extends Component {
     song.on("value", snapshot => {
       this.setState({ songId: snapshot.val().songId });
     });
+
+    // let lastsent = firebaseApp.database().ref('jukebox/lastsent');
+    // lastsent.set({
+    //   lastSentBy: "",
+    //   times: 0
+    // });
   }
 
   componentWillUnmount() {

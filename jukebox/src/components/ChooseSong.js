@@ -31,24 +31,37 @@ class ChooseSong extends Component {
         let history = JSON.parse(JSON.stringify(this.props.history));
 
         if (event.altKey && event.code == 'AltRight') {
-            let data = this.props.firebaseData.database().ref('jukebox/messages');
+            if (localStorage.getItem('times') < 4) {
+                //     this.setState({
+                //         times: this.state.times + 1
+                //     });
 
-            data.set({
-                userName: this.props.firebaseData.auth().currentUser.displayName,
-                message: "song was sent",
-                song: this.songs[this.state.selected]['id'],
-                songName: this.songs[this.state.selected]['song'],
-                songArtist: this.songs[this.state.selected]['artist'],
-                genre: this.props.history.location.state
-            }).then(this.props.history.push({
-                pathname: `/send-song`,
-                state: {
-                    id: this.songs[this.state.selected]['id'],
-                    title: this.songs[this.state.selected]['song'],
-                    artist: this.songs[this.state.selected]['artist'],
-                    history: history
-                }
-            }));
+                //     alert(this.state.times);
+
+
+                localStorage.setItem('times', localStorage.getItem('times') + 1);
+
+                let data = this.props.firebaseData.database().ref('jukebox/messages');
+
+                data.set({
+                    userName: this.props.firebaseData.auth().currentUser.displayName,
+                    message: "song was sent",
+                    song: this.songs[this.state.selected]['id'],
+                    songName: this.songs[this.state.selected]['song'],
+                    songArtist: this.songs[this.state.selected]['artist'],
+                    genre: this.props.history.location.state
+                }).then(this.props.history.push({
+                    pathname: `/send-song`,
+                    state: {
+                        id: this.songs[this.state.selected]['id'],
+                        title: this.songs[this.state.selected]['song'],
+                        artist: this.songs[this.state.selected]['artist'],
+                        history: history
+                    }
+                }));
+            } else {
+                alert("try again :/");
+            }
 
             // this.props.history.push({
             //     pathname: `/send-song`,
@@ -91,6 +104,11 @@ class ChooseSong extends Component {
                 uid: user.uid
             });
         });
+
+        if (!localStorage.getItem('times')) {
+            localStorage.setItem('times', 0);
+        }
+
         document.addEventListener("keydown", this.arrowFunction1, false);
     }
 

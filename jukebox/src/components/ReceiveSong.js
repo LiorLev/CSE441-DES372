@@ -44,6 +44,8 @@ class ReceiveSong extends Component {
             } else if (this.state.selected == 1) {
                 this.testing("no");
             }
+
+            localStorage.setItem('times', 0);
         })
     }
 
