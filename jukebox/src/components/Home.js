@@ -149,10 +149,10 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
         } else {
-            // alert(this.props.history.location.userShouldReceiveMeme);
-            // alert(this.props.firebaseData.auth().currentUser.displayName);
+            alert(this.props.history.location.userShouldReceiveMeme);
+            alert(this.props.history.location.state);
 
-            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') &&  this.props.history.location.accepted == "no") {
+            if ( localStorage.tetItem("sendSongPage") == "true" && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') &&  this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -177,7 +177,8 @@ class Home extends Component {
                 }, 2500);
 
                 this.props.history.location.accepted = "";
-           } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
+                // this.props.history.location.state = "";
+           } else if (localStorage.tetItem("sendSongPage") == "true" && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
@@ -202,14 +203,15 @@ class Home extends Component {
                 }, 2500);
 
                 this.props.history.location.accepted = "";
-            
+                // this.props.history.location.state = "";
             }
 
             // this.props.history.location.accepted = "";
-            this.props.history.location.userAcceptedOrRejected = "";
-            this.props.history.location.state = "";
+            // this.props.history.location.userAcceptedOrRejected = "";
+            localStorage.setItem("sendSongPage", "false");
         }
 
+        // this.props.history.location.state = "";
 
         let nowplaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
 

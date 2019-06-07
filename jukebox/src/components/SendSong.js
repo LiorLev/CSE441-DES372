@@ -10,7 +10,7 @@ class SendSong extends Component {
     testing = (ans) => {
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
-
+        localStorage.setItem("sendSongPage", "true");
         data.set({
             userAccepted: ""
         });
