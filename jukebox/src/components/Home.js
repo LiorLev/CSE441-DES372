@@ -125,7 +125,7 @@ class Home extends Component {
 
         let history = JSON.parse(JSON.stringify(this.props.history));
         // && this.props.history.location.state.indexOf('from sendsong') == -1
-        if (this.props.history.location.state != 'from sendsong' && this.props.history.location.state != 'rejected') {
+        if (localStorage.getItem("sendSongPage") == "false" && this.props.history.location.state != 'rejected') {
             data.on("value", function (snapshot) {
                 let res = snapshot.val();
                 let userSent = "";
