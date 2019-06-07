@@ -10,7 +10,6 @@ class SendSong extends Component {
     testing = (ans) => {
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
-        localStorage.setItem("sendSongPage", "true");
         data.set({
             userAccepted: ""
         });
@@ -41,6 +40,8 @@ class SendSong extends Component {
     }
 
     componentDidMount() {
+        localStorage.setItem("sendSongPage", "true");
+
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
         let props = this.props;
