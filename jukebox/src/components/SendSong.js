@@ -8,11 +8,11 @@ class SendSong extends Component {
     }
 
     testing = (ans) => {
-        let data = this.props.firebaseData.database().ref('jukebox/received');
+        // let data = this.props.firebaseData.database().ref('jukebox/received');
 
-        data.set({
-            userAccepted: ""
-        });
+        // data.set({
+        //     userAccepted: ""
+        // });
 
         if (ans == 'no') {
             // localStorage.setItem('times', parseInt(localStorage.getItem('times')) + 1);
