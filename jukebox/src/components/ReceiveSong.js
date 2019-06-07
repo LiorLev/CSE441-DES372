@@ -6,50 +6,108 @@ import Home from '../components/Home';
 
 
 class ReceiveSong extends Component {
+    accepted = null;
+
     constructor(props) {
         super(props);
-        this.state = { selected: null, songReceived: false };
+        this.state = { selected: null, songID: "" };
     }
 
     testing = (ans) => {
+        let rcvd = this.props.firebaseData.database().ref('jukebox/received');
+
         if (ans == "no") {
-            this.props.history.push({pathname: '/', state: 'rejected'});
+            rcvd.set({
+                userAccepted: ""
+            });
+            this.props.history.push({ pathname: '/', state: 'rejected' });
+        } else {
+            // alert("here");
+            // alert(this.props.history.location.state['id']);
+            rcvd.set({
+                userAccepted: ""
+            });
+
+            this.props.changeSongId(this.state.songID);
+            
+
+            
         }
     }
 
     arrowFunction2 = (event) => {
         if (event.ctrlKey && event.keyCode == '17') {
-            this.setState({ selected: 0 });
+            // this.accepted = true;
+            let data = this.props.firebaseData.database().ref('jukebox/received');
+
+            let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+
+
+
+            data.set({
+                userAccepted: "true",
+                songName: this.props.history.location.state['artist'].toString(),
+                songArtist: this.props.history.location.state['title'].toString()
+            }).then(() => {
+
+
+                // nowPlaying.set({
+                //     songName: this.props.history.location.state['artist'].toString(),
+                //     songArtist: this.props.history.location.state['title'].toString()
+                // })
+
+                this.testing("yes");
+
+            })
+
+
+
+
+            // this.setState({ selected: 0 });
         } else if (event.altKey && event.code == 'AltLeft') {
-            this.setState({ selected: 1 });
+            let data = this.props.firebaseData.database().ref('jukebox/received');
+
+
+            data.set({
+                userAccepted: "false"
+            }).then(() => {
+                this.testing("no");
+            });
+
+            // this.accpeted = false;
+            // this.setState({ selected: 1 });
         }
 
-        let data = this.props.firebaseData.database().ref('jukebox/received');
+        // let data = this.props.firebaseData.database().ref('jukebox/received');
 
 
-        data.set({
-            userAccepted: this.state.selected == 0 ? "true" : "false"
-        }).then(() => {
+        // data.set({
+        //     userAccepted: this.accepted == true ? "true" : "false"
+        // }).then(() => {
 
-            if (this.state.selected == 0) {
-                let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
-                nowPlaying.set({
-                    songName: this.props.history.location.state['artist'].toString(),
-                    songArtist: this.props.history.location.state['title'].toString()
-                });
+        //     if (this.accepted == true) {
+        //         let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+        //         nowPlaying.set({
+        //             songName: this.props.history.location.state['artist'].toString(),
+        //             songArtist: this.props.history.location.state['title'].toString()
+        //         }).then(
+        //             this.props.changeSongId(this.props.history.location.state['id'].toString())
+        //         );
 
-                this.props.changeSongId(this.props.history.location.state['id'].toString(), this.props.history);
 
 
-            } else if (this.state.selected == 1) {
-                this.testing("no");
-            }
 
-            // localStorage.setItem('times', 0);
-        })
+        //     } else if (this.accepted == false) {
+        //         this.testing("no");
+        //     }
+
+        //     // localStorage.setItem('times', 0);
+        // })
     }
 
     componentDidMount() {
+        console.log(this.props.history.location.state);
+        this.setState({songID : this.props.history.location.state['id']})
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 

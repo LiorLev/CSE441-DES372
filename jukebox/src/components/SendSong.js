@@ -7,25 +7,40 @@ class SendSong extends Component {
         super(props);
     }
 
-    testing = (ans) => {
-        let data = this.props.firebaseData.database().ref('jukebox/received');
+    testing = (ans, song, artist) => {
 
-        data.set({
-            userAccepted: ""
-        });
+        let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+        let rcvd = this.props.firebaseData.database().ref('jukebox/received');
+        // rcvd.set({
+        //   userAccepted: ""
+        // });
 
         if (ans == 'no') {
             localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
-
+            // data.set({
+            //     userAccepted: ""
+            // });
+            // rcvd.set({
+            //     userAccepted: ""
+            // });
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
                 accepted: 'no'
             });
-        }else{
+        } else if (ans == 'yes'){
             // localStorage.setItem('times', 0);
             localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
+            
+            // rcvd.set({
+            //     userAccepted: ""
+            // });
 
+            nowPlaying.set({
+                songName: song.toString(),
+                songArtist: artist.toString()
+            })
+            
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
@@ -33,9 +48,17 @@ class SendSong extends Component {
 
 
             });
+
+            
         }
 
-        
+        // let data = this.props.firebaseData.database().ref('jukebox/received');
+        // let rcvd = this.props.firebaseData.database().ref('jukebox/received');
+        // rcvd.set({
+        //   userAccepted: ""
+        // });
+
+
     }
 
     componentDidMount() {
@@ -43,18 +66,20 @@ class SendSong extends Component {
 
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
-        let props = this.props;
         let t = this;
         data.on("value", function (snapshot) {
             let res = snapshot.val();
 
             if (res['userAccepted']) {
                 if (res['userAccepted'] == "true") {
-                    t.testing('yes');
+                    
+                    t.testing('yes', res['songName'], res['songArtist']);
                     // window.location.href = '/';
                 } else if (res['userAccepted'] == "false") {
                     t.testing('no');
                 }
+
+
             }
 
         }, function (errorObject) {

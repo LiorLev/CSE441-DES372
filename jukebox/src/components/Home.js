@@ -124,8 +124,8 @@ class Home extends Component {
         });
 
         let history = JSON.parse(JSON.stringify(this.props.history));
-        // && this.props.history.location.state.indexOf('from sendsong') == -1
-        if (localStorage.getItem("sendSongPage") == "false" && this.props.history.location.state != 'rejected') {
+
+        if (this.props.history.location.state != 'from sendsong' && this.props.history.location.state != 'rejected') {
             data.on("value", function (snapshot) {
                 let res = snapshot.val();
                 let userSent = "";
@@ -142,14 +142,25 @@ class Home extends Component {
                                 history: history
                             }
                         });
-                    }
+                    } 
+                    
+                    // else if (userSent == "") {
+                    //     let rec = props.firebaseData.database().ref('jukebox/received');
+
+                    //     rec.set({
+                    //         userAccepted: ""
+                    //     });
+                    // }
                 }
 
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });
-        } else {
-            if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') &&  this.props.history.location.accepted == "no") {
+
+        } 
+        
+        else {
+            if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -175,7 +186,7 @@ class Home extends Component {
 
                 this.props.history.location.accepted = "";
                 // this.props.history.location.state = "";
-           } else if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
+            } else if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
@@ -207,6 +218,12 @@ class Home extends Component {
             // this.props.history.location.userAcceptedOrRejected = "";
             localStorage.setItem("sendSongPage", "false");
             localStorage.setItem('userToReceiveMeme', "");
+
+            // let rec = this.props.firebaseData.database().ref('jukebox/received');
+
+            // rec.set({
+            //     userAccepted: ""
+            // });
         }
 
         // this.props.history.location.state = "";

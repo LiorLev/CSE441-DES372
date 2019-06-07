@@ -50,15 +50,20 @@ class ChooseSong extends Component {
                 songName: this.songs[this.state.selected]['song'],
                 songArtist: this.songs[this.state.selected]['artist'],
                 genre: this.props.history.location.state
-            }).then(this.props.history.push({
-                pathname: `/send-song`,
-                state: {
-                    id: this.songs[this.state.selected]['id'],
-                    title: this.songs[this.state.selected]['song'],
-                    artist: this.songs[this.state.selected]['artist'],
-                    history: history
-                }
-            }));
+            }).then(() => {
+
+                this.props.history.push({
+                    pathname: `/send-song`,
+                    state: {
+                        id: this.songs[this.state.selected]['id'],
+                        title: this.songs[this.state.selected]['song'],
+                        artist: this.songs[this.state.selected]['artist'],
+                        history: history
+                    }
+                });
+
+                // this.props.history.clear();
+            });
             // } else {
             //     alert("try again :/");
             // }

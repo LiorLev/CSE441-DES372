@@ -31,14 +31,14 @@ class App extends Component {
   volumeControl = (event) => {
     let currVol = this.state.vid.getVolume();
     if (event.keyCode == '32') {
-      this.state.vid.setVolume(currVol+ 5);
-    }else if (event.keyCode == '66'){
+      this.state.vid.setVolume(currVol + 5);
+    } else if (event.keyCode == '66') {
       this.state.vid.setVolume(currVol - 5);
     }
   }
 
   saveVideo = (video) => {
-    this.setState({vid : video.target})
+    this.setState({ vid: video.target })
   }
 
 
@@ -86,12 +86,20 @@ class App extends Component {
     );
   }
 
-  changeSongId = (songId, history) => {
+  changeSongId = (song) => {
     let data = firebaseApp.database().ref('jukebox/songId');
 
+    // alert("yo " + song);
     data.set({
-      songId: songId
+      songId: song
     }).then(() => {
+      // let msgs = firebaseApp.database().ref('jukebox/messages');
+      // msgs.set({
+      //   userName: "",
+      //   message: "",
+      //   song: ""
+      // });
+
       window.location.href = `/`;
     });
   }
