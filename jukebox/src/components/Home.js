@@ -119,6 +119,7 @@ class Home extends Component {
         this.props.firebaseData.auth().onAuthStateChanged(user => {
             if (user) {
                 currUser = (user.displayName);
+                localStorage.setItem('user', currUser);
             }
         });
 
@@ -151,7 +152,7 @@ class Home extends Component {
             // alert(this.props.history.location.userShouldReceiveMeme);
             // alert(this.props.firebaseData.auth().currentUser.displayName);
 
-            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == this.props.firebaseData.auth().currentUser.displayName &&  this.props.history.location.accepted == "no") {
+            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') &&  this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -176,7 +177,7 @@ class Home extends Component {
                 }, 2500);
 
                 this.props.history.location.accepted = "";
-           } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == this.props.firebaseData.auth().currentUser.displayName && this.props.history.location.accepted == "yes") {
+           } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
@@ -205,6 +206,7 @@ class Home extends Component {
             }
 
             // this.props.history.location.accepted = "";
+            this.props.history.location.userAcceptedOrRejected = "";
             this.props.history.location.state = "";
         }
 
