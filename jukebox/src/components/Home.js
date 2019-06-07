@@ -148,8 +148,10 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
         } else {
-            // alert(currUser);
-            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == currUser &&  this.props.history.location.accepted == "no") {
+            // alert(this.props.history.location.userShouldReceiveMeme);
+            // alert(this.props.firebaseData.auth().currentUser.displayName);
+
+            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == this.props.firebaseData.auth().currentUser.displayName &&  this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -174,7 +176,7 @@ class Home extends Component {
                 }, 2500);
 
                 this.props.history.location.accepted = "";
-           } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == currUser && this.props.history.location.accepted == "yes") {
+           } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.userShouldReceiveMeme == this.props.firebaseData.auth().currentUser.displayName && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
