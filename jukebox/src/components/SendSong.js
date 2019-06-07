@@ -8,29 +8,28 @@ class SendSong extends Component {
     }
 
     testing = (ans) => {
-        // let data = this.props.firebaseData.database().ref('jukebox/received');
+        let data = this.props.firebaseData.database().ref('jukebox/received');
 
-        // data.set({
-        //     userAccepted: ""
-        // });
+        data.set({
+            userAccepted: ""
+        });
 
         if (ans == 'no') {
-            // localStorage.setItem('times', parseInt(localStorage.getItem('times')) + 1);
+            localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
 
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
-                accepted: 'no',
-                userShouldReceiveMeme: this.props.firebaseData.auth().currentUser.displayName
+                accepted: 'no'
             });
         }else{
             // localStorage.setItem('times', 0);
+            localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
 
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
-                accepted: 'yes',
-                userShouldReceiveMeme: this.props.firebaseData.auth().currentUser.displayName
+                accepted: 'yes'
 
 
             });

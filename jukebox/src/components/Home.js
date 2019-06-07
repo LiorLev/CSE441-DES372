@@ -149,7 +149,7 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
         } else {
-            if (localStorage.getItem("sendSongPage") == "true" && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') &&  this.props.history.location.accepted == "no") {
+            if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') &&  this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -175,7 +175,7 @@ class Home extends Component {
 
                 this.props.history.location.accepted = "";
                 // this.props.history.location.state = "";
-           } else if (localStorage.getItem("sendSongPage") == "true" && this.props.history.location.userShouldReceiveMeme == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
+           } else if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
@@ -206,6 +206,7 @@ class Home extends Component {
             // this.props.history.location.accepted = "";
             // this.props.history.location.userAcceptedOrRejected = "";
             localStorage.setItem("sendSongPage", "false");
+            localStorage.setItem('userToReceiveMeme', "");
         }
 
         // this.props.history.location.state = "";
