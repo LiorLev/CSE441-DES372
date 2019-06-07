@@ -149,7 +149,7 @@ class Home extends Component {
             });
         } else {
             // alert(currUser);
-            if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "no") {
+            if (this.props.history.location.userShouldReceiveMeme == currUser && this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
                 let memes = [];
@@ -172,7 +172,9 @@ class Home extends Component {
                     });
 
                 }, 2500);
-            } else if (this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "yes") {
+
+                this.props.history.location.accepted = "";
+           } else if (this.props.history.location.userShouldReceiveMeme && this.props.history.location.state == 'from sendsong' && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
                 let memes = [];
@@ -195,9 +197,12 @@ class Home extends Component {
                     });
 
                 }, 2500);
+
+                this.props.history.location.accepted = "";
+            
             }
 
-            this.props.history.location.accepted = "";
+            // this.props.history.location.accepted = "";
             this.props.history.location.state = "";
         }
 
