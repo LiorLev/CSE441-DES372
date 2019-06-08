@@ -53,16 +53,16 @@ class ChooseGenre extends Component {
         let songDivs = songs.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1 style={{ marginTop: '35px' }}>{item}</h1> </div>);
+                <p style={{ marginTop: '35px', fontSize: '35px'}}>{item}</p> </div>);
 
         let songDivs2 = song2.map((item, index) =>
             <div className={(this.state.selected === index + 4 ? 'selected ' : '') + "letters"}
                 id={index + 4} key={index + 4}>
-                <h1 style={{ marginTop: '35px' }}>{item}</h1> </div>);
+                <p style={{ marginTop: '35px', fontSize: '35px' }}>{item}</p> </div>);
 
         return (
-            <div style={{ textAlign: 'center' }}>
-                <h1 style={{ color: 'white', fontSize: '45px', marginBottom: '-28px', textAlign: 'left' }}><strong>Select song by genre</strong></h1>
+            <div style={{marginLeft: '64px', marginTop: '7%' }}>
+                <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}><strong>Select song by genre</strong></h1>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ display: 'inline-block' }}>{songDivs}</div>
                     <div style={{ display: 'inline-block' }}>{songDivs2}</div>

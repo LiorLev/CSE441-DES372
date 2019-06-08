@@ -1,27 +1,40 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+@font-face {
+  font-family: 'signpaintermedium';
+  src: url('webfontkit-20190607-213221/signpainter-housescript-webfont.woff2') format('woff2'),
+       url('webfontkit-20190607-213221/signpainter-housescript-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 body {
   background-color: black;
   font-family: 'Roboto Condensed', sans-serif;
-  margin-left: 130px;
-  margin-top: 82px;
-  overflow-y: hidden;
 }
 
 .App {
   position: relative;
   text-align: center;
+  margin-top: 10%;
 }
 
 .App-header {
   color: white;
   position: absolute;
-  position: absolute;
-  bottom: 39%;
-  left: 33%;
+  /* bottom: 27%;
+  left: 38%; */
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 #animation {
   width: 84%;
+  /* bottom: 27%;
+  left: 38%; */
 }
 
 @keyframes App-logo-spin {
@@ -44,12 +57,13 @@ button {
 
 .letters {
   text-align: center;
-  border: 5px solid #46C4D3;
+  border: 4px solid #46C4D3;
   color: #FFF170;
   margin-bottom: 34px;
-  width: 511px;
-  margin-right: 89px;
+  width: 563px;
+  margin-right: 60px;
   height: 115px;
+  border-radius: 8px;
 }
 
 .receive {
@@ -64,8 +78,9 @@ button {
 
 .selected {
   background-color: #FFF170;
-  border: 5px solid #FFF170;
+  border: 4px solid #FFF170;
   color: #3DABB8;
+  border-radius: 8px;
 }
 
 .selectedSong {

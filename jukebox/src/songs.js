@@ -3,12 +3,12 @@ const songDatabase = {
         {
             "song": "I'm Not The Only One",
             "id": "jfGyaCLA02M",
-            "artist": "Sam smith"
+            "artist": "Sam Smith"
         },
         {
             "song": "Love on the Brain",
             "id": "HoTJzQOM1do",
-            "artist": "rihanna"
+            "artist": "Rihanna"
         },
         {
             "song": "7 Rings",
@@ -33,12 +33,12 @@ const songDatabase = {
         {
             "song": "Me!",
             "id": "AXKQNnkI9Ns",
-            "artist": "Taylor Swift ft. Brendon Urie"
+            "artist": "Taylor Swift"
         },
         {
             "song": "Old Town Road",
             "id": "X2s7HEBUkBg",
-            "artist": "Lil Nas X ft. Billy Ray Cyrus"
+            "artist": "Lil Nas X"
         },
         {
             "song": "Sunflower",
@@ -56,22 +56,22 @@ const songDatabase = {
         {
             "song": "Con Calma",
             "id": "bNTRIdraX8c",
-            "artist": "Daddy Yankee ft. Snow"
+            "artist": "Daddy Yankee"
         },
         {
             "song": "Mia",
             "id": "635ynSfnTN0",
-            "artist": "Bad bunny ft. Drake"
+            "artist": "Bad bunny"
         },
         {
             "song": "Soltera",
             "id": "2ZCSI15biyg",
-            "artist": "Lunay, Daddy Yankee & Bad Bunny"
+            "artist": "Daddy Yankee & Bad Bunny"
         },
         {
             "song": "Taki Taki",
             "id": "ZcmoBlURJB4",
-            "artist": "Dj Snake ft. Selena Gomez"
+            "artist": "Dj Snake"
         },
         {
             "song": "HP",
@@ -81,7 +81,7 @@ const songDatabase = {
         {
             "song": "Baila Baila Baila",
             "id": "ev8aT92n6qw",
-            "artist": "Ozuna x Daddy Yankee x J Balvin x Farruko x Anuel AA"
+            "artist": "J Balvin"
         },
         {
             "song": "Te Robare",
@@ -91,7 +91,7 @@ const songDatabase = {
         {
             "song": "Con Altura",
             "id": "WGQMV47DGhk",
-            "artist": "ROSALIA, J. Balvin & El Guincho"
+            "artist": "ROSALIA"
         },
         {
             "song": "Me Gusta",
@@ -101,7 +101,7 @@ const songDatabase = {
         {
             "song": "La Romana",
             "id": "jyRQNud8B3k",
-            "artist": "Bad Bunny ft. El Alfa"
+            "artist": "Bad Bunny"
         }
     ],
 
@@ -109,7 +109,7 @@ const songDatabase = {
         {
             "song": "Homicide",
             "id": "X4_Uf-eLAd8",
-            "artist": "Logic ft. Eminem"
+            "artist": "Logic"
         },
         {
             "song": "Better",
@@ -154,7 +154,7 @@ const songDatabase = {
         {
             "song": "Icy",
             "id": "_N0KFbKtr90",
-            "artist": "Logic ft. Gucci Mane"
+            "artist": "Logic"
         }
     ],
 
@@ -273,27 +273,27 @@ const songDatabase = {
         {
             "song": "Here With Me",
             "id": "jJHFirGQqvk",
-            "artist": "Marshmello Featuring CHVRCHES"
+            "artist": "Marshmello"
         },
         {
             "song": "Close to Me",
             "id": "0K3pRYHxgVQ",
-            "artist": "Ellie Goulding, Diplo & Swae Lee"
+            "artist": "Ellie Goulding"
         },
         {
             "song": "Who Do You Love",
             "id": "g7R0ywBlIGM",
-            "artist": "The Chainsmokers ft. 5 Seconds of Summer"
+            "artist": "The Chainsmokers"
         },
         {
             "song": "Giant",
             "id": "g3pbgDxLdtA",
-            "artist": "Calvin Harris & Rag'n'Bone Man"
+            "artist": "Calvin Harris"
         },
         {
             "song": "Win Win",
             "id": "bs6iC7YHoi8",
-            "artist": "Diplo ft. Tove Lo"
+            "artist": "Diplo"
         },
         {
             "song": "Dive",
@@ -303,17 +303,17 @@ const songDatabase = {
         {
             "song": "No Sleep",
             "id": "c3uxLHn3-JQ",
-            "artist": "Martin Garrix ft. Bonn"
+            "artist": "Martin Garrix"
         },
         {
             "song": "Think About You",
             "id": "kiEGIQaR1QQ",
-            "artist": "Kygo Featuring Valerie Broussard"
+            "artist": "Kygo"
         },
         {
             "song": "Hope",
             "id": "wDM-7geOdOE",
-            "artist": "The Chainsmokers ft. Winona Oak"
+            "artist": "The Chainsmokers"
         }
     ],
 

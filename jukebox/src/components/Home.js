@@ -303,14 +303,16 @@ class Home extends Component {
                     </div>
                 </ReactModal>
 
+                
                 <img id="animation" src="https://i.imgur.com/3MncfYh.gif" alt="Loading" title="Loading" />
                 <div className="App-header">
                     {
                         user
-                            ? <div>
-                                <p style={{ fontSize: '30px' }}>Songs in queue: 0</p>
-                                <p style={{ fontSize: '50px', marginBottom: '-40px' }}><strong>Now Playing:</strong> {this.state.nowplaying.toString()}</p>
-                                <p style={{ fontSize: '50px' }}><strong>Artist:</strong> {this.state.artist.toString()}</p>
+                            ? <div style = {{textAlign: 'center', width: '315px'}}>
+                                {/* <p style={{ fontSize: '30px' }}>Songs in queue: 0</p> */}
+                                <p style={{ fontSize: '65px', marginBottom: '-40px', whiteSpace: 'normal', 
+                                fontWeight: 'bold', textAlign: 'center', lineHeight: '110%'}}>{this.state.nowplaying.toString()}</p>
+                                <p style={{ fontSize: '33px', fontFamily: 'signpaintermedium', textAlign: 'center', marginTop: '28%'}}>By {this.state.artist.toString()}</p>
                             </div>
                             : <p>Please sign in.</p>
                     }
