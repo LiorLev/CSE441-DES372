@@ -37,10 +37,6 @@ class ChooseSong extends Component {
             //     });
 
             //     alert(this.state.times);
-
-
-            // localStorage.setItem('times', localStorage.getItem('times') + 1);
-
             let data = this.props.firebaseData.database().ref('jukebox/messages');
 
             data.set({
@@ -110,10 +106,6 @@ class ChooseSong extends Component {
             });
         });
 
-        if (!localStorage.getItem('times')) {
-            localStorage.setItem('times', 0);
-        }
-
         document.addEventListener("keydown", this.arrowFunction1, false);
     }
 
@@ -134,26 +126,24 @@ class ChooseSong extends Component {
             secondHalf[i] = this.songs[i];
         }
 
-        // let songDivs = this.songs.map((item, index) =>
-        //     <div className={(this.state.selected === index ? 'selectedSong ' : '') + "letters"}
-        //         id={index} key={index}> <h1>{item['song']}</h1> <h2>{item['artist']}</h2></div>)
-
         let songDivs = firstHalf.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <p style={{ marginBottom: '-16px' }}>{item['song']}</p> <p>{item['artist']}</p> </div>);
+                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style = {{fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px'}}>By {item['artist']}</p> </div></div>);
 
         let songDivs2 = secondHalf.map((item, index) =>
-            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
+            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} style = {{display: 'relative'}}
                 id={index} key={index}>
-                <p style={{ marginBottom: '-16px' }}>{item['song']}</p> <p>{item['artist']}</p> </div>);
+                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style = {{fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px'}}>By {item['artist']}</p> </div></div>);
 
         return (
-            // <div style={{ textAlign: 'center', marginTop: '70px' }}>
-            //     {songDivs}
-            // </div>
-            <div style={{ textAlign: 'center' }}>
-                <h1 style={{ color: 'white', fontSize: '45px', marginBottom: '-28px', textAlign: 'left' }}>Select song </h1>
+            <div style={{marginLeft: '64px', marginTop: '7%'}}>
+                {
+                    localStorage.getItem('user') == "Gates Center" ? <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}>Select <span style = {{color: '#46C4D3'}}>{this.props.history.location.state.toLowerCase()}</span> song </h1> :
+                    <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}>Select <span style = {{color: '#FFF170'}}>{this.props.history.location.state.toLowerCase()}</span> song </h1>
+
+
+                }
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ display: 'inline-block' }}>{songDivs}</div>
                     <div style={{ display: 'inline-block' }}>{songDivs2}</div>
