@@ -292,8 +292,8 @@ class Home extends Component {
 
         return (
             <div className="App">
-
-                <ReactModal isOpen={!this.state.react ? false : true} className="Modal" >
+{/* {!this.state.react ? false : true} */}
+                <ReactModal isOpen={!this.state.react ? false : true} className="Modal1" overlayClassName="overlay">
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
 

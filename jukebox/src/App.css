@@ -163,6 +163,17 @@ button {
   margin-top: 5%;
 }
 
+.Modal1 {
+  /* position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px; */
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  /* margin-top: 5%; */
+}
+
 #meme {
   width: 90%;
   /* height: 100%; */
