@@ -108,8 +108,8 @@ class SendSong extends Component {
                     :
 
                     <div>
-                        <h1 style={{ color: 'white', fontSize: '60px' }}>Please wait as your song is</h1>
-                        <h1 style={{ color: 'white', fontSize: '60px' }}>being sent to the Jaech.</h1>
+                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px'  }}>Please wait as your song is</h1>
+                        <h1 style={{ color: 'white', fontSize: '60px', margin: '0 auto'}}>being sent to the Jaech.</h1>
                         <p style={{ marginTop: '45px', color: 'white', fontSize: '30px', marginTop: '120px' }}>Will they <span style={{ color: '#46C4D3' }}>accept/reject</span>? The meme tells it all!</p>
                     </div>}
 
