@@ -141,6 +141,9 @@ class ReceiveSong extends Component {
                     <p style = {{fontSize: '30px', marginBottom: '-21px'}}>Don't leave them hanging! Press accept/reject!</p>
                     <p style = {{fontSize: '30px'}}>Once accepted, the song will play in both buildings.</p>
                 </div>
+
+                {currUser == "Gates Center" ? <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/BgouchW.gif"></img> :
+                    <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/VoMUdvA.gif"></img>}
             </div>
         );
 

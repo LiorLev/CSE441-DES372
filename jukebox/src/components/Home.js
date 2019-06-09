@@ -314,7 +314,7 @@ class Home extends Component {
                 </ReactModal>
 
 
-                <img id="animation" src="https://i.imgur.com/3MncfYh.gif" alt="Loading" title="Loading" />
+                <img id="animation" src="https://i.imgur.com/5faRyTl.gif" alt="Loading" title="Loading" />
                 <div className="App-header">
                     {
                         user
