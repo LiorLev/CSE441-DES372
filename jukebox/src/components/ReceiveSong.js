@@ -29,9 +29,9 @@ class ReceiveSong extends Component {
             });
 
             this.props.changeSongId(this.state.songID);
-            
 
-            
+
+
         }
     }
 
@@ -107,7 +107,7 @@ class ReceiveSong extends Component {
 
     componentDidMount() {
         console.log(this.props.history.location.state);
-        this.setState({songID : this.props.history.location.state['id']})
+        this.setState({ songID: this.props.history.location.state['id'] })
         document.addEventListener("keydown", this.arrowFunction2, false);
     }
 
@@ -115,14 +115,32 @@ class ReceiveSong extends Component {
         document.removeEventListener("keydown", this.arrowFunction2, false);
     }
 
+    grammarCheck = (genre) => {
+        const vowels = ['a', 'e', 'i', 'o', 'u'];
+        if(vowels.indexOf(genre.substring(0, 1)) != -1){
+            return 'an';
+        }
+        return 'a';
+    }
+
     render() {
         let currUser = this.props.firebaseData.auth().currentUser.displayName;
 
+        let genre = this.props.history.location.state['genre'].toLowerCase();
+
         return (
-            <div>
-                <h1 style={{ color: 'white', fontSize: '50px' }}>Your Ph.d peers from the {currUser == "Allen Building" ? 'Research Commons' : 'Jaech'} sent you</h1>
-                <h1 style={{ color: 'white', fontSize: '50px' }}>a {this.props.history.location.state['genre']} song by {this.props.history.location.state['artist']}</h1>
-                <h1 style={{ color: 'white', marginTop: '120px', fontSize: '50px' }}>Do you want to find out what it is?</h1>
+            <div style={{ textAlign: 'center', marginTop: '7%' }}>
+                <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px'}}>Your friends from the {currUser == "Allen Building" ? 'Research Commons' : 'Jaech'} </h1>
+                <h1 style={{ color: 'white', fontSize: '60px', width: '70%', margin: '0 auto'}}>
+                    sent you {
+                        currUser == "Allen Building" ? <span style={{ color: '#46C4D3' }}>{this.grammarCheck(genre)} {genre} song by {this.props.history.location.state['artist']}</span> :
+                            <span style={{ color: '#FFF170' }}> {this.grammarCheck(genre)} {genre} song by {this.props.history.location.state['artist']}</span>
+                    }
+                </h1>
+                <div style={{ color: 'white', marginTop: '120px', textAlign: 'center' }}>
+                    <p style = {{fontSize: '30px', marginBottom: '-21px'}}>Don't leave them hanging! Press accept/reject!</p>
+                    <p style = {{fontSize: '30px'}}>Once accepted, the song will play in both buildings.</p>
+                </div>
             </div>
         );
 

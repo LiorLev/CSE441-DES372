@@ -28,10 +28,10 @@ class SendSong extends Component {
                 state: 'from sendsong',
                 accepted: 'no'
             });
-        } else if (ans == 'yes'){
+        } else if (ans == 'yes') {
             // localStorage.setItem('times', 0);
             localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
-            
+
             // rcvd.set({
             //     userAccepted: ""
             // });
@@ -40,7 +40,7 @@ class SendSong extends Component {
                 songName: song.toString(),
                 songArtist: artist.toString()
             })
-            
+
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
@@ -49,7 +49,7 @@ class SendSong extends Component {
 
             });
 
-            
+
         }
 
         // let data = this.props.firebaseData.database().ref('jukebox/received');
@@ -72,7 +72,7 @@ class SendSong extends Component {
 
             if (res['userAccepted']) {
                 if (res['userAccepted'] == "true") {
-                    
+
                     t.testing('yes', res['songName'], res['songArtist']);
                     // window.location.href = '/';
                 } else if (res['userAccepted'] == "false") {
@@ -92,9 +92,18 @@ class SendSong extends Component {
 
         return (
             <div style={{ textAlign: 'center', marginRight: '160px' }}>
-                {currUser == "Allen Building" ? <div><h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers in the <span style={{ color: '#46C4D3' }}>Research Commons</span></h1> </div> :
-                    <div><h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers in the <span style={{ color: '#FFF170' }}>Jaech</span> </h1></div>}
-                <h1 style={{ marginTop: '45px', color: 'white' }}>They only know the genre and artist of the song</h1>
+                {currUser == "Allen Building" ?
+                    <div><h1 style={{ color: 'white', fontSize: '50px' }}>Please wait as your song is</h1>
+                        <h1>being sent to the <span style={{ color: '#46C4D3' }}>Research Commons.</span></h1>
+                    </div> :
+
+                    <div><h1 style={{ color: 'white', fontSize: '50px' }}>Please wait as your song is</h1>
+                        <h1>being sent to the <span style={{ color: '#FFF170' }}>Jaech.</span></h1>
+                    </div>}
+
+                <h1 style={{ marginTop: '45px', color: 'white' }}>Will they accept/reject? The meme tells it all!</h1>
+
+
                 {currUser == "Allen Building" ? <img style={{ marginTop: '10px' }} src="https://i.imgur.com/3xhwCSf.png"></img> :
                     <img style={{ marginTop: '10px' }} src="https://i.imgur.com/DlebHZY.png"></img>}
             </div>
