@@ -15,7 +15,7 @@ class Home extends Component {
     }
 
     spaceFunction = (event) => {
-        if (event.altKey && event.code == 'AltRight' && !locked) {
+        if (event.altKey && event.code == 'AltRight' && !this.state.locked) {
 
             let lock = this.props.firebaseData.database().ref('jukebox/lock');
 
