@@ -276,13 +276,15 @@ class Home extends Component {
 
                 if(arr[0] != "" && arr[0] != localStorage.getItem('user')) {
                     t.setState({ locked: true, showLock: true});
+
+                    console.log(t.state);
         
                     setTimeout(() => {
                         t.setState({
                             showLock: false
                         });
-                    }, 4000);
-                    
+                    }, 3000);
+
                 } else if(arr[0] == "") {
                     t.setState({ locked: false})
                 }
@@ -313,8 +315,9 @@ class Home extends Component {
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
 
-                <ReactModal isOpen={this.state.showLock ? true : false} className="Modal1" overlayClassName="overlay">
-                    <div>try again soon...</div>
+                <ReactModal isOpen={this.state.showLock} className="Modal2" overlayClassName="overlay">
+                    <div><h1>Someone from the other building is sending a song.</h1>
+                    <h1>Try again in a few seconds...</h1></div>
                 </ReactModal>
 
                 <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName="overlay">
