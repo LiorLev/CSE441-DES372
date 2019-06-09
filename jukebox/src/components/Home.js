@@ -11,7 +11,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '', locked: false};
+        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '', locked: false, showLock: false};
     }
 
     spaceFunction = (event) => {
@@ -275,7 +275,14 @@ class Home extends Component {
                 });
 
                 if(arr[0] != "" && arr[0] != localStorage.getItem('user')) {
-                    t.setState({ locked: true})
+                    t.setState({ locked: true, showLock: true});
+        
+                    setTimeout(() => {
+                        t.setState({
+                            showLock: false
+                        });
+                    }, 4000);
+                    
                 } else if(arr[0] == "") {
                     t.setState({ locked: false})
                 }
@@ -304,6 +311,10 @@ class Home extends Component {
             <div className="App">
                 <ReactModal isOpen={!this.state.react ? false : true} className="Modal1" overlayClassName="overlay">
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
+                </ReactModal>
+
+                <ReactModal isOpen={this.state.showLock ? true : false} className="Modal1" overlayClassName="overlay">
+                    <div>try again soon...</div>
                 </ReactModal>
 
                 <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName="overlay">
