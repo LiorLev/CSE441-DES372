@@ -11,12 +11,20 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '' };
+        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '', locked: false};
     }
 
     spaceFunction = (event) => {
-        if (event.altKey && event.code == 'AltRight') {
+        if (event.altKey && event.code == 'AltRight' && !locked) {
+
+            let lock = this.props.firebaseData.database().ref('jukebox/lock');
+
+            lock.set({
+                username: localStorage.getItem('user'),
+            });
+
             this.props.history.push("/choose-genre");
+
         } else if (event.keyCode === 85) {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' : 'https://i.imgur.com/RsobDg4.png'
 
@@ -143,23 +151,13 @@ class Home extends Component {
                             }
                         });
                     }
-
-                    // else if (userSent == "") {
-                    //     let rec = props.firebaseData.database().ref('jukebox/received');
-
-                    //     rec.set({
-                    //         userAccepted: ""
-                    //     });
-                    // }
                 }
 
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });
 
-        }
-
-        else {
+        }else {
             if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
@@ -185,7 +183,6 @@ class Home extends Component {
                 }, 4000);
 
                 this.props.history.location.accepted = "";
-                // this.props.history.location.state = "";
             } else if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
                 const acceptedMemes = memeDatabase['accepted'];
 
@@ -211,22 +208,10 @@ class Home extends Component {
                 }, 4000);
 
                 this.props.history.location.accepted = "";
-                // this.props.history.location.state = "";
             }
-
-            // this.props.history.location.accepted = "";
-            // this.props.history.location.userAcceptedOrRejected = "";
             localStorage.setItem("sendSongPage", "false");
             localStorage.setItem('userToReceiveMeme', "");
-
-            // let rec = this.props.firebaseData.database().ref('jukebox/received');
-
-            // rec.set({
-            //     userAccepted: ""
-            // });
         }
-
-        // this.props.history.location.state = "";
 
         let nowplaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
 
@@ -276,6 +261,31 @@ class Home extends Component {
             console.log("The read failed: " + errorObject.code);
         });
 
+        let lock = this.props.firebaseData.database().ref('jukebox/lock');
+
+        //if theres a lock detected in DB, and if the user who locked it is not the current user,
+        //lock the select song key
+        lock.on("value", function (snapshot) {
+            let res = snapshot.val();
+            var arr = [];
+
+            if (snapshot.val()) {
+                Object.keys(res).forEach(function (key) {
+                    arr.push(res[key]);
+                });
+
+                if(arr[0] != "" && arr[0] != localStorage.getItem('user')) {
+                    t.setState({ locked: true})
+                } else if(arr[0] == "") {
+                    t.setState({ locked: false})
+                }
+            }
+
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+
 
     }
 
@@ -301,7 +311,7 @@ class Home extends Component {
                         <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-7px' }}>Accepted - Now enjoy the song together!</h1>
                         <p style={{ color: 'white', fontSize: '30px' }}>
                             Now playing in
-                            {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#46C4D3'  }}> both </span> : <span style={{ color: '#FFF170'}}>both</span>}
+                            {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#46C4D3'  }}> both </span> : <span style={{ color: '#FFF170'}}> both </span>}
                             Jaech and Research Commons
                         </p>
 
@@ -319,7 +329,6 @@ class Home extends Component {
                     {
                         user
                             ? <div style={{ textAlign: 'center', width: '315px' }}>
-                                {/* <p style={{ fontSize: '30px' }}>Songs in queue: 0</p> */}
                                 <p style={{
                                     fontSize: '65px', marginBottom: '-40px', whiteSpace: 'normal',
                                     fontWeight: 'bold', textAlign: 'center', lineHeight: '110%'
@@ -334,8 +343,6 @@ class Home extends Component {
                             : <button className="sign-in" onClick={signInWithGoogle}>Sign In with Google</button>
                     }
                 </div>
-
-                {/* <iframe src="https://giphy.com/embed/IRFQYGCokErS0" width="377" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/download-IRFQYGCokErS0">via GIPHY</a></p> */}
             </div>
         );
     }

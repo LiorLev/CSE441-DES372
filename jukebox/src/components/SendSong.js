@@ -64,6 +64,12 @@ class SendSong extends Component {
     componentDidMount() {
         localStorage.setItem("sendSongPage", "true");
 
+        let lock = this.props.firebaseData.database().ref('jukebox/lock');
+
+        lock.set({
+            username: "",
+        });
+
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
         let t = this;
@@ -91,23 +97,23 @@ class SendSong extends Component {
         let currUser = this.props.firebaseData.auth().currentUser.displayName;
 
         return (
-            <div style={{marginLeft: '64px', marginTop: '7%', textAlign: 'center'}}>
+            <div style={{ marginLeft: '64px', marginTop: '7%', textAlign: 'center' }}>
                 {currUser == "Allen Building" ?
                     <div>
-                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px'}}>Please wait as your song is</h1>
-                        <h1 style={{ color: 'white', fontSize: '60px', margin: '0 auto'}}>being sent to the Research Commons.</h1>
-                        <p style={{ marginTop: '45px', color: 'white', marginTop: '120px', fontSize: '30px'}}>Will they <span style={{ color: '#FFF170' }}>accept/reject</span>? The meme tells it all!</p>
-                    </div> 
+                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px' }}>Please wait as your song is</h1>
+                        <h1 style={{ color: 'white', fontSize: '60px', margin: '0 auto' }}>being sent to the Research Commons.</h1>
+                        <p style={{ marginTop: '45px', color: 'white', marginTop: '120px', fontSize: '30px' }}>Will they <span style={{ color: '#FFF170' }}>accept/reject</span>? The meme tells it all!</p>
+                    </div>
 
                     :
 
                     <div>
                         <h1 style={{ color: 'white', fontSize: '60px' }}>Please wait as your song is</h1>
                         <h1 style={{ color: 'white', fontSize: '60px' }}>being sent to the Jaech.</h1>
-                        <p style={{ marginTop: '45px', color: 'white', fontSize: '30px', marginTop: '120px'}}>Will they <span style={{ color: '#46C4D3' }}>accept/reject</span>? The meme tells it all!</p>
+                        <p style={{ marginTop: '45px', color: 'white', fontSize: '30px', marginTop: '120px' }}>Will they <span style={{ color: '#46C4D3' }}>accept/reject</span>? The meme tells it all!</p>
                     </div>}
 
-                
+
 
 
                 {currUser == "Allen Building" ? <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/BgouchW.gif"></img> :
