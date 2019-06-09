@@ -24,7 +24,14 @@ class Home extends Component {
             });
 
             this.props.history.push("/choose-genre");
+        }else if(event.altKey && event.code == 'AltRight' && this.state.locked){
+            this.setState({showLock: true});
 
+            setTimeout(() => {
+                this.setState({
+                    showLock: false
+                });
+            }, 3000);
         } else if (event.keyCode === 85) {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' : 'https://i.imgur.com/RsobDg4.png'
 
@@ -275,15 +282,17 @@ class Home extends Component {
                 });
 
                 if(arr[0] != "" && arr[0] != localStorage.getItem('user')) {
-                    t.setState({ locked: true, showLock: true});
+                    t.setState({ locked: true});
+                        
+                    //     , showLock: true});
 
-                    console.log(t.state);
+                    // console.log(t.state);
         
-                    setTimeout(() => {
-                        t.setState({
-                            showLock: false
-                        });
-                    }, 3000);
+                    // setTimeout(() => {
+                    //     t.setState({
+                    //         showLock: false
+                    //     });
+                    // }, 3000);
 
                 } else if(arr[0] == "") {
                     t.setState({ locked: false})
