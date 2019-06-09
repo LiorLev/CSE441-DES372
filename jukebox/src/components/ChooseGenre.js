@@ -34,6 +34,11 @@ class ChooseGenre extends Component {
             this.props.history.push({ pathname: '/choose-song', state: this.genres[this.state.selected] });
             document.removeEventListener("keydown", this.arrowFunction, false);
         } else if (event.keyCode == '192') {
+            let lock = this.props.firebaseData.database().ref('jukebox/lock');
+
+            lock.set({
+                username: "",
+            });
             this.props.history.goBack();
         }
     }
@@ -53,7 +58,7 @@ class ChooseGenre extends Component {
         let songDivs = songs.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <p style={{ marginTop: '35px', fontSize: '33px'}}>{item}</p> </div>);
+                <p style={{ marginTop: '35px', fontSize: '33px' }}>{item}</p> </div>);
 
         let songDivs2 = song2.map((item, index) =>
             <div className={(this.state.selected === index + 4 ? 'selected ' : '') + "letters"}
@@ -61,8 +66,8 @@ class ChooseGenre extends Component {
                 <p style={{ marginTop: '35px', fontSize: '33px' }}>{item}</p> </div>);
 
         return (
-            <div style={{marginLeft: '64px', marginTop: '7%' }}>
-                <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}><strong>Select song by genre</strong></h1>
+            <div style={{ marginLeft: '64px', marginTop: '7%' }}>
+                <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px' }}><strong>Select song by genre</strong></h1>
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ display: 'inline-block' }}>{songDivs}</div>
                     <div style={{ display: 'inline-block' }}>{songDivs2}</div>
