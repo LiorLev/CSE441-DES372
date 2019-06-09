@@ -91,21 +91,27 @@ class SendSong extends Component {
         let currUser = this.props.firebaseData.auth().currentUser.displayName;
 
         return (
-            <div style={{ textAlign: 'center', marginRight: '160px' }}>
+            <div style={{marginLeft: '64px', marginTop: '7%', textAlign: 'center'}}>
                 {currUser == "Allen Building" ?
-                    <div><h1 style={{ color: 'white', fontSize: '50px' }}>Please wait as your song is</h1>
-                        <h1>being sent to the <span style={{ color: '#46C4D3' }}>Research Commons.</span></h1>
-                    </div> :
+                    <div>
+                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px'}}>Please wait as your song is</h1>
+                        <h1 style={{ color: 'white', fontSize: '60px', margin: '0 auto'}}>being sent to the Research Commons.</h1>
+                        <p style={{ marginTop: '45px', color: 'white', marginTop: '120px', fontSize: '30px'}}>Will they <span style={{ color: '#FFF170' }}>accept/reject</span>? The meme tells it all!</p>
+                    </div> 
 
-                    <div><h1 style={{ color: 'white', fontSize: '50px' }}>Please wait as your song is</h1>
-                        <h1>being sent to the <span style={{ color: '#FFF170' }}>Jaech.</span></h1>
+                    :
+
+                    <div>
+                        <h1 style={{ color: 'white', fontSize: '60px' }}>Please wait as your song is</h1>
+                        <h1 style={{ color: 'white', fontSize: '60px' }}>being sent to the Jaech.</h1>
+                        <p style={{ marginTop: '45px', color: 'white', fontSize: '30px', marginTop: '120px'}}>Will they <span style={{ color: '#46C4D3' }}>accept/reject</span>? The meme tells it all!</p>
                     </div>}
 
-                <h1 style={{ marginTop: '45px', color: 'white' }}>Will they accept/reject? The meme tells it all!</h1>
+                
 
 
-                {currUser == "Allen Building" ? <img style={{ marginTop: '10px' }} src="https://i.imgur.com/3xhwCSf.png"></img> :
-                    <img style={{ marginTop: '10px' }} src="https://i.imgur.com/DlebHZY.png"></img>}
+                {/* {currUser == "Allen Building" ? <img style={{ marginTop: '10px' }} src="https://i.imgur.com/3xhwCSf.png"></img> :
+                    <img style={{ marginTop: '10px' }} src="https://i.imgur.com/DlebHZY.png"></img>} */}
             </div>
         );
     }
