@@ -182,7 +182,7 @@ class Home extends Component {
                         meme: ""
                     });
 
-                }, 2500);
+                }, 4000);
 
                 this.props.history.location.accepted = "";
                 // this.props.history.location.state = "";
@@ -208,7 +208,7 @@ class Home extends Component {
                         meme: ""
                     });
 
-                }, 2500);
+                }, 4000);
 
                 this.props.history.location.accepted = "";
                 // this.props.history.location.state = "";
