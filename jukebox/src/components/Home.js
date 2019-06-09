@@ -142,8 +142,8 @@ class Home extends Component {
                                 history: history
                             }
                         });
-                    } 
-                    
+                    }
+
                     // else if (userSent == "") {
                     //     let rec = props.firebaseData.database().ref('jukebox/received');
 
@@ -157,8 +157,8 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
 
-        } 
-        
+        }
+
         else {
             if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
@@ -292,27 +292,39 @@ class Home extends Component {
 
         return (
             <div className="App">
-{/* {!this.state.react ? false : true} */}
                 <ReactModal isOpen={!this.state.react ? false : true} className="Modal1" overlayClassName="overlay">
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
 
                 <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName="overlay">
                     <div>
-                        <img id="meme" src={this.state.meme}></img>
+                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-7px' }}>Accepted - Now enjoy the song together!</h1>
+                        <p style={{ color: 'white', fontSize: '30px' }}>
+                            Now playing in
+                            {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#46C4D3'  }}> both </span> : <span style={{ color: '#FFF170'}}>both</span>}
+                            Jaech and Research Commons
+                        </p>
+
+                        {localStorage.getItem('user') == "Allen Building" ?
+                            <img id="meme" src={this.state.meme} style={{ border: '4px solid #46C4D3' }}></img> :
+                            <img id="meme" src={this.state.meme} style={{ border: ' 4px solid #FFF170' }}></img>}
+
+
                     </div>
                 </ReactModal>
 
-                
+
                 <img id="animation" src="https://i.imgur.com/3MncfYh.gif" alt="Loading" title="Loading" />
                 <div className="App-header">
                     {
                         user
-                            ? <div style = {{textAlign: 'center', width: '315px'}}>
+                            ? <div style={{ textAlign: 'center', width: '315px' }}>
                                 {/* <p style={{ fontSize: '30px' }}>Songs in queue: 0</p> */}
-                                <p style={{ fontSize: '65px', marginBottom: '-40px', whiteSpace: 'normal', 
-                                fontWeight: 'bold', textAlign: 'center', lineHeight: '110%'}}>{this.state.nowplaying.toString()}</p>
-                                <p style={{ fontSize: '33px', fontFamily: 'signpaintermedium', textAlign: 'center', marginTop: '28%'}}>By {this.state.artist.toString()}</p>
+                                <p style={{
+                                    fontSize: '65px', marginBottom: '-40px', whiteSpace: 'normal',
+                                    fontWeight: 'bold', textAlign: 'center', lineHeight: '110%'
+                                }}>{this.state.nowplaying.toString()}</p>
+                                <p style={{ fontSize: '33px', fontFamily: 'signpaintermedium', textAlign: 'center', marginTop: '28%' }}>By {this.state.artist.toString()}</p>
                             </div>
                             : <p>Please sign in.</p>
                     }
