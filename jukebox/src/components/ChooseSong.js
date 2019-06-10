@@ -60,39 +60,27 @@ class ChooseSong extends Component {
 
                 // this.props.history.clear();
             });
-            // } else {
-            //     alert("try again :/");
-            // }
 
-            // this.props.history.push({
-            //     pathname: `/send-song`,
-            //     state: {
-            //         id: this.songs[this.state.selected]['id'],
-            //         title: this.songs[this.state.selected]['song'],
-            //         artist: this.songs[this.state.selected]['artist'],
-            //         history: history
-            //     }
-            // });
             // event.code == 'Numpad1'
-        } else if (event.keyCode == '38' && this.state.selected > 0 && this.state.selected <= 8) {
+        } else if (event.code == 'Numpad1' && this.state.selected > 0 && this.state.selected <= 8) {
             // up arrow
             if (this.state.selected != 4) {
                 this.setState({ selected: this.state.selected - 1 });
             }
             // event.code == 'Numpad0'
-        } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 7) {
+        } else if (event.code == 'Numpad0' && this.state.selected >= 0 && this.state.selected < 7) {
             // down arrow
             if (this.state.selected != 3) {
                 this.setState({ selected: this.state.selected + 1 });
             }
             //right
             // event.code == 'NumpadDecimal'
-        } else if (event.keyCode == '39'  && this.state.selected >= 0 && this.state.selected < 4) {
+        } else if (event.code == 'NumpadDecimal'  && this.state.selected >= 0 && this.state.selected < 4) {
             this.setState({ selected: this.state.selected + 4 });
 
             //left
             // event.code == 'ArrowRight'
-        } else if (event.keyCode == '37' && this.state.selected >= 4 && this.state.selected < 8) {
+        } else if (event.code == 'ArrowRight' && this.state.selected >= 4 && this.state.selected < 8) {
             this.setState({ selected: this.state.selected - 4 });
 
         } else if (event.code == 'KeyQ') {

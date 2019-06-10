@@ -31,7 +31,7 @@ class Home extends Component {
                 this.setState({
                     showLock: false
                 });
-            }, 3000);
+            }, 5000);
 
             //happy
         } else if (event.code === 'KeyU') {
@@ -333,8 +333,8 @@ class Home extends Component {
                 </ReactModal>
 
                 <ReactModal isOpen={this.state.showLock} className="Modal2" overlayClassName="overlay">
-                    <div><h1>Someone from the other building is sending a song.</h1>
-                        <h1>Try again in a few seconds...</h1></div>
+                    <div><h1 style = {{fontSize: '25px'}}>Someone from the {localStorage.getItem('user') == "Allen Building" ? <span> Research Commons </span> : <span> Jaech </span>}is sending a song.</h1>
+                        <h1 style = {{fontSize: '25px'}}>Try again in a few seconds...</h1></div>
                 </ReactModal>
 
                 <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName="overlay">
