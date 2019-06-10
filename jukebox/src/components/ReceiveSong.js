@@ -129,9 +129,9 @@ class ReceiveSong extends Component {
                 </h1>
                 <div style={{ color: 'white', marginTop: '120px', textAlign: 'center' }}>
                     
-                    <p style = {{fontSize: '60px'}}>Press
+                    <p style = {{fontSize: '60px', marginBottom: '-19px'}}>Press
                     {currUser == "Allen Building" ? <span style = {{color: '#FFF170'}}> Accept/Reject!</span> : <span style={{ color: '#46C4D3' }}> Accept/Reject.</span>}</p>
-                    <p style = {{fontSize: '30px', marginBottom: '-19px'}}>Once accepted, the song will play in both buildings.</p>
+                    <p style = {{fontSize: '30px'}}>Once accepted, the song will play in both buildings.</p>
                 </div>
 
                 {currUser == "Gates Center" ? <img style={{ marginTop: '101px', width: '77%' }} src="https://i.imgur.com/23bOuZT.gif"></img> :

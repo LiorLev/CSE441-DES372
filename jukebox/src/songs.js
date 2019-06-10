@@ -109,7 +109,7 @@ const songDatabase = {
         {
             "song": "Talk",
             "id": "qjL_-OFbk8I",
-            "artist": "khalid"
+            "artist": "Khalid"
         },
         {
             "song": "Middle Child",
