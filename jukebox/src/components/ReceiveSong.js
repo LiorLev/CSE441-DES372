@@ -137,8 +137,8 @@ class ReceiveSong extends Component {
                     <p style = {{fontSize: '30px'}}>Once accepted, the song will play in both buildings.</p>
                 </div>
 
-                {currUser == "Gates Center" ? <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/23bOuZT.gif"></img> :
-                    <img style={{ marginTop: '47px', width: '88%' }} src="https://i.imgur.com/g3u6Jpv.gif"></img>}
+                {currUser == "Gates Center" ? <img style={{ marginTop: '101px', width: '77%' }} src="https://i.imgur.com/23bOuZT.gif"></img> :
+                    <img style={{ marginTop: '47px', width: '77%' }} src="https://i.imgur.com/g3u6Jpv.gif"></img>}
             </div>
         );
 
