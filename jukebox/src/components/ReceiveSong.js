@@ -135,7 +135,7 @@ class ReceiveSong extends Component {
                 </div>
 
                 {currUser == "Gates Center" ? <img style={{ marginTop: '101px', width: '77%' }} src="https://i.imgur.com/23bOuZT.gif"></img> :
-                    <img style={{ marginTop: '47px', width: '77%' }} src="https://i.imgur.com/g3u6Jpv.gif"></img>}
+                    <img style={{ marginTop: '35px', width: '77%' }} src="https://i.imgur.com/g3u6Jpv.gif"></img>}
             </div>
         );
 
