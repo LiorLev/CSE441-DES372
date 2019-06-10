@@ -33,7 +33,7 @@ class ChooseGenre extends Component {
         } else if (event.altKey && event.code == 'AltRight') {
             this.props.history.push({ pathname: '/choose-song', state: this.genres[this.state.selected] });
             document.removeEventListener("keydown", this.arrowFunction, false);
-        } else if (event.keyCode == '192') {
+        } else if (event.keyCode == '81') {
             let lock = this.props.firebaseData.database().ref('jukebox/lock');
 
             lock.set({

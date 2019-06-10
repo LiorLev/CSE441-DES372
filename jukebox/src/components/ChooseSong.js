@@ -92,7 +92,7 @@ class ChooseSong extends Component {
         } else if (event.keyCode == '37' && this.state.selected >= 5 && this.state.selected < 10) {
             this.setState({ selected: this.state.selected - 5 });
 
-        } else if (event.keyCode == '192') {
+        } else if (event.keyCode == '81') {
             this.props.history.goBack();
         }
     }
