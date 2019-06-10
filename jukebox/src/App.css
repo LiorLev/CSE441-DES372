@@ -85,7 +85,7 @@ button {
 
 .receive {
   text-align: center;
-  border: 5px solid #46C4D3;
+  border: 4px solid #46C4D3;
   color: #FFF170;
   margin-bottom: 25px;
   width: 300px;
@@ -102,7 +102,7 @@ button {
 
 .selectedSong {
   background-color: #FFF170;
-  border: 5px solid #FFF170;
+  border: 4px solid #FFF170;
   color: #3DABB8;
 }
 
@@ -191,6 +191,7 @@ button {
 #meme {
   height: 600px;
   margin-top: 15px;
+  border-radius: 4px;
   /* height: 100%; */
   
 }

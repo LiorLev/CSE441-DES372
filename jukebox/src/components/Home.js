@@ -11,7 +11,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '', locked: false, showLock: false};
+        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '', locked: false, showLock: false };
     }
 
     spaceFunction = (event) => {
@@ -24,16 +24,16 @@ class Home extends Component {
             });
 
             this.props.history.push("/choose-genre");
-        }else if(event.altKey && event.code == 'AltRight' && this.state.locked){
-            this.setState({showLock: true});
+        } else if (event.altKey && event.code == 'AltRight' && this.state.locked) {
+            this.setState({ showLock: true });
 
             setTimeout(() => {
                 this.setState({
                     showLock: false
                 });
             }, 3000);
-        
-        //happy
+
+            //happy
         } else if (event.code === 'KeyU') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' : 'https://i.imgur.com/RsobDg4.png'
 
@@ -56,7 +56,7 @@ class Home extends Component {
                 reaction: emoji
             });
 
-        //heart
+            //heart
         } else if (event.code === 'KeyO') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/vysfR6i.png' : 'https://i.imgur.com/kTjaDoi.png'
 
@@ -79,7 +79,7 @@ class Home extends Component {
                 reaction: emoji
             });
 
-        //sad
+            //sad
         } else if (event.code === 'Backslash') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/r85rt33.png' : 'https://i.imgur.com/eWkGDr0.png'
 
@@ -101,7 +101,7 @@ class Home extends Component {
                 username: this.props.firebaseData.auth().currentUser.displayName,
                 reaction: emoji
             });
-        //shook
+            //shook
         } else if (event.code === 'BracketLeft') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/a3jnTgb.png' : 'https://i.imgur.com/ZE1J401.png'
 
@@ -168,7 +168,7 @@ class Home extends Component {
                 console.log("The read failed: " + errorObject.code);
             });
 
-        }else {
+        } else {
             if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "no") {
                 const rejectedMemes = memeDatabase['rejected'];
 
@@ -182,13 +182,15 @@ class Home extends Component {
 
                 this.setState({
                     userAcceptedOrRejected: true,
-                    meme: memes[rand]['link']
+                    meme: memes[rand]['link'],
+                    type: 'rejected'
                 });
 
                 setTimeout(() => {
                     this.setState({
                         userAcceptedOrRejected: false,
-                        meme: ""
+                        meme: "",
+                        type: ''
                     });
 
                 }, 4000);
@@ -207,13 +209,15 @@ class Home extends Component {
 
                 this.setState({
                     userAcceptedOrRejected: true,
-                    meme: memes[rand]['link']
+                    meme: memes[rand]['link'],
+                    type: 'accepted'
                 });
 
                 setTimeout(() => {
                     this.setState({
                         userAcceptedOrRejected: false,
-                        meme: ""
+                        meme: "",
+                        type: ''
                     });
 
                 }, 4000);
@@ -285,21 +289,21 @@ class Home extends Component {
                     arr.push(res[key]);
                 });
 
-                if(arr[0] != "" && arr[0] != localStorage.getItem('user')) {
-                    t.setState({ locked: true});
-                        
+                if (arr[0] != "" && arr[0] != localStorage.getItem('user')) {
+                    t.setState({ locked: true });
+
                     //     , showLock: true});
 
                     // console.log(t.state);
-        
+
                     // setTimeout(() => {
                     //     t.setState({
                     //         showLock: false
                     //     });
                     // }, 3000);
 
-                } else if(arr[0] == "") {
-                    t.setState({ locked: false})
+                } else if (arr[0] == "") {
+                    t.setState({ locked: false })
                 }
             }
 
@@ -330,17 +334,29 @@ class Home extends Component {
 
                 <ReactModal isOpen={this.state.showLock} className="Modal2" overlayClassName="overlay">
                     <div><h1>Someone from the other building is sending a song.</h1>
-                    <h1>Try again in a few seconds...</h1></div>
+                        <h1>Try again in a few seconds...</h1></div>
                 </ReactModal>
 
                 <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName="overlay">
                     <div>
-                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-7px' }}>Accepted - Now enjoy the song together!</h1>
-                        <p style={{ color: 'white', fontSize: '30px' }}>
-                            Now playing in
-                            {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#46C4D3'  }}> both </span> : <span style={{ color: '#FFF170'}}> both </span>}
-                            Jaech and Research Commons
-                        </p>
+                        {
+                            this.state.type == 'accepted' ?
+                                <div>
+                                    <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-7px' }}>Accepted - Now enjoy the song together!</h1>
+                                    <p style={{ color: 'white', fontSize: '30px' }}>
+                                        Now playing in {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#46C4D3' }}> both </span> : <span style={{ color: '#FFF170' }}> both </span>}
+                                        Jaech and Research Commons
+                                    </p>
+                                </div> :
+
+                                <div>
+                                    <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-7px' }}>Rejected - Don't give up</h1>
+                                    <p style={{ color: 'white', fontSize: '30px' }}>
+                                        Press {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#FFF170' }}> Enter </span> : <span style={{ color: '#46C4D3' }}> Enter </span>}
+                                        to try again
+                                    </p>
+                                </div>
+                        }
 
                         {localStorage.getItem('user') == "Allen Building" ?
                             <img id="meme" src={this.state.meme} style={{ border: '4px solid #46C4D3' }}></img> :
