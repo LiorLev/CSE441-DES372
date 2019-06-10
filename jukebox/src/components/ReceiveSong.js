@@ -122,7 +122,7 @@ class ReceiveSong extends Component {
         let genre = this.props.history.location.state['genre'].toLowerCase();
 
         return (
-            <div style={{ textAlign: 'center', marginTop: '7%' }}>
+            <div style={{ margin: '0 auto', marginTop: '7%', textAlign: 'center' }}>
                 <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px'}}>Your friends from the {currUser == "Allen Building" ? 'Research Commons' : 'Jaech'} </h1>
                 <h1 style={{ color: 'white', fontSize: '60px', width: '70%', margin: '0 auto'}}>
                     sent you {
@@ -131,7 +131,9 @@ class ReceiveSong extends Component {
                     }
                 </h1>
                 <div style={{ color: 'white', marginTop: '120px', textAlign: 'center' }}>
-                    <p style = {{fontSize: '30px', marginBottom: '-21px'}}>Don't leave them hanging! Press accept/reject!</p>
+                    
+                    <p style = {{fontSize: '30px', marginBottom: '-21px'}}>Don't leave them hanging! Press 
+                    {currUser == "Allen Building" ? <span style = {{color: '#FFF170'}}> accept/reject.</span> : <span style={{ color: '#46C4D3' }}> accept/reject.</span>}</p>
                     <p style = {{fontSize: '30px'}}>Once accepted, the song will play in both buildings.</p>
                 </div>
 

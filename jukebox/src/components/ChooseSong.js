@@ -92,7 +92,11 @@ class ChooseSong extends Component {
         } else if (event.code == 'ArrowRight' && this.state.selected >= 5 && this.state.selected < 10) {
             this.setState({ selected: this.state.selected - 5 });
 
+<<<<<<< HEAD
         } else if (event.code == 'KeyQ') {
+=======
+        } else if (event.keyCode == '81') {
+>>>>>>> 54cc706791e46b26c4e735f0c71d5fb2ecf45495
             this.props.history.goBack();
         }
     }

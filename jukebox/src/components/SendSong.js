@@ -97,7 +97,7 @@ class SendSong extends Component {
         let currUser = this.props.firebaseData.auth().currentUser.displayName;
 
         return (
-            <div style={{ marginLeft: '64px', marginTop: '7%', textAlign: 'center' }}>
+            <div style={{ margin: '0 auto', marginTop: '7%', textAlign: 'center' }}>
                 {currUser == "Allen Building" ?
                     <div>
                         <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px' }}>Please wait as your song is</h1>
