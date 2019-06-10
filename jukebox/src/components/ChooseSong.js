@@ -73,24 +73,27 @@ class ChooseSong extends Component {
             //         history: history
             //     }
             // });
-
-        } else if (event.code == 'Numpad1' && this.state.selected >= 1 && this.state.selected <= 10) {
+            // event.code == 'Numpad1'
+        } else if (event.keyCode == '38' && this.state.selected > 0 && this.state.selected <= 8) {
             // up arrow
-            if (this.state.selected != 5) {
+            if (this.state.selected != 4) {
                 this.setState({ selected: this.state.selected - 1 });
             }
-        } else if (event.code == 'Numpad0' && this.state.selected >= 0 && this.state.selected < 9) {
+            // event.code == 'Numpad0'
+        } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 7) {
             // down arrow
-            if (this.state.selected != 4) {
+            if (this.state.selected != 3) {
                 this.setState({ selected: this.state.selected + 1 });
             }
             //right
-        } else if (event.code == 'NumpadDecimal'  && this.state.selected >= 0 && this.state.selected < 5) {
-            this.setState({ selected: this.state.selected + 5 });
+            // event.code == 'NumpadDecimal'
+        } else if (event.keyCode == '39'  && this.state.selected >= 0 && this.state.selected < 4) {
+            this.setState({ selected: this.state.selected + 4 });
 
             //left
-        } else if (event.code == 'ArrowRight' && this.state.selected >= 5 && this.state.selected < 10) {
-            this.setState({ selected: this.state.selected - 5 });
+            // event.code == 'ArrowRight'
+        } else if (event.keyCode == '37' && this.state.selected >= 4 && this.state.selected < 8) {
+            this.setState({ selected: this.state.selected - 4 });
 
         } else if (event.code == 'KeyQ') {
             this.props.history.goBack();

@@ -366,8 +366,8 @@ class Home extends Component {
                     </div>
                 </ReactModal>
 
-
-                <img id="animation" src="https://i.imgur.com/5faRyTl.gif" alt="Loading" title="Loading" />
+                {/* nowplaying gif */}
+                <img id="animation" src="https://i.imgur.com/N36uyEd.gif" alt="Loading" title="Loading" />
                 <div className="App-header">
                     {
                         user
@@ -386,6 +386,10 @@ class Home extends Component {
                             : <button className="sign-in" onClick={signInWithGoogle}>Sign In with Google</button>
                     }
                 </div>
+
+                <p style = {{color: 'white', fontSize: '25px', marginTop: '-6px', marginBottom: '10px'}}>
+                    Press  {localStorage.getItem('user') == "Allen Building" ? <span style = {{color: '#FFF170'}}> Enter</span> : <span style={{ color: '#46C4D3' }}> Enter</span>} to start</p>
+                <img style = {{width: '29px', marginTop: '-14px'}} src = "https://i.imgur.com/XhMDyrr.png"></img>
             </div>
         );
     }

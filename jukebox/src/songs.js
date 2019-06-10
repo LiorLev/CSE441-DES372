@@ -6,11 +6,6 @@ const songDatabase = {
             "artist": "Sam Smith"
         },
         {
-            "song": "Love on the Brain",
-            "id": "HoTJzQOM1do",
-            "artist": "Rihanna"
-        },
-        {
             "song": "7 Rings",
             "id": "EOApBOHeBHg",
             "artist": "Ariana Grande"
@@ -41,11 +36,6 @@ const songDatabase = {
             "artist": "Lil Nas X"
         },
         {
-            "song": "Sunflower",
-            "id": "RXWYDeGhe24",
-            "artist": "Post Malone"
-        },
-        {
             "song": "Don't Call Me Up",
             "id": "6JV7t0CGcOo",
             "artist": "Mabel"
@@ -53,11 +43,6 @@ const songDatabase = {
     ],
 
     "latin": [
-        {
-            "song": "Con Calma",
-            "id": "bNTRIdraX8c",
-            "artist": "Daddy Yankee"
-        },
         {
             "song": "Mia",
             "id": "635ynSfnTN0",
@@ -97,11 +82,6 @@ const songDatabase = {
             "song": "Me Gusta",
             "id": "ZdcuLc9uygg",
             "artist": "Natti Natasha"
-        },
-        {
-            "song": "La Romana",
-            "id": "jyRQNud8B3k",
-            "artist": "Bad Bunny"
         }
     ],
 
@@ -137,11 +117,6 @@ const songDatabase = {
             "artist": "J. Cole"
         },
         {
-            "song": "Wake Up",
-            "id": "vbD80Rn8ydo",
-            "artist": "Travis Scott"
-        },
-        {
             "song": "Saturday Nights",
             "id": "jNU_cKIlA1w",
             "artist": "Khalid & Kane Brown"
@@ -150,11 +125,6 @@ const songDatabase = {
             "song": "Ex",
             "id": "ntNCdPBEDXs",
             "artist": "Kiana Lede"
-        },
-        {
-            "song": "Icy",
-            "id": "_N0KFbKtr90",
-            "artist": "Logic"
         }
     ],
 
@@ -198,16 +168,6 @@ const songDatabase = {
             "song": "Living",
             "id": "KWzlUFu-YTE",
             "artist": "Dierks Bentley"
-        },
-        {
-            "song": "Closer To You",
-            "id": "_cOXNuqZIDU",
-            "artist": "Carly Pearce"
-        },
-        {
-            "song": "I Hope",
-            "id": "MbGTsX3An6A",
-            "artist": "Gabby Barret"
         }
     ],
 
@@ -241,16 +201,6 @@ const songDatabase = {
             "song": "Gloria",
             "id": "_MmCAa_2xoE",
             "artist": "The Lumineers"
-        },
-        {
-            "song": "Hurt",
-            "id": "DPVCNK74ZBI",
-            "artist": "Oliver Tree"
-        },
-        {
-            "song": "Alligator",
-            "id": "NunAl4BRVx8",
-            "artist": "Of Monsters and Men"
         },
         {
             "song": "Almost",
@@ -291,11 +241,6 @@ const songDatabase = {
             "artist": "Calvin Harris"
         },
         {
-            "song": "Win Win",
-            "id": "bs6iC7YHoi8",
-            "artist": "Diplo"
-        },
-        {
             "song": "Dive",
             "id": "6UuyDDp-w1E",
             "artist": "Aazar, Swae Lee & Tove Lo"
@@ -309,11 +254,6 @@ const songDatabase = {
             "song": "Think About You",
             "id": "kiEGIQaR1QQ",
             "artist": "Kygo"
-        },
-        {
-            "song": "Hope",
-            "id": "wDM-7geOdOE",
-            "artist": "The Chainsmokers"
         }
     ],
 
@@ -337,16 +277,6 @@ const songDatabase = {
             "song": "Raspberry Jam",
             "id": "fOCZ-TbZwHc",
             "artist": "Allah-Las"
-        },
-        {
-            "song": "You Seemed So Happy",
-            "id": "O-SQw2RrDaU",
-            "artist": "The Japanese House"
-        },
-        {
-            "song": "Honeypie",
-            "id": "dhliMvHB-E0",
-            "artist": "Johnny Utah"
         },
         {
             "song": "Flowers",
@@ -377,11 +307,6 @@ const songDatabase = {
             "artist": "Maroon 5 & Cardi B."
         },
         {
-            "song": "I'm Like a Bird",
-            "id": "qWc1u5BzwNQ",
-            "artist": "Alessia Cara"
-        },
-        {
             "song": "Something Just Like This",
             "id": "eVN4jbXD_6w",
             "artist": "The Chainsmokers & Coldplay"
@@ -400,11 +325,6 @@ const songDatabase = {
             "song": "Just Give Me A Reason",
             "id": "w7JRWHCKkIY",
             "artist": "Pink & Nate Ruess"
-        },
-        {
-            "song": "Mercy",
-            "id": "jd1cRH92984",
-            "artist": "Shawn Mendes"
         },
         {
             "song": "Take Me To Church",
