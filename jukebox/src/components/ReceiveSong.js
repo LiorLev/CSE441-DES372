@@ -36,7 +36,8 @@ class ReceiveSong extends Component {
     }
 
     arrowFunction2 = (event) => {
-        if (event.ctrlKey && event.keyCode == '17') {
+        //accept
+        if (event.ctrlKey && event.code == 'ControlLeft') {
             // this.accepted = true;
             let data = this.props.firebaseData.database().ref('jukebox/received');
 
@@ -50,20 +51,12 @@ class ReceiveSong extends Component {
                 songArtist: this.props.history.location.state['title'].toString()
             }).then(() => {
 
-
-                // nowPlaying.set({
-                //     songName: this.props.history.location.state['artist'].toString(),
-                //     songArtist: this.props.history.location.state['title'].toString()
-                // })
-
                 this.testing("yes");
 
             })
 
 
-
-
-            // this.setState({ selected: 0 });
+        //reject
         } else if (event.altKey && event.code == 'AltLeft') {
             let data = this.props.firebaseData.database().ref('jukebox/received');
 

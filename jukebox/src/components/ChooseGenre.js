@@ -11,29 +11,29 @@ class ChooseGenre extends Component {
 
     arrowFunction = (event) => {
         //up
-        if (event.keyCode == '38' && this.state.selected > 0 && this.state.selected <= 8) {
+        if (event.code == 'Numpad1' && this.state.selected > 0 && this.state.selected <= 8) {
             if (this.state.selected != 4) {
                 this.setState({ selected: this.state.selected - 1 });
             }
 
             //down
-        } else if (event.keyCode == '40' && this.state.selected >= 0 && this.state.selected < 7) {
+        } else if (event.code == 'Numpad0' && this.state.selected >= 0 && this.state.selected < 7) {
             if (this.state.selected != 3) {
                 this.setState({ selected: this.state.selected + 1 });
             }
 
             //right
-        } else if (event.keyCode == '39' && this.state.selected >= 0 && this.state.selected < 4) {
+        } else if (event.code == 'NumpadDecimal' && this.state.selected >= 0 && this.state.selected < 4) {
             this.setState({ selected: this.state.selected + 4 });
 
             //left
-        } else if (event.keyCode == '37' && this.state.selected >= 4 && this.state.selected < 8) {
+        } else if (event.code == 'ArrowRight' && this.state.selected >= 4 && this.state.selected < 8) {
             this.setState({ selected: this.state.selected - 4 });
 
         } else if (event.altKey && event.code == 'AltRight') {
             this.props.history.push({ pathname: '/choose-song', state: this.genres[this.state.selected] });
             document.removeEventListener("keydown", this.arrowFunction, false);
-        } else if (event.keyCode == '192') {
+        } else if (event.code == 'KeyQ') {
             let lock = this.props.firebaseData.database().ref('jukebox/lock');
 
             lock.set({

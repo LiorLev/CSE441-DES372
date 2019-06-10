@@ -32,7 +32,9 @@ class Home extends Component {
                     showLock: false
                 });
             }, 3000);
-        } else if (event.keyCode === 85) {
+        
+        //happy
+        } else if (event.code === 'KeyU') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' : 'https://i.imgur.com/RsobDg4.png'
 
             this.setState({
@@ -54,7 +56,8 @@ class Home extends Component {
                 reaction: emoji
             });
 
-        } else if (event.keyCode === 73) {
+        //heart
+        } else if (event.code === 'KeyO') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/vysfR6i.png' : 'https://i.imgur.com/kTjaDoi.png'
 
             this.setState({
@@ -76,7 +79,8 @@ class Home extends Component {
                 reaction: emoji
             });
 
-        } else if (event.keyCode === 80) {
+        //sad
+        } else if (event.code === 'Backslash') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/r85rt33.png' : 'https://i.imgur.com/eWkGDr0.png'
 
             this.setState({
@@ -97,8 +101,8 @@ class Home extends Component {
                 username: this.props.firebaseData.auth().currentUser.displayName,
                 reaction: emoji
             });
-
-        } else if (event.keyCode === 221) {
+        //shook
+        } else if (event.code === 'BracketLeft') {
             let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/a3jnTgb.png' : 'https://i.imgur.com/ZE1J401.png'
 
             this.setState({

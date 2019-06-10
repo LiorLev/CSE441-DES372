@@ -30,9 +30,9 @@ class App extends Component {
   //event1 = video
   volumeControl = (event) => {
     let currVol = this.state.vid.getVolume();
-    if (event.keyCode == '32') {
+    if (event.code == 'Numpad9') {
       this.state.vid.setVolume(currVol + 5);
-    } else if (event.keyCode == '66') {
+    } else if (event.code == 'Numpad7') {
       this.state.vid.setVolume(currVol - 5);
     }
   }
