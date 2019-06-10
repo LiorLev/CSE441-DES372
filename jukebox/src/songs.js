@@ -46,7 +46,7 @@ const songDatabase = {
         {
             "song": "Mia",
             "id": "635ynSfnTN0",
-            "artist": "Bad bunny"
+            "artist": "Bad Bunny"
         },
         {
             "song": "Soltera",
@@ -314,7 +314,7 @@ const songDatabase = {
         {
             "song": "Shape of You",
             "id": "TRkIdcuXZQg",
-            "artist": "Ed sheeran"
+            "artist": "Ed Sheeran"
         },
         {
             "song": "Rolling In the Deep",
