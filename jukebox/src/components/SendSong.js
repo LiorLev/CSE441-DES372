@@ -116,8 +116,8 @@ class SendSong extends Component {
 
 
 
-                {currUser == "Allen Building" ? <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/BgouchW.gif"></img> :
-                    <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/VoMUdvA.gif"></img>}
+                {currUser == "Allen Building" ? <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/23bOuZT.gif"></img> :
+                    <img style={{ marginTop: '101px', width: '88%' }} src="https://i.imgur.com/g3u6Jpv.gif"></img>}
             </div>
         );
     }
