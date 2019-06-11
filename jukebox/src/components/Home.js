@@ -292,16 +292,6 @@ class Home extends Component {
                 if (arr[0] != "" && arr[0] != localStorage.getItem('user')) {
                     t.setState({ locked: true });
 
-                    //     , showLock: true});
-
-                    // console.log(t.state);
-
-                    // setTimeout(() => {
-                    //     t.setState({
-                    //         showLock: false
-                    //     });
-                    // }, 3000);
-
                 } else if (arr[0] == "") {
                     t.setState({ locked: false })
                 }

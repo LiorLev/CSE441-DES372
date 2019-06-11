@@ -62,11 +62,6 @@ class App extends Component {
       this.setState({ songId: snapshot.val().songId });
     });
 
-    // let lastsent = firebaseApp.database().ref('jukebox/lastsent');
-    // lastsent.set({
-    //   lastSentBy: "",
-    //   times: 0
-    // });
   }
 
   componentWillUnmount() {
@@ -93,24 +88,11 @@ class App extends Component {
     data.set({
       songId: song
     }).then(() => {
-      // let msgs = firebaseApp.database().ref('jukebox/messages');
-      // msgs.set({
-      //   userName: "",
-      //   message: "",
-      //   song: ""
-      // });
-
       window.location.href = `/`;
     });
   }
 
-  // _onReady(event) {
-  //   // access to player in all event handlers via event.target
-  //   // event.target.setVolume(0.2);
-  // }
-
   _onReady(event) {
-    // access to player in all event handlers via event.target
     console.log(event.target);
     console.log(event.target.getPlayerState());
   }
@@ -127,7 +109,6 @@ class App extends Component {
     return (
       <Router>
         {this.matchRoute()}
-        {/* <iframe width="0" height="0" src={`https://www.youtube.com/embed/${this.state.songId}?autoplay=1`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen /> */}
         <YouTube
           videoId={this.state.songId}
           opts={opts}

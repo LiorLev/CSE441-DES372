@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import '../App.css';
-import ChooseSong from '../components/ChooseSong';
-import Home from '../components/Home';
-
 
 class ReceiveSong extends Component {
     accepted = null;
@@ -22,23 +19,17 @@ class ReceiveSong extends Component {
             });
             this.props.history.push({ pathname: '/', state: 'rejected' });
         } else {
-            // alert("here");
-            // alert(this.props.history.location.state['id']);
             rcvd.set({
                 userAccepted: ""
             });
 
             this.props.changeSongId(this.state.songID);
-
-
-
         }
     }
 
     arrowFunction2 = (event) => {
         //accept
         if (event.ctrlKey && event.code == 'ControlLeft') {
-            // this.accepted = true;
             let data = this.props.firebaseData.database().ref('jukebox/received');
 
             let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
@@ -67,35 +58,7 @@ class ReceiveSong extends Component {
                 this.testing("no");
             });
 
-            // this.accpeted = false;
-            // this.setState({ selected: 1 });
-        }
-
-        // let data = this.props.firebaseData.database().ref('jukebox/received');
-
-
-        // data.set({
-        //     userAccepted: this.accepted == true ? "true" : "false"
-        // }).then(() => {
-
-        //     if (this.accepted == true) {
-        //         let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
-        //         nowPlaying.set({
-        //             songName: this.props.history.location.state['artist'].toString(),
-        //             songArtist: this.props.history.location.state['title'].toString()
-        //         }).then(
-        //             this.props.changeSongId(this.props.history.location.state['id'].toString())
-        //         );
-
-
-
-
-        //     } else if (this.accepted == false) {
-        //         this.testing("no");
-        //     }
-
-        //     // localStorage.setItem('times', 0);
-        // })
+        }       
     }
 
     componentDidMount() {
