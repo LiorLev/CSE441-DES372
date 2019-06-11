@@ -7,45 +7,85 @@ class SendSong extends Component {
         super(props);
     }
 
-    testing = (ans) => {
-        let data = this.props.firebaseData.database().ref('jukebox/received');
+    testing = (ans, song, artist) => {
 
-
-        data.set({
-            userAccepted: ""
-        });
+        let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
+        let rcvd = this.props.firebaseData.database().ref('jukebox/received');
+        // rcvd.set({
+        //   userAccepted: ""
+        // });
 
         if (ans == 'no') {
-            
+            localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
+            // data.set({
+            //     userAccepted: ""
+            // });
+            // rcvd.set({
+            //     userAccepted: ""
+            // });
             this.props.history.push({
                 pathname: `/`,
-                state: 'from sendsong'
+                state: 'from sendsong',
+                accepted: 'no'
             });
-        }else{
+        } else if (ans == 'yes') {
+            // localStorage.setItem('times', 0);
+            localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
+
+            // rcvd.set({
+            //     userAccepted: ""
+            // });
+
+            nowPlaying.set({
+                songName: song.toString(),
+                songArtist: artist.toString()
+            })
+
             this.props.history.push({
                 pathname: `/`,
-                state: 'from sendsong'
+                state: 'from sendsong',
+                accepted: 'yes'
+
+
             });
+
+
         }
 
-        
+        // let data = this.props.firebaseData.database().ref('jukebox/received');
+        // let rcvd = this.props.firebaseData.database().ref('jukebox/received');
+        // rcvd.set({
+        //   userAccepted: ""
+        // });
+
+
     }
 
     componentDidMount() {
+        localStorage.setItem("sendSongPage", "true");
+
+        let lock = this.props.firebaseData.database().ref('jukebox/lock');
+
+        lock.set({
+            username: "",
+        });
+
         let data = this.props.firebaseData.database().ref('jukebox/received');
 
-        let props = this.props;
         let t = this;
         data.on("value", function (snapshot) {
             let res = snapshot.val();
 
             if (res['userAccepted']) {
                 if (res['userAccepted'] == "true") {
-                    t.testing('yes');
+
+                    t.testing('yes', res['songName'], res['songArtist']);
                     // window.location.href = '/';
                 } else if (res['userAccepted'] == "false") {
                     t.testing('no');
                 }
+
+
             }
 
         }, function (errorObject) {
@@ -57,12 +97,27 @@ class SendSong extends Component {
         let currUser = this.props.firebaseData.auth().currentUser.displayName;
 
         return (
-            <div style={{ textAlign: 'center', marginRight: '160px' }}>
-                {currUser == "Allen Building" ? <div><h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers in the <span style={{ color: '#46C4D3' }}>Research Commons</span></h1> </div> :
-                    <div><h1 style={{ color: 'white', fontSize: '50px' }}>Selected song was sent to your peers in the <span style={{ color: '#FFF170' }}>Jaech</span> </h1></div>}
-                <h1 style={{ marginTop: '45px', color: 'white' }}>They only know the genre and artist of the song</h1>
-                {currUser == "Allen Building" ? <img style={{ marginTop: '10px' }} src="https://i.imgur.com/3xhwCSf.png"></img> :
-                    <img style={{ marginTop: '10px' }} src="https://i.imgur.com/DlebHZY.png"></img>}
+            <div style={{ margin: '0 auto', marginTop: '7%', textAlign: 'center' }}>
+                {currUser == "Allen Building" ?
+                    <div>
+                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px' }}>Please wait as your song is</h1>
+                        <h1 style={{ color: 'white', fontSize: '60px', margin: '0 auto' }}>being sent to the Research Commons.</h1>
+                        <p style={{ marginTop: '45px', color: 'white', marginTop: '120px', fontSize: '30px' }}>Will they <span style={{ color: '#FFF170' }}>accept/reject</span>? The meme tells it all!</p>
+                    </div>
+
+                    :
+
+                    <div>
+                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '7px'  }}>Please wait as your song is</h1>
+                        <h1 style={{ color: 'white', fontSize: '60px', margin: '0 auto'}}>being sent to the Jaech.</h1>
+                        <p style={{ marginTop: '45px', color: 'white', fontSize: '30px', marginTop: '120px' }}>Will they <span style={{ color: '#46C4D3' }}>Accept/Reject</span>? The meme tells it all!</p>
+                    </div>}
+
+
+
+
+                {currUser == "Allen Building" ? <img style={{ marginTop: '101px', width: '77%' }} src="https://i.imgur.com/23bOuZT.gif"></img> :
+                    <img style={{ marginTop: '101px', width: '77%' }} src="https://i.imgur.com/g3u6Jpv.gif"></img>}
             </div>
         );
     }

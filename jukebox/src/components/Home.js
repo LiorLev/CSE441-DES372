@@ -4,20 +4,38 @@ import '../App.css';
 import { withRouter } from 'react-router-dom';
 import ReactionEmojis from './ReactionEmojisAllen';
 import ReactModal from 'react-modal';
+import memeDatabase from '../memes';
 
 
 class Home extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { nowplaying: "", artist: "", react: false, reaction: '' };
+        this.state = { nowplaying: "", artist: "", react: false, reaction: '', userAcceptedOrRejected: false, meme: '', locked: false, showLock: false };
     }
 
     spaceFunction = (event) => {
-        if (event.altKey && event.code == 'AltRight') {
+        if (event.altKey && event.code == 'AltRight' && !this.state.locked) {
+
+            let lock = this.props.firebaseData.database().ref('jukebox/lock');
+
+            lock.set({
+                username: localStorage.getItem('user'),
+            });
+
             this.props.history.push("/choose-genre");
-        } else if (event.keyCode === 85) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/1KKBBW1.png' :'https://i.imgur.com/RsobDg4.png'
+        } else if (event.altKey && event.code == 'AltRight' && this.state.locked) {
+            this.setState({ showLock: true });
+
+            setTimeout(() => {
+                this.setState({
+                    showLock: false
+                });
+            }, 5000);
+
+            //happy
+        } else if (event.code === 'KeyU') {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/XEGA2Mn.png' : 'https://i.imgur.com/RsobDg4.png'
 
             this.setState({
                 react: true,
@@ -38,8 +56,9 @@ class Home extends Component {
                 reaction: emoji
             });
 
-        } else if (event.keyCode === 73) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/aE4OUta.png' :'https://i.imgur.com/kTjaDoi.png'
+            //heart
+        } else if (event.code === 'KeyO') {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/vysfR6i.png' : 'https://i.imgur.com/kTjaDoi.png'
 
             this.setState({
                 react: true,
@@ -60,8 +79,9 @@ class Home extends Component {
                 reaction: emoji
             });
 
-        } else if (event.keyCode === 80) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/yzBjrds.png' :'https://i.imgur.com/eWkGDr0.png'
+            //sad
+        } else if (event.code === 'Backslash') {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/r85rt33.png' : 'https://i.imgur.com/eWkGDr0.png'
 
             this.setState({
                 react: true,
@@ -81,9 +101,9 @@ class Home extends Component {
                 username: this.props.firebaseData.auth().currentUser.displayName,
                 reaction: emoji
             });
-
-        } else if (event.keyCode === 221) {
-            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/JNspSA8.png' :'https://i.imgur.com/ZE1J401.png'
+            //shook
+        } else if (event.code === 'BracketLeft') {
+            let emoji = this.props.firebaseData.auth().currentUser.displayName == "Allen Building" ? 'https://i.imgur.com/a3jnTgb.png' : 'https://i.imgur.com/ZE1J401.png'
 
             this.setState({
                 react: true,
@@ -118,6 +138,7 @@ class Home extends Component {
         this.props.firebaseData.auth().onAuthStateChanged(user => {
             if (user) {
                 currUser = (user.displayName);
+                localStorage.setItem('user', currUser);
             }
         });
 
@@ -129,7 +150,6 @@ class Home extends Component {
                 let userSent = "";
                 if (res['userName']) {
                     userSent = res['userName'];
-
                     if (userSent != "" && currUser != userSent && res['song']) {
                         props.history.push({
                             pathname: '/receive-song',
@@ -147,10 +167,66 @@ class Home extends Component {
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });
-        } else {
-            this.props.history.location.state = "";
-        }
 
+        } else {
+            if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "no") {
+                const rejectedMemes = memeDatabase['rejected'];
+
+                let memes = [];
+                Object.keys(rejectedMemes).forEach(function (key) {
+                    memes.push(rejectedMemes[key]);
+                });
+
+                //random index between 0 and 4
+                const rand = Math.floor(Math.random() * 4);
+
+                this.setState({
+                    userAcceptedOrRejected: true,
+                    meme: memes[rand]['link'],
+                    type: 'rejected'
+                });
+
+                setTimeout(() => {
+                    this.setState({
+                        userAcceptedOrRejected: false,
+                        meme: "",
+                        type: ''
+                    });
+
+                }, 4000);
+
+                this.props.history.location.accepted = "";
+            } else if (localStorage.getItem("sendSongPage") == "true" && localStorage.getItem('userToReceiveMeme') == localStorage.getItem('user') && this.props.history.location.accepted == "yes") {
+                const acceptedMemes = memeDatabase['accepted'];
+
+                let memes = [];
+                Object.keys(acceptedMemes).forEach(function (key) {
+                    memes.push(acceptedMemes[key]);
+                });
+
+                //random index between 0 and 5
+                const rand = Math.floor(Math.random() * 5);
+
+                this.setState({
+                    userAcceptedOrRejected: true,
+                    meme: memes[rand]['link'],
+                    type: 'accepted'
+                });
+
+                setTimeout(() => {
+                    this.setState({
+                        userAcceptedOrRejected: false,
+                        meme: "",
+                        type: ''
+                    });
+
+                }, 4000);
+
+                this.props.history.location.accepted = "";
+            }
+            localStorage.setItem("sendSongPage", "false");
+            localStorage.setItem('userToReceiveMeme', "");
+        }
 
         let nowplaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
 
@@ -200,6 +276,42 @@ class Home extends Component {
             console.log("The read failed: " + errorObject.code);
         });
 
+        let lock = this.props.firebaseData.database().ref('jukebox/lock');
+
+        //if theres a lock detected in DB, and if the user who locked it is not the current user,
+        //lock the select song key
+        lock.on("value", function (snapshot) {
+            let res = snapshot.val();
+            var arr = [];
+
+            if (snapshot.val()) {
+                Object.keys(res).forEach(function (key) {
+                    arr.push(res[key]);
+                });
+
+                if (arr[0] != "" && arr[0] != localStorage.getItem('user')) {
+                    t.setState({ locked: true });
+
+                    //     , showLock: true});
+
+                    // console.log(t.state);
+
+                    // setTimeout(() => {
+                    //     t.setState({
+                    //         showLock: false
+                    //     });
+                    // }, 3000);
+
+                } else if (arr[0] == "") {
+                    t.setState({ locked: false })
+                }
+            }
+
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+
+
 
     }
 
@@ -216,18 +328,55 @@ class Home extends Component {
 
         return (
             <div className="App">
-
-                <ReactModal isOpen={!this.state.react ? false : true} className="Modal" >
+                <ReactModal isOpen={!this.state.react ? false : true} className="Modal1" overlayClassName="overlay">
                     <ReactionEmojis reaction={this.state.reaction}></ReactionEmojis>
                 </ReactModal>
 
-                <header className="App-header">
+                <ReactModal isOpen={this.state.showLock} className="Modal2" overlayClassName="overlay">
+                    <div><h1 style = {{fontSize: '25px'}}>Someone from the {localStorage.getItem('user') == "Allen Building" ? <span> Research Commons </span> : <span> Jaech </span>}is sending a song.</h1>
+                        <h1 style = {{fontSize: '25px'}}>Try again in a few seconds...</h1></div>
+                </ReactModal>
+
+                <ReactModal isOpen={!this.state.meme ? false : true} className="Modal" overlayClassName="overlay">
+                    <div>
+                        {
+                            this.state.type == 'accepted' ?
+                                <div>
+                                    <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-7px' }}>Accepted - Now enjoy the song together!</h1>
+                                    <p style={{ color: 'white', fontSize: '30px' }}>
+                                        Now playing in {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#46C4D3' }}> both </span> : <span style={{ color: '#FFF170' }}> both </span>}
+                                        Jaech and Research Commons
+                                    </p>
+                                </div> :
+
+                                <div>
+                                    <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-7px' }}>Rejected - Don't give up</h1>
+                                    <p style={{ color: 'white', fontSize: '30px' }}>
+                                        Press {localStorage.getItem('user') == "Allen Building" ? <span style={{ color: '#FFF170' }}> Enter </span> : <span style={{ color: '#46C4D3' }}> Enter </span>}
+                                        to try again
+                                    </p>
+                                </div>
+                        }
+
+                        {localStorage.getItem('user') == "Allen Building" ?
+                            <img id="meme" src={this.state.meme} style={{ border: '4px solid #46C4D3' }}></img> :
+                            <img id="meme" src={this.state.meme} style={{ border: ' 4px solid #FFF170' }}></img>}
+
+
+                    </div>
+                </ReactModal>
+
+                {/* nowplaying gif */}
+                <img id="animation" src="https://i.imgur.com/N36uyEd.gif" alt="Loading" title="Loading" />
+                <div className="App-header">
                     {
                         user
-                            ? <div>
-                                <p style={{ fontSize: '30px' }}>Songs in queue: 0</p>
-                                <p style={{ fontSize: '50px', marginBottom: '-40px' }}><strong>Now Playing:</strong> {this.state.nowplaying.toString()}</p>
-                                <p style={{ fontSize: '50px' }}><strong>Artist:</strong> {this.state.artist.toString()}</p>
+                            ? <div style={{ textAlign: 'center', width: '315px' }}>
+                                <p style={{
+                                    fontSize: '65px', marginBottom: '-40px', whiteSpace: 'normal',
+                                    fontWeight: 'bold', textAlign: 'center', lineHeight: '110%'
+                                }}>{this.state.nowplaying.toString()}</p>
+                                <p style={{ fontSize: '33px', fontFamily: 'signpaintermedium', textAlign: 'center', marginTop: '28%' }}>By {this.state.artist.toString()}</p>
                             </div>
                             : <p>Please sign in.</p>
                     }
@@ -236,7 +385,11 @@ class Home extends Component {
                             ? <button className="sign-in" onClick={signOut}>Sign out</button>
                             : <button className="sign-in" onClick={signInWithGoogle}>Sign In with Google</button>
                     }
-                </header>
+                </div>
+
+                <p style = {{color: 'white', fontSize: '25px', marginTop: '-6px', marginBottom: '10px'}}>
+                    Press  {localStorage.getItem('user') == "Allen Building" ? <span style = {{color: '#FFF170'}}> Enter</span> : <span style={{ color: '#46C4D3' }}> Enter</span>} to start</p>
+                <img style = {{width: '29px', marginTop: '-14px'}} src = "https://i.imgur.com/XhMDyrr.png"></img>
             </div>
         );
     }

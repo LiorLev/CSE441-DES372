@@ -31,6 +31,12 @@ class ChooseSong extends Component {
         let history = JSON.parse(JSON.stringify(this.props.history));
 
         if (event.altKey && event.code == 'AltRight') {
+            // if (parseInt(localStorage.getItem('times')) < 4) {
+            //     this.setState({
+            //         times: this.state.times + 1
+            //     });
+
+            //     alert(this.state.times);
             let data = this.props.firebaseData.database().ref('jukebox/messages');
 
             data.set({
@@ -40,33 +46,44 @@ class ChooseSong extends Component {
                 songName: this.songs[this.state.selected]['song'],
                 songArtist: this.songs[this.state.selected]['artist'],
                 genre: this.props.history.location.state
-            }).then(this.props.history.push({
-                pathname: `/send-song`,
-                state: {
-                    id: this.songs[this.state.selected]['id'],
-                    title: this.songs[this.state.selected]['song'],
-                    artist: this.songs[this.state.selected]['artist'],
-                    history: history
-                }
-            }));
+            }).then(() => {
 
-            // this.props.history.push({
-            //     pathname: `/send-song`,
-            //     state: {
-            //         id: this.songs[this.state.selected]['id'],
-            //         title: this.songs[this.state.selected]['song'],
-            //         artist: this.songs[this.state.selected]['artist'],
-            //         history: history
-            //     }
-            // });
+                this.props.history.push({
+                    pathname: `/send-song`,
+                    state: {
+                        id: this.songs[this.state.selected]['id'],
+                        title: this.songs[this.state.selected]['song'],
+                        artist: this.songs[this.state.selected]['artist'],
+                        history: history
+                    }
+                });
 
-        } else if (event.keyCode == '37' && this.state.selected >= 1 && this.state.selected <= 10) {
+                // this.props.history.clear();
+            });
+
+            // event.code == 'Numpad1'
+        } else if (event.code == 'Numpad1' && this.state.selected > 0 && this.state.selected <= 8) {
             // up arrow
-            this.setState({ selected: this.state.selected - 1 });
-        } else if (event.keyCode == '45' && this.state.selected >= 0 && this.state.selected < 9) {
+            if (this.state.selected != 4) {
+                this.setState({ selected: this.state.selected - 1 });
+            }
+            // event.code == 'Numpad0'
+        } else if (event.code == 'Numpad0' && this.state.selected >= 0 && this.state.selected < 7) {
             // down arrow
-            this.setState({ selected: this.state.selected + 1 });
-        }else if (event.keyCode == '192'){
+            if (this.state.selected != 3) {
+                this.setState({ selected: this.state.selected + 1 });
+            }
+            //right
+            // event.code == 'NumpadDecimal'
+        } else if (event.code == 'NumpadDecimal'  && this.state.selected >= 0 && this.state.selected < 4) {
+            this.setState({ selected: this.state.selected + 4 });
+
+            //left
+            // event.code == 'ArrowRight'
+        } else if (event.code == 'ArrowRight' && this.state.selected >= 4 && this.state.selected < 8) {
+            this.setState({ selected: this.state.selected - 4 });
+
+        } else if (event.code == 'KeyQ') {
             this.props.history.goBack();
         }
     }
@@ -79,6 +96,7 @@ class ChooseSong extends Component {
                 uid: user.uid
             });
         });
+
         document.addEventListener("keydown", this.arrowFunction1, false);
     }
 
@@ -99,26 +117,24 @@ class ChooseSong extends Component {
             secondHalf[i] = this.songs[i];
         }
 
-        // let songDivs = this.songs.map((item, index) =>
-        //     <div className={(this.state.selected === index ? 'selectedSong ' : '') + "letters"}
-        //         id={index} key={index}> <h1>{item['song']}</h1> <h2>{item['artist']}</h2></div>)
-
         let songDivs = firstHalf.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <h1 style={{ marginBottom: '-16px' }}>{item['song']}</h1> <h4>{item['artist']}</h4> </div>);
+                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style = {{fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px'}}>By {item['artist']}</p> </div></div>);
 
         let songDivs2 = secondHalf.map((item, index) =>
-            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
+            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} style = {{display: 'relative'}}
                 id={index} key={index}>
-                <h1 style={{ marginBottom: '-16px' }}>{item['song']}</h1> <h4>{item['artist']}</h4> </div>);
+                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style = {{fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px'}}>By {item['artist']}</p> </div></div>);
 
         return (
-            // <div style={{ textAlign: 'center', marginTop: '70px' }}>
-            //     {songDivs}
-            // </div>
-            <div style={{ textAlign: 'center' }}>
-                <h1 style={{ color: 'white', fontSize: '45px', marginBottom: '-28px', textAlign: 'left' }}>Select song </h1>
+            <div style={{marginLeft: '64px', marginTop: '7%'}}>
+                {
+                    localStorage.getItem('user') == "Gates Center" ? <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}>Select <span style = {{color: '#46C4D3'}}>{this.props.history.location.state.toLowerCase()}</span> song </h1> :
+                    <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}>Select <span style = {{color: '#FFF170'}}>{this.props.history.location.state.toLowerCase()}</span> song </h1>
+
+
+                }
                 <div style={{ textAlign: 'center', marginTop: '70px' }}>
                     <div style={{ display: 'inline-block' }}>{songDivs}</div>
                     <div style={{ display: 'inline-block' }}>{songDivs2}</div>

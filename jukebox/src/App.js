@@ -10,6 +10,9 @@ import ChooseSong from './components/ChooseSong';
 import SendSong from './components/SendSong';
 import ReceiveSong from './components/ReceiveSong';
 
+import YouTube from 'react-youtube';
+
+
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 
@@ -19,11 +22,28 @@ class App extends Component {
     this.state = {
       songId: "",
       title: "",
-      artist: ""
-    };    
+      artist: "",
+      vid: null
+    };
   }
 
+  //event1 = video
+  volumeControl = (event) => {
+    let currVol = this.state.vid.getVolume();
+    if (event.code == 'Numpad9') {
+      this.state.vid.setVolume(currVol + 5);
+    } else if (event.code == 'Numpad7') {
+      this.state.vid.setVolume(currVol - 5);
+    }
+  }
+
+  saveVideo = (video) => {
+    this.setState({ vid: video.target })
+  }
+
+
   componentDidMount() {
+    document.addEventListener("keydown", this.volumeControl, false);
     let msgs = firebaseApp.database().ref('jukebox/messages');
     msgs.set({
       userName: "",
@@ -40,8 +60,19 @@ class App extends Component {
 
     song.on("value", snapshot => {
       this.setState({ songId: snapshot.val().songId });
-    })
+    });
+
+    // let lastsent = firebaseApp.database().ref('jukebox/lastsent');
+    // lastsent.set({
+    //   lastSentBy: "",
+    //   times: 0
+    // });
   }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.volumeControl, false);
+  }
+
 
   matchRoute() {
     return (
@@ -55,21 +86,53 @@ class App extends Component {
     );
   }
 
-  changeSongId = (songId, history) => {
+  changeSongId = (song) => {
     let data = firebaseApp.database().ref('jukebox/songId');
 
+    // alert("yo " + song);
     data.set({
-      songId: songId
+      songId: song
     }).then(() => {
+      // let msgs = firebaseApp.database().ref('jukebox/messages');
+      // msgs.set({
+      //   userName: "",
+      //   message: "",
+      //   song: ""
+      // });
+
       window.location.href = `/`;
     });
   }
 
+  // _onReady(event) {
+  //   // access to player in all event handlers via event.target
+  //   // event.target.setVolume(0.2);
+  // }
+
+  _onReady(event) {
+    // access to player in all event handlers via event.target
+    console.log(event.target);
+    console.log(event.target.getPlayerState());
+  }
+
   render() {
+    const opts = {
+      height: '0',
+      width: '0',
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 1
+      }
+    };
+
     return (
       <Router>
         {this.matchRoute()}
-        <iframe width="0" height="0" src={`https://www.youtube.com/embed/${this.state.songId}?autoplay=1`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+        {/* <iframe width="0" height="0" src={`https://www.youtube.com/embed/${this.state.songId}?autoplay=1`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen /> */}
+        <YouTube
+          videoId={this.state.songId}
+          opts={opts}
+          onReady={this.saveVideo}
+        />
       </Router>
     );
   }

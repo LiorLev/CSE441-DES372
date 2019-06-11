@@ -3,12 +3,7 @@ const songDatabase = {
         {
             "song": "I'm Not The Only One",
             "id": "jfGyaCLA02M",
-            "artist": "Sam smith"
-        },
-        {
-            "song": "Love on the Brain",
-            "id": "HoTJzQOM1do",
-            "artist": "rihanna"
+            "artist": "Sam Smith"
         },
         {
             "song": "7 Rings",
@@ -33,17 +28,12 @@ const songDatabase = {
         {
             "song": "Me!",
             "id": "AXKQNnkI9Ns",
-            "artist": "Taylor Swift ft. Brendon Urie"
+            "artist": "Taylor Swift"
         },
         {
             "song": "Old Town Road",
             "id": "X2s7HEBUkBg",
-            "artist": "Lil Nas X ft. Billy Ray Cyrus"
-        },
-        {
-            "song": "Sunflower",
-            "id": "RXWYDeGhe24",
-            "artist": "Post Malone"
+            "artist": "Lil Nas X"
         },
         {
             "song": "Don't Call Me Up",
@@ -54,24 +44,19 @@ const songDatabase = {
 
     "latin": [
         {
-            "song": "Con Calma",
-            "id": "bNTRIdraX8c",
-            "artist": "Daddy Yankee ft. Snow"
-        },
-        {
             "song": "Mia",
             "id": "635ynSfnTN0",
-            "artist": "Bad bunny ft. Drake"
+            "artist": "Bad Bunny"
         },
         {
             "song": "Soltera",
             "id": "2ZCSI15biyg",
-            "artist": "Lunay, Daddy Yankee & Bad Bunny"
+            "artist": "Daddy Yankee & Bad Bunny"
         },
         {
             "song": "Taki Taki",
             "id": "ZcmoBlURJB4",
-            "artist": "Dj Snake ft. Selena Gomez"
+            "artist": "Dj Snake"
         },
         {
             "song": "HP",
@@ -81,7 +66,7 @@ const songDatabase = {
         {
             "song": "Baila Baila Baila",
             "id": "ev8aT92n6qw",
-            "artist": "Ozuna x Daddy Yankee x J Balvin x Farruko x Anuel AA"
+            "artist": "J Balvin"
         },
         {
             "song": "Te Robare",
@@ -91,17 +76,12 @@ const songDatabase = {
         {
             "song": "Con Altura",
             "id": "WGQMV47DGhk",
-            "artist": "ROSALIA, J. Balvin & El Guincho"
+            "artist": "ROSALIA"
         },
         {
             "song": "Me Gusta",
             "id": "ZdcuLc9uygg",
             "artist": "Natti Natasha"
-        },
-        {
-            "song": "La Romana",
-            "id": "jyRQNud8B3k",
-            "artist": "Bad Bunny ft. El Alfa"
         }
     ],
 
@@ -109,7 +89,7 @@ const songDatabase = {
         {
             "song": "Homicide",
             "id": "X4_Uf-eLAd8",
-            "artist": "Logic ft. Eminem"
+            "artist": "Logic"
         },
         {
             "song": "Better",
@@ -129,17 +109,12 @@ const songDatabase = {
         {
             "song": "Talk",
             "id": "qjL_-OFbk8I",
-            "artist": "khalid"
+            "artist": "Khalid"
         },
         {
             "song": "Middle Child",
             "id": "kML-uD5zHag",
             "artist": "J. Cole"
-        },
-        {
-            "song": "Wake Up",
-            "id": "vbD80Rn8ydo",
-            "artist": "Travis Scott"
         },
         {
             "song": "Saturday Nights",
@@ -150,11 +125,6 @@ const songDatabase = {
             "song": "Ex",
             "id": "ntNCdPBEDXs",
             "artist": "Kiana Lede"
-        },
-        {
-            "song": "Icy",
-            "id": "_N0KFbKtr90",
-            "artist": "Logic ft. Gucci Mane"
         }
     ],
 
@@ -198,16 +168,6 @@ const songDatabase = {
             "song": "Living",
             "id": "KWzlUFu-YTE",
             "artist": "Dierks Bentley"
-        },
-        {
-            "song": "Closer To You",
-            "id": "_cOXNuqZIDU",
-            "artist": "Carly Pearce"
-        },
-        {
-            "song": "I Hope",
-            "id": "MbGTsX3An6A",
-            "artist": "Gabby Barret"
         }
     ],
 
@@ -243,16 +203,6 @@ const songDatabase = {
             "artist": "The Lumineers"
         },
         {
-            "song": "Hurt",
-            "id": "DPVCNK74ZBI",
-            "artist": "Oliver Tree"
-        },
-        {
-            "song": "Alligator",
-            "id": "NunAl4BRVx8",
-            "artist": "Of Monsters and Men"
-        },
-        {
             "song": "Almost",
             "id": "YEOuzH6oRpU",
             "artist": "Hozier"
@@ -273,27 +223,22 @@ const songDatabase = {
         {
             "song": "Here With Me",
             "id": "jJHFirGQqvk",
-            "artist": "Marshmello Featuring CHVRCHES"
+            "artist": "Marshmello"
         },
         {
             "song": "Close to Me",
             "id": "0K3pRYHxgVQ",
-            "artist": "Ellie Goulding, Diplo & Swae Lee"
+            "artist": "Ellie Goulding"
         },
         {
             "song": "Who Do You Love",
             "id": "g7R0ywBlIGM",
-            "artist": "The Chainsmokers ft. 5 Seconds of Summer"
+            "artist": "The Chainsmokers"
         },
         {
             "song": "Giant",
             "id": "g3pbgDxLdtA",
-            "artist": "Calvin Harris & Rag'n'Bone Man"
-        },
-        {
-            "song": "Win Win",
-            "id": "bs6iC7YHoi8",
-            "artist": "Diplo ft. Tove Lo"
+            "artist": "Calvin Harris"
         },
         {
             "song": "Dive",
@@ -303,17 +248,12 @@ const songDatabase = {
         {
             "song": "No Sleep",
             "id": "c3uxLHn3-JQ",
-            "artist": "Martin Garrix ft. Bonn"
+            "artist": "Martin Garrix"
         },
         {
             "song": "Think About You",
             "id": "kiEGIQaR1QQ",
-            "artist": "Kygo Featuring Valerie Broussard"
-        },
-        {
-            "song": "Hope",
-            "id": "wDM-7geOdOE",
-            "artist": "The Chainsmokers ft. Winona Oak"
+            "artist": "Kygo"
         }
     ],
 
@@ -337,16 +277,6 @@ const songDatabase = {
             "song": "Raspberry Jam",
             "id": "fOCZ-TbZwHc",
             "artist": "Allah-Las"
-        },
-        {
-            "song": "You Seemed So Happy",
-            "id": "O-SQw2RrDaU",
-            "artist": "The Japanese House"
-        },
-        {
-            "song": "Honeypie",
-            "id": "dhliMvHB-E0",
-            "artist": "Johnny Utah"
         },
         {
             "song": "Flowers",
@@ -377,11 +307,6 @@ const songDatabase = {
             "artist": "Maroon 5 & Cardi B."
         },
         {
-            "song": "I'm Like a Bird",
-            "id": "qWc1u5BzwNQ",
-            "artist": "Alessia Cara"
-        },
-        {
             "song": "Something Just Like This",
             "id": "eVN4jbXD_6w",
             "artist": "The Chainsmokers & Coldplay"
@@ -389,7 +314,7 @@ const songDatabase = {
         {
             "song": "Shape of You",
             "id": "TRkIdcuXZQg",
-            "artist": "Ed sheeran"
+            "artist": "Ed Sheeran"
         },
         {
             "song": "Rolling In the Deep",
@@ -400,11 +325,6 @@ const songDatabase = {
             "song": "Just Give Me A Reason",
             "id": "w7JRWHCKkIY",
             "artist": "Pink & Nate Ruess"
-        },
-        {
-            "song": "Mercy",
-            "id": "jd1cRH92984",
-            "artist": "Shawn Mendes"
         },
         {
             "song": "Take Me To Church",
