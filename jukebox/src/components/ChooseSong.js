@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import '../App.css';
 import songDatabse from '../songs.js';
-// import ChooseGenre from './ChooseGenre';
 
 class ChooseSong extends Component {
     songs = [];
@@ -31,12 +30,6 @@ class ChooseSong extends Component {
         let history = JSON.parse(JSON.stringify(this.props.history));
 
         if (event.altKey && event.code == 'AltRight') {
-            // if (parseInt(localStorage.getItem('times')) < 4) {
-            //     this.setState({
-            //         times: this.state.times + 1
-            //     });
-
-            //     alert(this.state.times);
             let data = this.props.firebaseData.database().ref('jukebox/messages');
 
             data.set({
@@ -57,29 +50,22 @@ class ChooseSong extends Component {
                         history: history
                     }
                 });
-
-                // this.props.history.clear();
             });
-
-            // event.code == 'Numpad1'
         } else if (event.code == 'Numpad1' && this.state.selected > 0 && this.state.selected <= 8) {
             // up arrow
             if (this.state.selected != 4) {
                 this.setState({ selected: this.state.selected - 1 });
             }
-            // event.code == 'Numpad0'
         } else if (event.code == 'Numpad0' && this.state.selected >= 0 && this.state.selected < 7) {
             // down arrow
             if (this.state.selected != 3) {
                 this.setState({ selected: this.state.selected + 1 });
             }
             //right
-            // event.code == 'NumpadDecimal'
-        } else if (event.code == 'NumpadDecimal'  && this.state.selected >= 0 && this.state.selected < 4) {
+        } else if (event.code == 'NumpadDecimal' && this.state.selected >= 0 && this.state.selected < 4) {
             this.setState({ selected: this.state.selected + 4 });
 
             //left
-            // event.code == 'ArrowRight'
         } else if (event.code == 'ArrowRight' && this.state.selected >= 4 && this.state.selected < 8) {
             this.setState({ selected: this.state.selected - 4 });
 
@@ -120,18 +106,18 @@ class ChooseSong extends Component {
         let songDivs = firstHalf.map((item, index) =>
             <div className={(this.state.selected === index ? 'selected ' : '') + "letters"}
                 id={index} key={index}>
-                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style = {{fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px'}}>By {item['artist']}</p> </div></div>);
+                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style={{ fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px' }}>By {item['artist']}</p> </div></div>);
 
         let songDivs2 = secondHalf.map((item, index) =>
-            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} style = {{display: 'relative'}}
+            <div className={(this.state.selected === index ? 'selected ' : '') + "letters"} style={{ display: 'relative' }}
                 id={index} key={index}>
-                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style = {{fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px'}}>By {item['artist']}</p> </div></div>);
+                <div><p style={{ marginTop: '35px', fontSize: '33px' }}>{item['song']}</p> <p style={{ fontFamily: 'signpaintermedium', fontSize: '20px', marginTop: '-24px' }}>By {item['artist']}</p> </div></div>);
 
         return (
-            <div style={{marginLeft: '64px', marginTop: '7%'}}>
+            <div style={{ marginLeft: '64px', marginTop: '7%' }}>
                 {
-                    localStorage.getItem('user') == "Gates Center" ? <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}>Select <span style = {{color: '#46C4D3'}}>{this.props.history.location.state.toLowerCase()}</span> song </h1> :
-                    <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px'}}>Select <span style = {{color: '#FFF170'}}>{this.props.history.location.state.toLowerCase()}</span> song </h1>
+                    localStorage.getItem('user') == "Gates Center" ? <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px' }}>Select <span style={{ color: '#46C4D3' }}>{this.props.history.location.state.toLowerCase()}</span> song </h1> :
+                        <h1 style={{ color: 'white', fontSize: '60px', marginBottom: '-28px', textAlign: 'left', marginLeft: '22px' }}>Select <span style={{ color: '#FFF170' }}>{this.props.history.location.state.toLowerCase()}</span> song </h1>
 
 
                 }

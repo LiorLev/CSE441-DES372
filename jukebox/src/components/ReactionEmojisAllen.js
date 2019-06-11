@@ -46,14 +46,6 @@ class ReactionEmojis extends Component {
                 <div className = "float">
                     <img src={this.props.reaction} style={{ width: "85px", height: "85px", marginTop: '-7%' , marginLeft: '25%'}}  className="floating"/>
                 </div>
-                
-
-                {/* <img src="https://i.imgur.com/eWkGDr0.png" style={{ width: "85px", height: "85px", marginLeft: '5%' }} className="floating" />
-                <img src="https://i.imgur.com/eWkGDr0.png" style={{ width: "85px", height: "85px", marginLeft: '40%' }} className="floating" />
-                <img src="https://i.imgur.com/eWkGDr0.png" style={{ width: "85px", height: "85px", marginLeft: '10%' }} className="floating" />
-                <img src="https://i.imgur.com/eWkGDr0.png" style={{ width: "85px", height: "85px", marginLeft: '20%' }} className="floating" /> */}
-
-
             </div>
         );
     }

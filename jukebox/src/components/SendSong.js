@@ -11,30 +11,17 @@ class SendSong extends Component {
 
         let nowPlaying = this.props.firebaseData.database().ref('jukebox/nowplaying');
         let rcvd = this.props.firebaseData.database().ref('jukebox/received');
-        // rcvd.set({
-        //   userAccepted: ""
-        // });
 
         if (ans == 'no') {
             localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
-            // data.set({
-            //     userAccepted: ""
-            // });
-            // rcvd.set({
-            //     userAccepted: ""
-            // });
+
             this.props.history.push({
                 pathname: `/`,
                 state: 'from sendsong',
                 accepted: 'no'
             });
         } else if (ans == 'yes') {
-            // localStorage.setItem('times', 0);
             localStorage.setItem('userToReceiveMeme', this.props.firebaseData.auth().currentUser.displayName);
-
-            // rcvd.set({
-            //     userAccepted: ""
-            // });
 
             nowPlaying.set({
                 songName: song.toString(),
@@ -45,19 +32,10 @@ class SendSong extends Component {
                 pathname: `/`,
                 state: 'from sendsong',
                 accepted: 'yes'
-
-
             });
 
 
         }
-
-        // let data = this.props.firebaseData.database().ref('jukebox/received');
-        // let rcvd = this.props.firebaseData.database().ref('jukebox/received');
-        // rcvd.set({
-        //   userAccepted: ""
-        // });
-
 
     }
 
@@ -78,14 +56,10 @@ class SendSong extends Component {
 
             if (res['userAccepted']) {
                 if (res['userAccepted'] == "true") {
-
                     t.testing('yes', res['songName'], res['songArtist']);
-                    // window.location.href = '/';
                 } else if (res['userAccepted'] == "false") {
                     t.testing('no');
                 }
-
-
             }
 
         }, function (errorObject) {
